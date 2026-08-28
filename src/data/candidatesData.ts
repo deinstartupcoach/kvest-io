@@ -41,7 +41,7 @@ export const mockCandidates: Candidate[] = [
       toneOfVoice: 'Sachlich-technokratisch, stark faktenorientiert (OEE- und Lean-Kennzahlen). Keine polemischen oder emotional aufgeladenen Statements.',
       crisisPostingAudit: 'Sehr hohe Medienhygiene. Keine privaten Eskapaden, keine politische Polarisierung. Privater Content beschränkt sich strikt auf sportliche Meilensteine.',
       employerLoyalty: {
-        status: '⚠️ Deutliche Distanzierung / Starker Wechselindikator',
+        status: 'Deutliche Distanzierung / Starker Wechselindikator',
         trend: 'declining',
         details: 'Bis Mai 2025 regelmäßige Reposts von Firmen-News der Kraus & Meissner GmbH. Seit Juni 2025 vollständiger Stopp von Arbeitgeber-Erwähnungen. Gleichzeitig sprunghafter Anstieg von Interaktionen mit Private-Equity-Investoren und M&A-Boutiquen auf LinkedIn.',
         recentPostingQuote: '„Erfolgreiche operative Transformation scheitert selten an der Mannschaft auf dem Shopfloor – meist am Mut der Gesellschafter, notwendige Capex freizugeben.“ (LinkedIn vor 3 Wochen)',

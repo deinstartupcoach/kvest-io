@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, CheckCircle2, RefreshCw, ExternalLink, ShieldCheck, Zap } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 interface Connector {
   id: string;
@@ -11,6 +11,7 @@ interface Connector {
   recordsCount: string;
   description: string;
   endpoint: string;
+  logoClass?: string;
 }
 
 export const ApiConnectorsView: React.FC = () => {
@@ -24,7 +25,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Heute, 04:12 Uhr',
       recordsCount: '3.420.000 Entitäten',
       description: 'Handelsregister-Bekanntmachungen, Gesellschafterlisten, Jahresabschlüsse und Liquiditätskennzahlen.',
-      endpoint: 'https://api.northdata.com/v1/entities'
+      endpoint: 'https://api.northdata.com/v1/entities',
+      logoClass: 'h-7 max-w-[130px]'
     },
     {
       id: 'openregister',
@@ -35,7 +37,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Heute, 03:00 Uhr',
       recordsCount: '100% DACH Abdeckung',
       description: 'Amtliche Veröffentlichungen des Bundesanzeigers, Handelsregisterauszüge (HRB/HRA) und Einreichungen.',
-      endpoint: 'https://api.unternehmensregister.de/v2/sync'
+      endpoint: 'https://api.unternehmensregister.de/v2/sync',
+      logoClass: 'h-6 max-w-[130px]'
     },
     {
       id: 'brightdata',
@@ -46,7 +49,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Vor 18 Minuten',
       recordsCount: '68.416 C-Level Profile',
       description: 'Automatisierte Proxies zur Extraktion von Organigrammen, Headcount-Wachstum und offenen Stellen.',
-      endpoint: 'https://api.brightdata.com/dca/trigger'
+      endpoint: 'https://api.brightdata.com/dca/trigger',
+      logoClass: 'h-5 max-w-[90px]' // 20% smaller
     },
     {
       id: 'linkedin',
@@ -57,7 +61,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Vor 42 Minuten',
       recordsCount: '124.500 Profile',
       description: 'Tracking von Management-Wechseln, Werdegängen, Post-Aktivitäten und Sentiment-Indikatoren.',
-      endpoint: 'https://api.linkedin.com/v2/talent-enrich'
+      endpoint: 'https://api.linkedin.com/v2/talent-enrich',
+      logoClass: 'h-10 max-w-[150px] scale-125 origin-left' // significantly bigger
     },
     {
       id: 'kununu',
@@ -68,7 +73,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Gestern, 23:45 Uhr',
       recordsCount: '89.200 Arbeitgeber-Reviews',
       description: 'Audit von Mitarbeiterzufriedenheit, Führungswechseln und Kündigungstreibern zur Wechselwilligkeits-Früherkennung.',
-      endpoint: 'https://api.kununu.com/v3/company-scores'
+      endpoint: 'https://api.kununu.com/v3/company-scores',
+      logoClass: 'h-5 max-w-[100px]' // 20% smaller
     },
     {
       id: 'glassdoor',
@@ -79,7 +85,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Gestern, 22:10 Uhr',
       recordsCount: '45.100 Gehaltsbänder',
       description: 'C-Level und VP Gehaltsbenchmarks (Fixum, Bonus, Tantiemen) für verlässliche Executive Search Verhandlungen.',
-      endpoint: 'https://api.glassdoor.com/v1/salary-insights'
+      endpoint: 'https://api.glassdoor.com/v1/salary-insights',
+      logoClass: 'h-9 max-w-[150px] scale-125 origin-left' // significantly bigger
     },
     {
       id: 'coleo',
@@ -90,7 +97,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Heute, 06:30 Uhr',
       recordsCount: '18.400 Transaktionen',
       description: 'Vergleichbare Private Equity Multiples (EV/EBITDA, EV/Sales) für deutsche Mittelstandstransaktionen.',
-      endpoint: 'https://api.coleo-intelligence.com/v1/multiples'
+      endpoint: 'https://api.coleo-intelligence.com/v1/multiples',
+      logoClass: 'h-7 max-w-[110px]'
     },
     {
       id: 'hubspot',
@@ -101,7 +109,8 @@ export const ApiConnectorsView: React.FC = () => {
       lastSync: 'Heute, 11:30 Uhr',
       recordsCount: '34 Deals synchronisiert',
       description: 'Automatisierter 2-Wege-Sync für selektierte M&A Targets und Shortlisted Candidates direkt in Ihre Deal-Pipeline.',
-      endpoint: 'https://api.hubapi.com/crm/v3/deals'
+      endpoint: 'https://api.hubapi.com/crm/v3/deals',
+      logoClass: 'h-6 max-w-[110px]'
     }
   ];
 
@@ -137,12 +146,12 @@ export const ApiConnectorsView: React.FC = () => {
           >
             {/* Top: Logo & Green Live Indicator */}
             <div>
-              <div className="flex items-start justify-between">
-                <div className="h-10 w-28 flex items-center">
+              <div className="flex items-start justify-between min-h-[44px]">
+                <div className="h-10 w-36 flex items-center overflow-visible">
                   <img
                     src={c.logoUrl}
                     alt={c.name}
-                    className="max-h-8 max-w-full object-contain"
+                    className={`${c.logoClass || 'h-7 max-w-full'} object-contain`}
                   />
                 </div>
                 <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-emerald-200">

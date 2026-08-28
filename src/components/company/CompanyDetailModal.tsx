@@ -23,7 +23,6 @@ import {
   Download,
   AlertTriangle,
   Award,
-  Globe,
   FileText,
   Newspaper
 } from 'lucide-react';
@@ -126,48 +125,47 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation: 1. Übersicht, 2. Gesellschafter, 3. Kennzahlen, 4. Media-Check */}
         <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'overview'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
-            1. Übersicht &amp; Kontakte
+            1. Übersicht
           </button>
           <button
             onClick={() => setActiveTab('graph')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'graph'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
-            2. Gesellschafter-Graph &amp; Holding
+            2. Gesellschafter
           </button>
           <button
             onClick={() => setActiveTab('financials')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'financials'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
-            3. Bilanzen &amp; Kennzahlen
+            3. Kennzahlen
           </button>
           <button
             onClick={() => setActiveTab('media')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'media'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
-            <Newspaper size={13} />
-            4. Presse- &amp; Medien-Auswertung ({company.newsItems.length})
+            4. Media-Check
           </button>
         </div>
 
@@ -352,7 +350,6 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
             </div>
           )}
 
-          {/* Tab 4: Creative & Detailed Media & Press Intelligence */}
           {activeTab === 'media' && (
             <div className="space-y-5">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-5">

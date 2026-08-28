@@ -5,17 +5,12 @@ import { TrendIndicator } from '../common/TrendIndicator';
 import { Badge } from '../common/Badge';
 import {
   Search,
-  Filter,
   Bookmark,
   Send,
   Building2,
   ExternalLink,
-  ChevronDown,
   ArrowUpDown,
-  RotateCcw,
   AlertTriangle,
-  MapPin,
-  Check,
   X,
   Download,
   BellRing
@@ -94,15 +89,15 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   const successionEnumList = [
     { value: 'all', label: 'Eignerstruktur: Alle' },
-    { value: 'critical', label: '🚨 Senior-Inhaber >60 Jahre (Hohe Nachfolgedringlichkeit)' },
+    { value: 'critical', label: 'Senior-Inhaber >60 Jahre (Hohe Nachfolgedringlichkeit)' },
     { value: 'medium', label: 'Inhaber 50–60 Jahre (Mittelfristig)' },
     { value: 'secured', label: 'Inhaber <50 Jahre (Geregelt)' }
   ];
 
   const ratingEnumList = [
     { value: 'all', label: 'Media / Reputation: Alle' },
-    { value: '4.0', label: 'Mind. 4.0 ★ (Solide bis Exzellent)' },
-    { value: '4.5', label: 'Mind. 4.5 ★ (Top Tier Reputation)' }
+    { value: '4.0', label: 'Mind. 4.0 (Solide bis Exzellent)' },
+    { value: '4.5', label: 'Mind. 4.5 (Top Tier Reputation)' }
   ];
 
   const toggleSelectAll = () => {
@@ -272,7 +267,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       </div>
 
-      {/* 2. Structured Institutional Screener Filter Bar with Credible Enums */}
+      {/* 2. Structured Screener Filter Bar without Emojis */}
       <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
           {/* Enum 1: Eigner & Nachfolge */}
@@ -428,7 +423,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Summary Stats */}
+      {/* 3. Summary Stats without Emojis */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-sans">
         <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block">Gefilterte Targets</span>
@@ -437,7 +432,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
 
         <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wide block">🚨 Nachfolge-Fokus</span>
+          <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wide block">Nachfolge-Fokus</span>
           <div className="text-xl font-bold text-amber-700 font-mono mt-0.5">{criticalSuccessionCount}</div>
           <span className="text-[10px] text-slate-400">Hauptgesellschafter &gt; 60 Jahre</span>
         </div>
@@ -620,7 +615,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                       <div className="flex flex-col items-center gap-0.5">
                         <StarRating rating={company.mediaRating} size={11} showValue={false} />
                         <span className="font-mono text-[10px] text-slate-700 font-semibold">
-                          {company.mediaRating.toFixed(1)} ★
+                          {company.mediaRating.toFixed(1)}
                         </span>
                       </div>
                     </td>

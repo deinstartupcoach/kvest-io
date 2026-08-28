@@ -5,8 +5,7 @@ import {
   Bell,
   Bookmark,
   Building2,
-  Users,
-  Zap
+  Users
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -74,18 +73,6 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               )}
             </button>
-            <button
-              onClick={() => onSelectTab('connectors')}
-              className={`px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5 ${
-                activeTab === 'connectors'
-                  ? 'bg-[#1677FF] text-white shadow-xs'
-                  : 'text-slate-300 hover:text-white hover:bg-[#162750]'
-              }`}
-            >
-              <Zap size={14} />
-              <span>API Connectors</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-green-pulse ml-0.5"></span>
-            </button>
           </nav>
         </div>
 
@@ -111,8 +98,7 @@ export const Header: React.FC<HeaderProps> = ({
               M
             </div>
             <div className="hidden sm:block text-left">
-              <span className="text-xs font-semibold text-white block leading-tight">Moritz (PE Partner)</span>
-              <span className="text-[10px] text-slate-400 font-mono">DSC Growth Capital</span>
+              <span className="text-xs font-semibold text-white block leading-tight">Moritz</span>
             </div>
           </div>
         </div>

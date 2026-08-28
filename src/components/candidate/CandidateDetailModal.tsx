@@ -6,27 +6,15 @@ import { StarRating } from '../common/StarRating';
 import { LinkedinIcon } from '../common/LinkedinIcon';
 import {
   X,
-  User,
   Briefcase,
-  GraduationCap,
   Heart,
   Building2,
   Mail,
   Phone,
-  MapPin,
-  Clock,
-  Sparkles,
-  TrendingUp,
-  AlertTriangle,
-  Award,
-  DollarSign,
-  Send,
   BookmarkPlus,
-  Compass,
+  Send,
   CheckCircle2,
-  Calendar,
   MessageSquareQuote,
-  ShieldAlert,
   Radio
 } from 'lucide-react';
 
@@ -139,7 +127,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             }`}
           >
             <MessageSquareQuote size={13} />
-            2. Charakter- &amp; Social-Media-Audit (Tone-of-Voice)
+            2. Charakter- &amp; Social-Media-Audit
           </button>
           <button
             onClick={() => setActiveSection('employer')}
@@ -150,7 +138,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             }`}
           >
             <Building2 size={13} />
-            3. Arbeitgeber-Audit (Kununu &amp; Wechselwilligkeit)
+            3. Arbeitgeber-Audit (Kununu &amp; Wechselbereitschaft)
           </button>
         </div>
 
@@ -241,7 +229,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             </div>
           )}
 
-          {/* Section 2: Creative Tone of Voice & Psychological Social Audit */}
+          {/* Section 2: Tone of Voice & Social Audit without Emojis */}
           {activeSection === 'insights' && (
             <div className="space-y-4">
               {/* Employer Loyalty & Posting Shift Banner */}
@@ -254,7 +242,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                     </h4>
                   </div>
                   <span className="text-[10px] font-mono font-bold bg-amber-200 text-amber-950 px-2 py-0.5 rounded">
-                    {candidate.personalInsights.employerLoyalty.status}
+                    {candidate.personalInsights.employerLoyalty.status.replace('⚠️', '').trim()}
                   </span>
                 </div>
                 <p className="text-xs text-amber-900 leading-relaxed font-medium">
@@ -330,7 +318,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                 <div className="p-3 bg-white rounded border border-slate-200">
                   <span className="text-[10px] text-slate-500 block uppercase font-sans">Kununu Rating</span>
                   <div className="flex items-center gap-1.5 mt-1">
-                    <span className="text-base font-bold text-amber-600">{candidate.employerIntelligence.kununuScore} ★</span>
+                    <span className="text-base font-bold text-amber-700">{candidate.employerIntelligence.kununuScore}</span>
                     <TrendIndicator direction={candidate.employerIntelligence.kununuTrend} />
                   </div>
                 </div>
