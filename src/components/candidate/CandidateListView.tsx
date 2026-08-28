@@ -32,7 +32,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
   const [sortBy, setSortBy] = useState<'match' | 'experience' | 'leadership' | 'age'>('match');
   const [selectedCandidates, setSelectedCandidates] = useState<string[]>([]);
 
-  const roles = ['CEO', 'COO', 'CFO', 'CTO', 'Managing Director'];
+  const roles = ['CEO', 'COO', 'CFO', 'CTO', 'Managing Director', 'CCO'];
   const locations = ['Stuttgart', 'München', 'Nürnberg', 'Frankfurt am Main', 'Hamburg'];
 
   const handleApplyParsedFilters = (data: {
@@ -122,7 +122,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row: Candidate Search in exact style of Target Search */}
+      {/* 1. Header Row */}
       {!hideHeader && (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
           <div className="flex items-center gap-3">
@@ -285,12 +285,12 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
         </div>
       </div>
 
-      {/* Candidate Table */}
+      {/* Candidate Table with Alternate Rows & Stronger Hover */}
       <div className="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider select-none">
+              <tr className="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold uppercase text-[10px] tracking-wider select-none">
                 <th className="py-3 px-3 w-9 text-center">
                   <input
                     type="checkbox"
@@ -308,19 +308,24 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                 <th className="py-3 px-3 text-center w-24">Aktionen</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-800">
-              {filteredCandidates.map((candidate) => {
+            <tbody className="divide-y divide-slate-200 text-slate-800">
+              {filteredCandidates.map((candidate, idx) => {
                 const isSelected = selectedCandidates.includes(candidate.id);
+                const isEven = idx % 2 === 1;
 
                 return (
                   <tr
                     key={candidate.id}
                     onClick={() => onSelectCandidate(candidate)}
-                    className={`cursor-pointer transition-colors duration-100 ${
-                      isSelected ? 'bg-slate-100' : 'hover:bg-slate-50'
+                    className={`cursor-pointer transition-all duration-150 ${
+                      isSelected
+                        ? 'bg-blue-50/80 font-medium'
+                        : isEven
+                        ? 'bg-[#F8FAFC] hover:bg-[#E2E8F0]/80'
+                        : 'bg-white hover:bg-[#E2E8F0]/80'
                     }`}
                   >
-                    <td className="py-3 px-3 text-center" onClick={(e) => toggleRow(candidate.id, e)}>
+                    <td className="py-3.5 px-3 text-center" onClick={(e) => toggleRow(candidate.id, e)}>
                       <input
                         type="checkbox"
                         checked={isSelected}
@@ -330,7 +335,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     </td>
 
                     {/* Candidate Info */}
-                    <td className="py-3 px-4">
+                    <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         <img
                           src={candidate.avatarUrl}
@@ -355,7 +360,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     </td>
 
                     {/* Match Score */}
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3">
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-bold text-sm text-[#0B1633] bg-slate-100 border border-slate-300 px-2 py-0.5 rounded">
                           {candidate.matchScore}%
@@ -368,7 +373,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     </td>
 
                     {/* Experience */}
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3">
                       <div className="font-mono text-[11px] space-y-0.5">
                         <div className="text-slate-800 font-semibold">{candidate.totalExperienceYears} J. Gesamt</div>
                         <div className="text-[#0B1633]">{candidate.leadershipExperienceYears} J. C-Level / Führung</div>
@@ -376,11 +381,11 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     </td>
 
                     {/* Industries */}
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3">
                       <div className="flex flex-wrap gap-1">
-                        {candidate.industries.slice(0, 2).map((ind, idx) => (
+                        {candidate.industries.slice(0, 2).map((ind, iIdx) => (
                           <span
-                            key={idx}
+                            key={iIdx}
                             className="px-2 py-0.5 rounded bg-slate-100 text-[10px] text-slate-700 border border-slate-200"
                           >
                             {ind}
@@ -390,32 +395,32 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     </td>
 
                     {/* Location */}
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3.5 px-3 text-center">
                       <div className="font-medium text-slate-800 text-xs">{candidate.location}</div>
                       <span className="text-[10px] text-slate-500 font-mono">Radius {candidate.radiusKm} km</span>
                     </td>
 
                     {/* Salary */}
-                    <td className="py-3 px-3 text-center font-mono text-emerald-800 text-xs font-bold">
+                    <td className="py-3.5 px-3 text-center font-mono text-emerald-800 text-xs font-bold">
                       {candidate.salaryExpectation.min}k – {candidate.salaryExpectation.max}k €
                     </td>
 
                     {/* Actions */}
-                    <td className="py-3 px-3 text-center" onClick={(e) => e.stopPropagation()}>
+                    <td className="py-3.5 px-3 text-center" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center justify-center gap-1">
                         <button
                           onClick={() => onSelectCandidate(candidate)}
-                          className="p-1 rounded bg-slate-100 hover:bg-[#0B1633] text-slate-600 hover:text-white border border-slate-200 transition-colors"
+                          className="p-1 rounded bg-white hover:bg-[#0B1633] text-slate-600 hover:text-white border border-slate-300 transition-colors shadow-2xs"
                           title="Profil öffnen"
                         >
                           <ExternalLink size={12} />
                         </button>
                         <button
                           onClick={() => onToggleShortlist(candidate.id)}
-                          className={`p-1 rounded border transition-colors ${
+                          className={`p-1 rounded border transition-colors shadow-2xs ${
                             candidate.shortlisted
                               ? 'bg-amber-100 text-amber-800 border-amber-300'
-                              : 'bg-slate-100 text-slate-500 hover:text-slate-900 border-slate-200'
+                              : 'bg-white text-slate-500 hover:text-slate-900 border-slate-300'
                           }`}
                           title={candidate.shortlisted ? 'In Shortlist' : 'Zur Shortlist'}
                         >

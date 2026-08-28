@@ -4,7 +4,7 @@ import { RefreshCw } from 'lucide-react';
 interface Connector {
   id: string;
   name: string;
-  category: 'Unternehmensregister' | 'Social & Executive Scraping' | 'Employer Reviews' | 'CRM & Pipeline' | 'Market Data';
+  category: string;
   logoUrl: string;
   status: 'connected' | 'syncing';
   lastSync: string;
@@ -62,7 +62,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '124.500 Profile',
       description: 'Tracking von Management-Wechseln, Werdegängen, Post-Aktivitäten und Sentiment-Indikatoren.',
       endpoint: 'https://api.linkedin.com/v2/talent-enrich',
-      logoClass: 'h-12 max-w-[170px] scale-150 origin-left' // +30% bigger
+      logoClass: 'h-12 max-w-[170px] scale-150 origin-left'
     },
     {
       id: 'kununu',
@@ -90,14 +90,14 @@ export const ApiConnectorsView: React.FC = () => {
     },
     {
       id: 'coleo',
-      name: 'Coleo M&A Intelligence',
-      category: 'Market Data',
+      name: 'Coleo AI Media Intelligence',
+      category: 'AI Media Screening',
       logoUrl: '/assets/api-logos/coleo logo.png',
       status: 'connected',
       lastSync: 'Heute, 06:30 Uhr',
-      recordsCount: '18.400 Transaktionen',
-      description: 'Vergleichbare Private Equity Multiples (EV/EBITDA, EV/Sales) für deutsche Mittelstandstransaktionen.',
-      endpoint: 'https://api.coleo-intelligence.com/v1/multiples',
+      recordsCount: '2.850 Quellen überwacht',
+      description: 'KI-gestütztes Medien-Screening (https://coleo.ai/) zur Aggregation von Presseberichten, Eigner-Erwähnungen und Sentiment.',
+      endpoint: 'https://api.coleo.ai/v1/sentiment-screening',
       logoClass: 'h-7 max-w-[110px]'
     },
     {
@@ -110,7 +110,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '34 Deals synchronisiert',
       description: 'Automatisierter 2-Wege-Sync für selektierte M&A Targets und Shortlisted Candidates direkt in Ihre Deal-Pipeline.',
       endpoint: 'https://api.hubapi.com/crm/v3/deals',
-      logoClass: 'h-8 max-w-[140px] scale-125 origin-left' // +25% bigger
+      logoClass: 'h-8 max-w-[140px] scale-125 origin-left'
     }
   ];
 

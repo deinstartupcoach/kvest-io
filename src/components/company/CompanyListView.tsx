@@ -229,7 +229,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row: Simply "Target Search" without subtitle */}
+      {/* 1. Header Row */}
       {!hideHeader && (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
           <div className="flex items-center gap-3">
@@ -263,7 +263,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       )}
 
-      {/* 2. Structured Screener Filter Bar without Emojis */}
+      {/* 2. Structured Screener Filter Bar */}
       <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
           {/* Enum 1: Eigner & Nachfolge */}
@@ -419,7 +419,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Summary Stats without Emojis */}
+      {/* 3. Summary Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-sans">
         <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block">Gefilterte Targets</span>
@@ -477,12 +477,12 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </span>
       </div>
 
-      {/* 5. Institutional Target Screener Table */}
+      {/* 5. Institutional Target Screener Table with Alternate Rows & Stronger Hover */}
       <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider select-none">
+              <tr className="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold uppercase text-[10px] tracking-wider select-none">
                 <th className="py-3 px-3 w-9 text-center">
                   <input
                     type="checkbox"
@@ -502,19 +502,24 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                 <th className="py-3 px-3 text-center w-24">Aktionen</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-800">
-              {filteredCompanies.map((company) => {
+            <tbody className="divide-y divide-slate-200 text-slate-800">
+              {filteredCompanies.map((company, idx) => {
                 const isSelected = selectedRows.includes(company.id);
+                const isEven = idx % 2 === 1;
 
                 return (
                   <tr
                     key={company.id}
                     onClick={() => onSelectCompany(company)}
-                    className={`cursor-pointer transition-colors duration-100 ${
-                      isSelected ? 'bg-slate-100' : 'hover:bg-slate-50'
+                    className={`cursor-pointer transition-all duration-150 ${
+                      isSelected
+                        ? 'bg-blue-50/80 font-medium'
+                        : isEven
+                        ? 'bg-[#F8FAFC] hover:bg-[#E2E8F0]/80'
+                        : 'bg-white hover:bg-[#E2E8F0]/80'
                     }`}
                   >
-                    <td className="py-3 px-3 text-center" onClick={(e) => toggleRow(company.id, e)}>
+                    <td className="py-3.5 px-3 text-center" onClick={(e) => toggleRow(company.id, e)}>
                       <input
                         type="checkbox"
                         checked={isSelected}
@@ -524,7 +529,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Company Name */}
-                    <td className="py-3 px-4">
+                    <td className="py-3.5 px-4">
                       <div>
                         <span className="font-bold text-[#0B1633] text-xs hover:underline">
                           {company.name}
@@ -540,7 +545,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Industry */}
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3">
                       <div className="text-[11px] text-slate-700 font-medium truncate max-w-[180px]">
                         {company.industry}
                       </div>
@@ -550,17 +555,17 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Owners */}
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3">
                       <div className="space-y-1">
-                        {company.owners.map((owner, idx) => (
-                          <div key={idx} className="flex items-center justify-between gap-1.5 text-[11px]">
+                        {company.owners.map((owner, oIdx) => (
+                          <div key={oIdx} className="flex items-center justify-between gap-1.5 text-[11px]">
                             <span className="text-slate-700 truncate max-w-[125px]">
                               {owner.name}
                             </span>
                             <span className={`font-mono text-[10px] px-1.5 py-0.2 rounded font-semibold ${
                               owner.age >= 60
                                 ? 'bg-amber-100 text-amber-900 border border-amber-200'
-                                : 'bg-slate-100 text-slate-600'
+                                : 'bg-slate-100 text-slate-600 border border-slate-200'
                             }`}>
                               {owner.age} J. ({owner.sharePercentage}%)
                             </span>
@@ -570,10 +575,10 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Managing Directors */}
-                    <td className="py-3 px-3">
+                    <td className="py-3.5 px-3">
                       <div className="space-y-0.5 text-[11px]">
-                        {company.managingDirectors.map((md, idx) => (
-                          <div key={idx} className="text-slate-700 truncate">
+                        {company.managingDirectors.map((md, mdIdx) => (
+                          <div key={mdIdx} className="text-slate-700 truncate">
                             <span className="font-medium">{md.name}</span>
                             <span className="text-slate-500 text-[10px] ml-1 font-mono">({md.age} J.)</span>
                           </div>
@@ -582,7 +587,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Balance Sheet Total */}
-                    <td className="py-3 px-3 text-right">
+                    <td className="py-3.5 px-3 text-right">
                       <div className="font-mono font-bold text-slate-900 text-xs">
                         {company.balanceSheetTotal.toFixed(1)} Mio. €
                       </div>
@@ -592,7 +597,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Net Profit */}
-                    <td className="py-3 px-3 text-right">
+                    <td className="py-3.5 px-3 text-right">
                       <div className="font-mono font-bold text-emerald-800 text-xs">
                         {company.netProfit.toFixed(1)} Mio. €
                       </div>
@@ -602,12 +607,12 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Employees */}
-                    <td className="py-3 px-3 text-center font-mono text-slate-700 text-xs">
+                    <td className="py-3.5 px-3 text-center font-mono text-slate-700 text-xs">
                       {company.employeeCount} MA
                     </td>
 
                     {/* Media Rating */}
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3.5 px-3 text-center">
                       <div className="flex flex-col items-center gap-0.5">
                         <StarRating rating={company.mediaRating} size={11} showValue={false} />
                         <span className="font-mono text-[10px] text-slate-700 font-semibold">
@@ -617,21 +622,21 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     </td>
 
                     {/* Actions */}
-                    <td className="py-3 px-3 text-center" onClick={(e) => e.stopPropagation()}>
+                    <td className="py-3.5 px-3 text-center" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center justify-center gap-1">
                         <button
                           onClick={() => onSelectCompany(company)}
-                          className="p-1 rounded bg-slate-100 hover:bg-[#0B1633] text-slate-600 hover:text-white border border-slate-200 transition-colors"
+                          className="p-1 rounded bg-white hover:bg-[#0B1633] text-slate-600 hover:text-white border border-slate-300 transition-colors shadow-2xs"
                           title="Dossier öffnen"
                         >
                           <ExternalLink size={12} />
                         </button>
                         <button
                           onClick={() => onToggleWatchlist(company.id)}
-                          className={`p-1 rounded border transition-colors ${
+                          className={`p-1 rounded border transition-colors shadow-2xs ${
                             company.watchlistStatus
                               ? 'bg-amber-100 text-amber-800 border-amber-300'
-                              : 'bg-slate-100 text-slate-500 hover:text-slate-900 border-slate-200'
+                              : 'bg-white text-slate-500 hover:text-slate-900 border-slate-300'
                           }`}
                           title={company.watchlistStatus ? 'Gemerkt' : 'Auf Watchlist'}
                         >
