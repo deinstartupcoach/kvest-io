@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { mockCompanies } from './data/companiesData';
 import { mockCandidates } from './data/candidatesData';
 import { Company, Candidate, MainTab, ActiveMockupView } from './types';
@@ -10,8 +10,8 @@ import { CompanyDetailModal } from './components/company/CompanyDetailModal';
 import { CandidateListView } from './components/candidate/CandidateListView';
 import { CandidateDetailModal } from './components/candidate/CandidateDetailModal';
 import { ApiConnectorsView } from './components/connectors/ApiConnectorsView';
+import { PinGate } from './components/auth/PinGate';
 import {
-  Bookmark,
   Building2,
   Users,
   CheckCircle2,
@@ -19,6 +19,11 @@ import {
 } from 'lucide-react';
 
 export const App: React.FC = () => {
+  // Auth State (PIN: 0871)
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
+    return sessionStorage.getItem('kvest_auth') === 'true';
+  });
+
   // Data State
   const [companies, setCompanies] = useState<Company[]>(mockCompanies);
   const [candidates, setCandidates] = useState<Candidate[]>(mockCandidates);
@@ -92,6 +97,11 @@ export const App: React.FC = () => {
 
   const watchlistCompanies = companies.filter(c => c.watchlistStatus);
   const shortlistedCandidates = candidates.filter(c => c.shortlisted);
+
+  // If locked, render PIN screen
+  if (!isUnlocked) {
+    return <PinGate onUnlock={() => setIsUnlocked(true)} />;
+  }
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col selection:bg-[#0B1633] selection:text-white">
