@@ -1,0 +1,46 @@
+---
+title: "PROJECT_MEMORY: kvest.io"
+author: "Moritz / DeinStartup.Coach"
+date: "2026-08-28"
+format:
+  html:
+    toc: true
+    theme: cosmo
+---
+
+# 1. Project Overview
+
+- **Project Name**: `kvest.io` (Repository: [deinstartupcoach/kvest-io](https://github.com/deinstartupcoach/kvest-io))
+- **Workspace Path**: `C:\Users\morit\Nextcloud\06 - DSC Projects\kvest-io`
+- **Product Vision**: B2B SaaS Application for identifying suitable M&A buyout targets (succession planning / "Nachfolgeregelung") and executive search (C-Level manager matching).
+- **Core Concept**: Aggregates continuous data streams and scraping results (similar to a specialized "Bright Data" / intelligence platform for M&A & Executive Search). Combines findings for company and person profiles without imposing global subjective buy/pass ratings; focuses on factual aggregation, financial history, ownership networks, and media/sentiment checks.
+
+# 2. Key Modules & Mockup Scope
+
+1. **Company Search (Listenansicht Firmensuche)**:
+   - Search & multi-filters: Company name & legal form (`GmbH`, `AG`, etc.), company age/founding year, federal states (Bundesländer multi-choice), employee count brackets, industry classification code (WZ/NACE), ownership age distribution, managing director age, balance sheet total (Mio. EUR) & trend, net income/profit & trend, media check rating (1–5 stars + trend).
+2. **Company Detail Modal / Drawer (Popup über Listenansicht)**:
+   - Blurred background overlay over the list.
+   - Detailed owner/MD contact info, company register link (Handelsregister/Unternehmensregister).
+   - Interactive ownership graph (shareholders & subsidiary/cross-holdings).
+   - Financial bar charts (revenue/balance sheet totals, net profit).
+   - Key clients / references.
+   - Media check summary (press, LinkedIn analysis).
+   - Actions: Export to CRM, Add to Watchlist.
+3. **Candidate Search (Listenansicht Kandidatensuche)**:
+   - Free-text requirement search & PDF job description upload.
+   - Filters: Age spectrum, years of experience, leadership experience, sector experience, geographic proximity.
+   - Candidate result table with scoring/match indicators.
+4. **Candidate Detail Modal (Kandidaten-Popup)**:
+   - Blurred background overlay.
+   - Name, LinkedIn profile image, contact details.
+   - Scrollable career timeline with employer/role evaluation.
+   - Social media & personality summary (interests, personal background).
+   - Current Employer Intelligence block: Kununu score & trend, media check summary, Glassdoor estimated salary level, employer financial performance and headcount trend.
+5. **B2B SaaS Shell / Boilerplate**:
+   - Navigation sidebar / header, search bars, user profile / settings, login mock, watchlist tabs.
+
+# 3. Technical Stack & Conventions
+
+- **Tech Stack**: React / Svelte with modern UI library / Tailwind CSS or Vanilla CSS / Charting & Graph visualization.
+- **Design System**: DSC Software Design tokens / DeinStartup.Tools dark-theme or custom kvest.io color palette (see `Ressources/Design`).
