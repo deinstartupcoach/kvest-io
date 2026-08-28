@@ -55,7 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside className="w-56 bg-[#0B1633] text-white border-r border-[#162750] flex flex-col justify-between shrink-0 h-full min-h-[calc(100vh-3.5rem)]">
       <div className="p-3 space-y-1">
         <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
-          M&amp;A Search Module
+          Sections
         </div>
 
         {navItems.map((item) => {
