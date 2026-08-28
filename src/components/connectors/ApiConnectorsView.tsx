@@ -42,14 +42,14 @@ export const ApiConnectorsView: React.FC = () => {
     },
     {
       id: 'brightdata',
-      name: 'Bright Data Web Scraper',
-      category: 'Social & Executive Scraping',
+      name: 'Facebook & Instagram Connect',
+      category: 'Social Analysis & Evaluation',
       logoUrl: '/assets/api-logos/meta logo.png',
       status: 'connected',
       lastSync: 'Vor 18 Minuten',
       recordsCount: '68.416 C-Level Profile',
-      description: 'Automatisierte Proxies zur Extraktion von Organigrammen, Headcount-Wachstum und offenen Stellen.',
-      endpoint: 'https://api.brightdata.com/dca/trigger',
+      description: 'MBTI, DiSG, Personal Interests & Employer Loyality',
+      endpoint: 'https://graph.facebook.com/v19.0/insights',
       logoClass: 'h-5 max-w-[90px]'
     },
     {
