@@ -229,14 +229,14 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row */}
+      {/* 1. Header Row (Transparent Sand Tint) */}
       {!hideHeader && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 p-4 rounded-lg shadow-2xs">
           <div className="flex items-center gap-3">
             <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
               Target Search
             </h1>
-            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-white/80 text-slate-800 border border-[#D8CCB9]/70">
               {filteredCount} von {totalUniverse} Targets
             </span>
           </div>
@@ -251,11 +251,11 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                 <span>{selectedRows.length} in CRM Sync</span>
               </button>
             )}
-            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors shadow-2xs">
               <Download size={13} />
               <span>Excel Export</span>
             </button>
-            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors shadow-2xs">
               <BellRing size={13} />
               <span>Deal Alert</span>
             </button>
@@ -263,8 +263,8 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       )}
 
-      {/* 2. Structured Screener Filter Bar */}
-      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs space-y-3">
+      {/* 2. Structured Screener Filter Bar (Transparent Sand Tint) */}
+      <div className="bg-[#E9DFCF]/25 rounded-lg border border-[#D8CCB9]/80 p-4 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
           {/* Enum 1: Eigner & Nachfolge */}
           <div className="space-y-1">
@@ -274,7 +274,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <select
               value={successionEnum}
               onChange={(e) => setSuccessionEnum(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               {successionEnumList.map(item => (
                 <option key={item.value} value={item.value}>{item.label}</option>
@@ -290,7 +290,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <select
               value={profitEnum}
               onChange={(e) => setProfitEnum(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               {profitEnumList.map(item => (
                 <option key={item.value} value={item.value}>{item.label}</option>
@@ -306,7 +306,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <select
               value={ageEnum}
               onChange={(e) => setAgeEnum(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               {ageEnumList.map(item => (
                 <option key={item.value} value={item.value}>{item.label}</option>
@@ -322,7 +322,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <select
               value={industryEnum}
               onChange={(e) => setIndustryEnum(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               {industryEnumList.map(item => (
                 <option key={item.value} value={item.value}>{item.label}</option>
@@ -338,7 +338,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               {statesEnumList.map(item => (
                 <option key={item.value} value={item.value}>{item.label}</option>
@@ -354,7 +354,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <select
               value={ratingEnum}
               onChange={(e) => setRatingEnum(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               {ratingEnumList.map(item => (
                 <option key={item.value} value={item.value}>{item.label}</option>
@@ -364,45 +364,45 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
 
         {/* Free text search & Active Criteria Tags */}
-        <div className="pt-2.5 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+        <div className="pt-2.5 border-t border-[#D8CCB9]/60 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
           <div className="relative w-full md:w-80">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Volltextsuche: Firma, Stadt, Gesellschafter, HRB..."
-              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-400 outline-none"
+              className="w-full pl-9 pr-3 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-500 outline-none"
             />
           </div>
 
           <div className="flex items-center gap-1.5 flex-wrap">
             {successionEnum !== 'all' && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 border border-amber-200 text-amber-900 text-[11px] font-medium">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/90 border border-amber-300 text-amber-900 text-[11px] font-medium">
                 Eigner &gt; 60 J.
                 <button onClick={() => setSuccessionEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
             {profitEnum !== 'all' && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-900 text-[11px] font-medium font-mono">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/90 border border-emerald-300 text-emerald-900 text-[11px] font-medium font-mono">
                 Gewinn &gt; {profitEnum}M €
                 <button onClick={() => setProfitEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
             {ageEnum !== 'all' && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-medium">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/90 border border-[#D8CCB9] text-slate-800 text-[11px] font-medium">
                 {ageEnumList.find(a => a.value === ageEnum)?.label}
                 <button onClick={() => setAgeEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
             {industryEnum !== 'all' && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-medium">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/90 border border-blue-300 text-blue-900 text-[11px] font-medium">
                 {industryEnum}
                 <button onClick={() => setIndustryEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
             {selectedState !== 'all' && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-medium">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/90 border border-[#D8CCB9] text-slate-800 text-[11px] font-medium">
                 {selectedState}
                 <button onClick={() => setSelectedState('all')} className="hover:text-black"><X size={10} /></button>
               </span>
@@ -419,27 +419,27 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Summary Stats (Warm Semi-Transparent Sand Fill #E9DFCF) */}
+      {/* 3. Summary Stats (Transparent Sand Fill) */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-sans">
-        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+        <div className="bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 p-3.5 rounded-lg shadow-2xs transition-colors">
           <span className="text-[11px] font-bold text-[#5B534A] uppercase tracking-wide block">Gefilterte Targets</span>
           <div className="text-xl font-bold text-[#0B1633] font-mono mt-0.5">{filteredCount}</div>
           <span className="text-[10px] text-[#8A8176]">von {totalUniverse} im System</span>
         </div>
 
-        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+        <div className="bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 p-3.5 rounded-lg shadow-2xs transition-colors">
           <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wide block">Nachfolge-Fokus</span>
           <div className="text-xl font-bold text-amber-800 font-mono mt-0.5">{criticalSuccessionCount}</div>
           <span className="text-[10px] text-[#8A8176]">Hauptgesellschafter &gt; 60 Jahre</span>
         </div>
 
-        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+        <div className="bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 p-3.5 rounded-lg shadow-2xs transition-colors">
           <span className="text-[11px] font-bold text-emerald-900 uppercase tracking-wide block">Ø Bilanzgewinn</span>
           <div className="text-xl font-bold text-emerald-800 font-mono mt-0.5">{avgProfit} Mio. €</div>
           <span className="text-[10px] text-[#8A8176]">Ø Rendite im Set</span>
         </div>
 
-        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+        <div className="bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 p-3.5 rounded-lg shadow-2xs transition-colors">
           <span className="text-[11px] font-bold text-[#5B534A] uppercase tracking-wide block">Ø Bilanzsumme</span>
           <div className="text-xl font-bold text-[#0B1633] font-mono mt-0.5">{avgBalance} Mio. €</div>
           <span className="text-[10px] text-[#8A8176]">Substanzwert</span>
@@ -477,7 +477,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </span>
       </div>
 
-      {/* 5. Institutional Target Screener Table with Alternate Rows & Stronger Hover */}
+      {/* 5. Institutional Target Screener Table */}
       <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">

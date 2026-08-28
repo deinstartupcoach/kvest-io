@@ -122,14 +122,14 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row */}
+      {/* 1. Header Row (Transparent Sand Tint) */}
       {!hideHeader && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 p-4 rounded-lg shadow-2xs">
           <div className="flex items-center gap-3">
             <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
               Candidate Search
             </h1>
-            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-white/80 text-slate-800 border border-[#D8CCB9]/70">
               {filteredCount} von {totalUniverse} Kandidaten
             </span>
           </div>
@@ -144,11 +144,11 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                 <span>{selectedCandidates.length} in Shortlist</span>
               </button>
             )}
-            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors shadow-2xs">
               <Download size={13} />
               <span>Excel Export</span>
             </button>
-            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors shadow-2xs">
               <BellRing size={13} />
               <span>Talent Alert</span>
             </button>
@@ -156,15 +156,15 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
         </div>
       )}
 
-      {/* Briefing Prompt & PDF Upload */}
+      {/* Briefing Prompt & PDF Upload (Transparent Sand Tint) */}
       <PdfUploadParser
         promptText={promptText}
         onPromptChange={setPromptText}
         onApplyParsedFilters={handleApplyParsedFilters}
       />
 
-      {/* Screener Filter Bar */}
-      <div className="bg-white rounded-lg border border-[#E2E8F0] p-4 shadow-2xs space-y-3">
+      {/* Screener Filter Bar (Transparent Sand Tint) */}
+      <div className="bg-[#E9DFCF]/25 rounded-lg border border-[#D8CCB9]/80 p-4 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
           {/* Target Role */}
           <div className="space-y-1">
@@ -174,7 +174,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               <option value="all">Alle Rollen (C-Level / GF)</option>
               {roles.map(r => <option key={r} value={r}>{r}</option>)}
@@ -189,7 +189,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={minLeadershipExp}
               onChange={(e) => setMinLeadershipExp(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               <option value={0}>Führung: Beliebig</option>
               <option value={8}>Mind. 8 Jahre</option>
@@ -206,7 +206,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={minAge}
               onChange={(e) => setMinAge(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               <option value={0}>Alter: Alle</option>
               <option value={40}>&gt; 40 Jahre</option>
@@ -223,7 +223,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
+              className="w-full px-2.5 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs font-medium text-slate-900 outline-none"
             >
               <option value="all">DACH gesamt</option>
               {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
@@ -232,15 +232,15 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
         </div>
 
         {/* Free text search & Active filters */}
-        <div className="pt-2.5 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+        <div className="pt-2.5 border-t border-[#D8CCB9]/60 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
           <div className="relative w-full md:w-80">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Name, Arbeitgeber, Fachbereich..."
-              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-400 outline-none"
+              className="w-full pl-9 pr-3 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-500 outline-none"
             />
           </div>
 

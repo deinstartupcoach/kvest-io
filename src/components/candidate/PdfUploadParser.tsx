@@ -71,11 +71,11 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
   };
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-lg p-4 shadow-2xs space-y-3">
+    <div className="bg-[#E9DFCF]/25 border border-[#D8CCB9]/80 rounded-lg p-4 shadow-2xs space-y-3">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
         {/* Left: Free text prompt */}
         <div className="lg:col-span-7 flex flex-col">
-          <label className="text-xs font-semibold text-slate-700 mb-1">
+          <label className="text-xs font-bold text-[#0B1633] mb-1">
             Such-Briefing &amp; Freitext-Anforderung:
           </label>
           <div className="relative flex-1">
@@ -84,18 +84,18 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
               onChange={(e) => onPromptChange(e.target.value)}
               rows={2}
               placeholder="z.B. Erfahrener CEO / Nachfolge-Kandidat für mittelständischen Maschinenbauer mit Turnaround-Erfahrung..."
-              className="w-full h-full p-2.5 bg-slate-50 border border-slate-200 focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-400 outline-none resize-none leading-relaxed"
+              className="w-full h-full p-2.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-500 outline-none resize-none leading-relaxed"
             />
           </div>
           <div className="flex items-center gap-2 mt-1.5 flex-wrap text-[11px]">
-            <span className="text-slate-500 font-semibold">Vorschläge:</span>
+            <span className="text-slate-600 font-semibold">Vorschläge:</span>
             <button
               onClick={() => {
                 const text = 'CEO / Nachfolge-Kandidat im Sondermaschinenbau mit P&L-Verantwortung in Baden-Württemberg (MBI)';
                 onPromptChange(text);
                 onApplyParsedFilters({ targetRole: 'CEO', minLeadershipYears: 12, minExperienceYears: 20 });
               }}
-              className="text-[#0B1633] bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded border border-slate-200 transition-colors font-medium"
+              className="text-[#0B1633] bg-white/90 hover:bg-white px-2 py-0.5 rounded border border-[#D8CCB9] transition-colors font-medium shadow-2xs"
             >
               MBI-Nachfolger Maschinenbau
             </button>
@@ -105,7 +105,7 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
                 onPromptChange(text);
                 onApplyParsedFilters({ targetRole: 'CFO', minLeadershipYears: 8, minExperienceYears: 15 });
               }}
-              className="text-[#0B1633] bg-slate-100 hover:bg-slate-200 px-2 py-0.5 rounded border border-slate-200 transition-colors font-medium"
+              className="text-[#0B1633] bg-white/90 hover:bg-white px-2 py-0.5 rounded border border-[#D8CCB9] transition-colors font-medium shadow-2xs"
             >
               PE-erfahrener CFO
             </button>
@@ -114,7 +114,7 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
 
         {/* Right: PDF Upload */}
         <div className="lg:col-span-5 flex flex-col">
-          <label className="text-xs font-semibold text-slate-700 mb-1">
+          <label className="text-xs font-bold text-[#0B1633] mb-1">
             Stellenprofil (PDF) hochladen:
           </label>
           <div
@@ -124,10 +124,10 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
             onClick={() => simulateUpload('Anforderungsprofil_CEO_2026.pdf')}
             className={`flex-1 border border-dashed rounded p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
               isDragging
-                ? 'border-[#0B1633] bg-slate-100'
+                ? 'border-[#0B1633] bg-white'
                 : uploadedFile
-                ? 'border-emerald-300 bg-emerald-50'
-                : 'border-slate-300 hover:border-[#0B1633] bg-slate-50'
+                ? 'border-emerald-400 bg-emerald-50/80'
+                : 'border-[#D8CCB9] hover:border-[#0B1633] bg-white/80 hover:bg-white'
             }`}
           >
             {isParsing ? (
@@ -138,7 +138,7 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
             ) : uploadedFile ? (
               <div className="space-y-1 text-left w-full px-1">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-800">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-900">
                     <CheckCircle2 size={14} />
                     <span className="truncate max-w-[180px]">{uploadedFile}</span>
                   </div>
@@ -162,8 +162,8 @@ export const PdfUploadParser: React.FC<PdfUploadParserProps> = ({
               </div>
             ) : (
               <div className="flex flex-col items-center gap-1 py-1">
-                <Upload size={18} className="text-slate-600" />
-                <span className="text-xs font-semibold text-slate-700">
+                <Upload size={18} className="text-[#5B534A]" />
+                <span className="text-xs font-semibold text-slate-800">
                   PDF hier ablegen oder <span className="text-[#0B1633] underline">auswählen</span>
                 </span>
                 <span className="text-[10px] text-slate-500">
