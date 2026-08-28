@@ -6,7 +6,6 @@ import { Badge } from '../common/Badge';
 import {
   Search,
   Filter,
-  SlidersHorizontal,
   Bookmark,
   Send,
   Building2,
@@ -14,15 +13,11 @@ import {
   ChevronDown,
   ArrowUpDown,
   RotateCcw,
-  Sparkles,
   AlertTriangle,
-  FileSpreadsheet,
-  Layers,
   MapPin,
   Check,
   X,
   Download,
-  Share2,
   BellRing
 } from 'lucide-react';
 
@@ -39,40 +34,76 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
   onToggleWatchlist,
   onExportCrm
 }) => {
-  // Filter Criteria States
+  // Credible Enum Filter States
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStates, setSelectedStates] = useState<string[]>([]);
-  const [minAge, setMinAge] = useState<number>(0);
-  const [minProfit, setMinProfit] = useState<number>(0);
-  const [minBalance, setMinBalance] = useState<number>(0);
-  const [selectedIndustry, setSelectedIndustry] = useState<string>('all');
-  const [successionOnly, setSuccessionOnly] = useState<boolean>(false);
-  const [minRating, setMinRating] = useState<number>(0);
-  const [selectedLegalForms, setSelectedLegalForms] = useState<string[]>([]);
-  
-  // Table Sorting & Selection
+  const [selectedState, setSelectedState] = useState<string>('all');
+  const [ageEnum, setAgeEnum] = useState<string>('all');
+  const [profitEnum, setProfitEnum] = useState<string>('all');
+  const [balanceEnum, setBalanceEnum] = useState<string>('all');
+  const [industryEnum, setIndustryEnum] = useState<string>('all');
+  const [successionEnum, setSuccessionEnum] = useState<string>('all');
+  const [ratingEnum, setRatingEnum] = useState<string>('all');
+
+  // Table Sort & Multi-Select
   const [sortBy, setSortBy] = useState<'profit' | 'balance' | 'age' | 'media' | 'employees'>('profit');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
 
-  const allStates = ['Baden-Württemberg', 'Bayern', 'Hessen', 'Nordrhein-Westfalen', 'Schleswig-Holstein', 'Sachsen'];
-  const industries = [
-    { value: 'all', label: 'Alle Branchen' },
-    { value: 'Medizintechnik', label: 'Medizintechnik & Feinmechanik (C 28)' },
-    { value: 'Maschinenbau', label: 'Maschinenbau & Intralogistik (C 28)' },
-    { value: 'Sondermaschinenbau', label: 'Sondermaschinenbau & Robotik (C 28)' },
-    { value: 'Sensorik', label: 'Industrielle Sensorik & IoT (C 26)' },
-    { value: 'Kältetechnik', label: 'HVAC & Kältetechnik (C 28)' },
-    { value: 'Pumpen', label: 'Pumpen- & Strömungstechnik (C 28)' },
-    { value: 'Luft- & Raumfahrt', label: 'Luft- & Raumfahrt (C 30)' },
-    { value: 'Kunststoff', label: 'Kunststoff- & Spritzguss (C 22)' }
+  const statesEnumList = [
+    { value: 'all', label: 'DACH (Alle Bundesländer)' },
+    { value: 'Baden-Württemberg', label: 'Baden-Württemberg' },
+    { value: 'Bayern', label: 'Bayern' },
+    { value: 'Hessen', label: 'Hessen' },
+    { value: 'Nordrhein-Westfalen', label: 'Nordrhein-Westfalen' },
+    { value: 'Schleswig-Holstein', label: 'Schleswig-Holstein' },
+    { value: 'Sachsen', label: 'Sachsen' }
   ];
 
-  const toggleState = (state: string) => {
-    setSelectedStates(prev =>
-      prev.includes(state) ? prev.filter(s => s !== state) : [...prev, state]
-    );
-  };
+  const ageEnumList = [
+    { value: 'all', label: 'Unternehmensalter: Alle' },
+    { value: 'growth', label: '< 20 Jahre (Jüngerer Mittelstand)' },
+    { value: 'established', label: '20–35 Jahre (Etabliert)' },
+    { value: 'mature', label: '> 35 Jahre (Traditionsunternehmen)' }
+  ];
+
+  const profitEnumList = [
+    { value: 'all', label: 'Bilanzgewinn: Alle' },
+    { value: '1.5', label: '> 1,5 Mio. €' },
+    { value: '2.5', label: '> 2,5 Mio. €' },
+    { value: '3.5', label: '> 3,5 Mio. € (Top Rendite)' }
+  ];
+
+  const balanceEnumList = [
+    { value: 'all', label: 'Bilanzsumme: Alle' },
+    { value: '15', label: '> 15 Mio. €' },
+    { value: '25', label: '> 25 Mio. €' },
+    { value: '35', label: '> 35 Mio. €' }
+  ];
+
+  const industryEnumList = [
+    { value: 'all', label: 'Industriesegment: Alle Branchen' },
+    { value: 'Medizintechnik', label: 'C 28.29 Medizintechnik & Feinmechanik' },
+    { value: 'Maschinenbau', label: 'C 28.22 Fördertechnik & Hebezeuge' },
+    { value: 'Sondermaschinenbau', label: 'C 28.99 Sondermaschinenbau & Robotik' },
+    { value: 'Sensorik', label: 'C 26.51 Industrielle Sensorik & IoT' },
+    { value: 'Kältetechnik', label: 'C 28.25 Kälte- & Klimatechnik (HVAC)' },
+    { value: 'Pumpen', label: 'C 28.13 Pumpen- & Strömungstechnik' },
+    { value: 'Luft- & Raumfahrt', label: 'C 30.30 Luft- & Raumfahrt Zulieferer' },
+    { value: 'Kunststoff', label: 'C 22.29 Präzisions-Kunststofftechnik' }
+  ];
+
+  const successionEnumList = [
+    { value: 'all', label: 'Eignerstruktur: Alle' },
+    { value: 'critical', label: '🚨 Senior-Inhaber >60 Jahre (Hohe Nachfolgedringlichkeit)' },
+    { value: 'medium', label: 'Inhaber 50–60 Jahre (Mittelfristig)' },
+    { value: 'secured', label: 'Inhaber <50 Jahre (Geregelt)' }
+  ];
+
+  const ratingEnumList = [
+    { value: 'all', label: 'Media / Reputation: Alle' },
+    { value: '4.0', label: 'Mind. 4.0 ★ (Solide bis Exzellent)' },
+    { value: '4.5', label: 'Mind. 4.5 ★ (Top Tier Reputation)' }
+  ];
 
   const toggleSelectAll = () => {
     if (selectedRows.length === filteredCompanies.length) {
@@ -91,29 +122,27 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   const resetAllFilters = () => {
     setSearchTerm('');
-    setSelectedStates([]);
-    setMinAge(0);
-    setMinProfit(0);
-    setMinBalance(0);
-    setSelectedIndustry('all');
-    setSuccessionOnly(false);
-    setMinRating(0);
-    setSelectedLegalForms([]);
+    setSelectedState('all');
+    setAgeEnum('all');
+    setProfitEnum('all');
+    setBalanceEnum('all');
+    setIndustryEnum('all');
+    setSuccessionEnum('all');
+    setRatingEnum('all');
   };
 
   const hasActiveFilters = Boolean(
     searchTerm ||
-    selectedStates.length > 0 ||
-    minAge > 0 ||
-    minProfit > 0 ||
-    minBalance > 0 ||
-    selectedIndustry !== 'all' ||
-    successionOnly ||
-    minRating > 0 ||
-    selectedLegalForms.length > 0
+    selectedState !== 'all' ||
+    ageEnum !== 'all' ||
+    profitEnum !== 'all' ||
+    balanceEnum !== 'all' ||
+    industryEnum !== 'all' ||
+    successionEnum !== 'all' ||
+    ratingEnum !== 'all'
   );
 
-  // Filtered & Sorted Companies
+  // Filtered & Sorted Logic
   const filteredCompanies = useMemo(() => {
     return companies
       .filter((c) => {
@@ -127,31 +156,37 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
           if (!matchName && !matchCity && !matchIndustry && !matchWz && !matchOwner) return false;
         }
 
-        if (selectedStates.length > 0 && !selectedStates.includes(c.state)) {
+        if (selectedState !== 'all' && c.state !== selectedState) {
           return false;
         }
 
-        if (minAge > 0 && c.age < minAge) {
+        if (ageEnum === 'growth' && c.age >= 20) return false;
+        if (ageEnum === 'established' && (c.age < 20 || c.age > 35)) return false;
+        if (ageEnum === 'mature' && c.age <= 35) return false;
+
+        if (profitEnum !== 'all' && c.netProfit < Number(profitEnum)) {
           return false;
         }
 
-        if (minProfit > 0 && c.netProfit < minProfit) {
+        if (balanceEnum !== 'all' && c.balanceSheetTotal < Number(balanceEnum)) {
           return false;
         }
 
-        if (minBalance > 0 && c.balanceSheetTotal < minBalance) {
+        if (industryEnum !== 'all' && !c.industry.includes(industryEnum)) {
           return false;
         }
 
-        if (selectedIndustry !== 'all' && !c.industry.includes(selectedIndustry)) {
+        if (successionEnum === 'critical' && c.successionScore !== 'CRITICAL_HIGH') {
+          return false;
+        }
+        if (successionEnum === 'medium' && c.successionScore !== 'MEDIUM') {
+          return false;
+        }
+        if (successionEnum === 'secured' && c.successionScore !== 'SECURED') {
           return false;
         }
 
-        if (successionOnly && c.successionScore !== 'CRITICAL_HIGH') {
-          return false;
-        }
-
-        if (minRating > 0 && c.mediaRating < minRating) {
+        if (ratingEnum !== 'all' && c.mediaRating < Number(ratingEnum)) {
           return false;
         }
 
@@ -181,13 +216,13 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
   }, [
     companies,
     searchTerm,
-    selectedStates,
-    minAge,
-    minProfit,
-    minBalance,
-    selectedIndustry,
-    successionOnly,
-    minRating,
+    selectedState,
+    ageEnum,
+    profitEnum,
+    balanceEnum,
+    industryEnum,
+    successionEnum,
+    ratingEnum,
     sortBy,
     sortOrder
   ]);
@@ -200,204 +235,185 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row (PitchBook Benchmark Style) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-[#E2E8F0] shadow-xs">
+      {/* 1. Header Row */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
         <div>
           <div className="flex items-center gap-3">
             <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
-              Companies &amp; M&amp;A Buyout Screener
+              M&amp;A Buyout &amp; Succession Screener
             </h1>
             <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
               {filteredCount} von {totalUniverse} Targets
             </span>
           </div>
-          <p className="text-xs text-[#5B534A] mt-0.5">
-            Filtern nach Nachfolgerelevanz, Bilanzkennzahlen, Standort und Gesellschafterstruktur (DACH Mittelstand)
+          <p className="text-xs text-slate-500 mt-0.5">
+            Screener für Nachfolgeregelungen, Eigentümerstrukturen und Bilanzkennzahlen im deutschen Mittelstand
           </p>
         </div>
 
-        {/* Action Buttons */}
         <div className="flex items-center gap-2">
           {selectedRows.length > 0 && (
             <button
               onClick={() => selectedRows.forEach(id => onExportCrm(id))}
-              className="px-3 py-1.5 rounded-md bg-[#1677FF] hover:bg-[#1677FF]/90 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
+              className="px-3 py-1.5 rounded bg-[#0B1633] hover:bg-[#162750] text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
             >
               <Send size={13} />
               <span>{selectedRows.length} in CRM Sync</span>
             </button>
           )}
-          <button className="px-3 py-1.5 rounded-md bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+          <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
             <Download size={13} />
-            <span>Export (Excel)</span>
+            <span>Excel Export</span>
           </button>
-          <button className="px-3 py-1.5 rounded-md bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+          <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
             <BellRing size={13} />
-            <span>Alert setzen</span>
+            <span>Deal Alert</span>
           </button>
         </div>
       </div>
 
-      {/* 2. Structured Institutional Screener Filter Bar */}
-      <div className="bg-white rounded-lg border border-[#E2E8F0] p-4 shadow-xs space-y-3">
-        {/* Top Filter Category Selectors */}
+      {/* 2. Structured Institutional Screener Filter Bar with Credible Enums */}
+      <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
-          {/* 1. Altersstruktur der Eigner (Succession) */}
+          {/* Enum 1: Eigner & Nachfolge */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">
               1. Eigner &amp; Nachfolge
             </label>
-            <button
-              onClick={() => setSuccessionOnly(!successionOnly)}
-              className={`w-full text-left px-2.5 py-1.5 rounded border text-xs font-semibold flex items-center justify-between transition-colors ${
-                successionOnly
-                  ? 'bg-amber-50 text-amber-900 border-amber-300 shadow-xs'
-                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
-              }`}
+            <select
+              value={successionEnum}
+              onChange={(e) => setSuccessionEnum(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
-              <span className="truncate">{successionOnly ? '🚨 Eigner >60 J.' : 'Alle Eigner'}</span>
-              <AlertTriangle size={12} className={successionOnly ? 'text-amber-600 shrink-0' : 'text-slate-400 shrink-0'} />
-            </button>
+              {successionEnumList.map(item => (
+                <option key={item.value} value={item.value}>{item.label}</option>
+              ))}
+            </select>
           </div>
 
-          {/* 2. Bilanzgewinn & EBITDA */}
+          {/* Enum 2: Bilanzgewinn */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">
               2. Bilanzgewinn (€)
             </label>
             <select
-              value={minProfit}
-              onChange={(e) => setMinProfit(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              value={profitEnum}
+              onChange={(e) => setProfitEnum(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
-              <option value={0}>Bilanzgewinn: Alle</option>
-              <option value={1.5}>&gt; 1,5 Mio. €</option>
-              <option value={2.5}>&gt; 2,5 Mio. €</option>
-              <option value={3.5}>&gt; 3,5 Mio. €</option>
+              {profitEnumList.map(item => (
+                <option key={item.value} value={item.value}>{item.label}</option>
+              ))}
             </select>
           </div>
 
-          {/* 3. Unternehmensalter */}
+          {/* Enum 3: Unternehmensalter */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">
               3. Unternehmensalter
             </label>
             <select
-              value={minAge}
-              onChange={(e) => setMinAge(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              value={ageEnum}
+              onChange={(e) => setAgeEnum(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
-              <option value={0}>Alter: Beliebig</option>
-              <option value={15}>Mind. 15 Jahre</option>
-              <option value={25}>Mind. 25 Jahre</option>
-              <option value={35}>Mind. 35 Jahre</option>
+              {ageEnumList.map(item => (
+                <option key={item.value} value={item.value}>{item.label}</option>
+              ))}
             </select>
           </div>
 
-          {/* 4. Industriesegment / WZ-Code */}
+          {/* Enum 4: Industriesegment (WZ-Code) */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">
               4. Industriesegment
             </label>
             <select
-              value={selectedIndustry}
-              onChange={(e) => setSelectedIndustry(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              value={industryEnum}
+              onChange={(e) => setIndustryEnum(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
-              {industries.map(ind => (
-                <option key={ind.value} value={ind.value}>{ind.label}</option>
+              {industryEnumList.map(item => (
+                <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
           </div>
 
-          {/* 5. Standort (Bundesland) */}
+          {/* Enum 5: Standort / Bundesland */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">
               5. Standort (Region)
             </label>
             <select
-              value={selectedStates.length === 1 ? selectedStates[0] : selectedStates.length > 1 ? 'multi' : 'all'}
-              onChange={(e) => {
-                if (e.target.value === 'all') setSelectedStates([]);
-                else if (e.target.value !== 'multi') setSelectedStates([e.target.value]);
-              }}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              value={selectedState}
+              onChange={(e) => setSelectedState(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
-              <option value="all">DACH (Alle Länder)</option>
-              {allStates.map(st => (
-                <option key={st} value={st}>{st}</option>
+              {statesEnumList.map(item => (
+                <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
           </div>
 
-          {/* 6. Management- & Media-Rating */}
+          {/* Enum 6: Media / Management Rating */}
           <div className="space-y-1">
             <label className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">
               6. Media / Reputation
             </label>
             <select
-              value={minRating}
-              onChange={(e) => setMinRating(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              value={ratingEnum}
+              onChange={(e) => setRatingEnum(e.target.value)}
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
-              <option value={0}>Rating: Alle</option>
-              <option value={4.0}>Mind. 4.0 ★ (Hoch)</option>
-              <option value={4.5}>Mind. 4.5 ★ (Top)</option>
+              {ratingEnumList.map(item => (
+                <option key={item.value} value={item.value}>{item.label}</option>
+              ))}
             </select>
           </div>
         </div>
 
-        {/* Free text search & Active Criteria Pills */}
+        {/* Free text search & Active Criteria Tags */}
         <div className="pt-2.5 border-t border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2 flex-1 max-w-md">
-            <div className="relative w-full">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Volltextsuche: Firma, Stadt, Gesellschafter, HRB..."
-                className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-[#1677FF] rounded text-xs text-slate-800 placeholder:text-slate-400 outline-none"
-              />
-            </div>
+          <div className="relative w-full md:w-80">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Volltextsuche: Firma, Stadt, Gesellschafter, HRB..."
+              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-400 outline-none"
+            />
           </div>
 
-          {/* Active Filter Badges */}
           <div className="flex items-center gap-1.5 flex-wrap">
-            {successionOnly && (
+            {successionEnum !== 'all' && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 border border-amber-200 text-amber-900 text-[11px] font-medium">
                 Eigner &gt; 60 J.
-                <button onClick={() => setSuccessionOnly(false)} className="hover:text-black"><X size={10} /></button>
+                <button onClick={() => setSuccessionEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
-            {minProfit > 0 && (
+            {profitEnum !== 'all' && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-900 text-[11px] font-medium font-mono">
-                Gewinn &gt; {minProfit}M €
-                <button onClick={() => setMinProfit(0)} className="hover:text-black"><X size={10} /></button>
+                Gewinn &gt; {profitEnum}M €
+                <button onClick={() => setProfitEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
-            {minAge > 0 && (
+            {ageEnum !== 'all' && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-medium">
-                Alter &gt; {minAge} J.
-                <button onClick={() => setMinAge(0)} className="hover:text-black"><X size={10} /></button>
+                {ageEnumList.find(a => a.value === ageEnum)?.label}
+                <button onClick={() => setAgeEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
-            {selectedIndustry !== 'all' && (
+            {industryEnum !== 'all' && (
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-medium">
-                {selectedIndustry}
-                <button onClick={() => setSelectedIndustry('all')} className="hover:text-black"><X size={10} /></button>
+                {industryEnum}
+                <button onClick={() => setIndustryEnum('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
-            {selectedStates.map(st => (
-              <span key={st} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-medium">
-                {st}
-                <button onClick={() => toggleState(st)} className="hover:text-black"><X size={10} /></button>
-              </span>
-            ))}
-            {minRating > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-50 border border-amber-200 text-amber-900 text-[11px] font-medium">
-                Rating &gt; {minRating} ★
-                <button onClick={() => setMinRating(0)} className="hover:text-black"><X size={10} /></button>
+            {selectedState !== 'all' && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-medium">
+                {selectedState}
+                <button onClick={() => setSelectedState('all')} className="hover:text-black"><X size={10} /></button>
               </span>
             )}
             {hasActiveFilters && (
@@ -412,38 +428,38 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Quick Stats Bar (PitchBook Benchmark Style) */}
+      {/* 3. Summary Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-sans">
-        <div className="bg-white p-3 rounded-lg border border-[#E2E8F0] shadow-xs">
-          <span className="text-[11px] font-bold text-[#5B534A] uppercase tracking-wide block">Gefilterte Targets</span>
+        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block">Gefilterte Targets</span>
           <div className="text-xl font-bold text-[#0B1633] font-mono mt-0.5">{filteredCount}</div>
-          <span className="text-[10px] text-slate-500">von {totalUniverse} im System</span>
+          <span className="text-[10px] text-slate-400">von {totalUniverse} im System</span>
         </div>
 
-        <div className="bg-white p-3 rounded-lg border border-[#E2E8F0] shadow-xs">
+        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
           <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wide block">🚨 Nachfolge-Fokus</span>
           <div className="text-xl font-bold text-amber-700 font-mono mt-0.5">{criticalSuccessionCount}</div>
-          <span className="text-[10px] text-slate-500">Hauptgesellschafter &gt; 60 Jahre</span>
+          <span className="text-[10px] text-slate-400">Hauptgesellschafter &gt; 60 Jahre</span>
         </div>
 
-        <div className="bg-white p-3 rounded-lg border border-[#E2E8F0] shadow-xs">
+        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
           <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wide block">Ø Bilanzgewinn</span>
           <div className="text-xl font-bold text-emerald-700 font-mono mt-0.5">{avgProfit} Mio. €</div>
-          <span className="text-[10px] text-slate-500">Ø Rendite im Set</span>
+          <span className="text-[10px] text-slate-400">Ø Rendite im Set</span>
         </div>
 
-        <div className="bg-white p-3 rounded-lg border border-[#E2E8F0] shadow-xs">
+        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
           <span className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">Ø Bilanzsumme</span>
           <div className="text-xl font-bold text-[#0B1633] font-mono mt-0.5">{avgBalance} Mio. €</div>
-          <span className="text-[10px] text-slate-500">Substanzwert</span>
+          <span className="text-[10px] text-slate-400">Substanzwert</span>
         </div>
       </div>
 
-      {/* 4. Table Controls & Sort */}
+      {/* 4. Table Controls */}
       <div className="flex items-center justify-between text-xs text-slate-600 px-1">
         <div className="flex items-center gap-2">
           <span>Sortieren nach:</span>
-          <div className="flex items-center gap-1 font-semibold text-[#1677FF]">
+          <div className="flex items-center gap-1 font-semibold text-[#0B1633]">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
@@ -471,7 +487,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
       </div>
 
       {/* 5. Institutional Target Screener Table */}
-      <div className="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden shadow-xs">
+      <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
@@ -481,7 +497,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                     type="checkbox"
                     checked={selectedRows.length === filteredCompanies.length && filteredCompanies.length > 0}
                     onChange={toggleSelectAll}
-                    className="rounded border-slate-300 text-[#1677FF] focus:ring-0 cursor-pointer"
+                    className="rounded border-slate-300 text-[#0B1633] focus:ring-0 cursor-pointer"
                   />
                 </th>
                 <th className="py-3 px-4 min-w-[260px]">Unternehmen &amp; Sitz</th>
@@ -498,34 +514,30 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
             <tbody className="divide-y divide-slate-100 text-slate-800">
               {filteredCompanies.map((company) => {
                 const isSelected = selectedRows.includes(company.id);
-                const hasSeniorOwner = company.owners.some(o => o.age >= 60);
 
                 return (
                   <tr
                     key={company.id}
                     onClick={() => onSelectCompany(company)}
                     className={`cursor-pointer transition-colors duration-100 ${
-                      isSelected ? 'bg-blue-50/50' : 'hover:bg-slate-50/80'
+                      isSelected ? 'bg-slate-100' : 'hover:bg-slate-50'
                     }`}
                   >
-                    {/* Checkbox */}
                     <td className="py-3 px-3 text-center" onClick={(e) => toggleRow(company.id, e)}>
                       <input
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => {}}
-                        className="rounded border-slate-300 text-[#1677FF] focus:ring-0 cursor-pointer"
+                        className="rounded border-slate-300 text-[#0B1633] focus:ring-0 cursor-pointer"
                       />
                     </td>
 
-                    {/* Company Name & City */}
+                    {/* Company Name */}
                     <td className="py-3 px-4">
                       <div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-bold text-[#0B1633] text-xs hover:text-[#1677FF] transition-colors">
-                            {company.name}
-                          </span>
-                        </div>
+                        <span className="font-bold text-[#0B1633] text-xs hover:underline">
+                          {company.name}
+                        </span>
                         <div className="flex items-center gap-2 mt-0.5 text-[11px] text-slate-500 font-sans">
                           <span className="font-medium text-slate-700">{company.city}</span>
                           <span>•</span>
@@ -536,7 +548,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                       </div>
                     </td>
 
-                    {/* Industry / WZ Code */}
+                    {/* Industry */}
                     <td className="py-3 px-3">
                       <div className="text-[11px] text-slate-700 font-medium truncate max-w-[180px]">
                         {company.industry}
@@ -546,7 +558,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                       </span>
                     </td>
 
-                    {/* Ownership Structure & Age */}
+                    {/* Owners */}
                     <td className="py-3 px-3">
                       <div className="space-y-1">
                         {company.owners.map((owner, idx) => (
@@ -618,7 +630,7 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                       <div className="flex items-center justify-center gap-1">
                         <button
                           onClick={() => onSelectCompany(company)}
-                          className="p-1 rounded bg-slate-100 hover:bg-[#1677FF] text-slate-600 hover:text-white border border-slate-200 transition-colors"
+                          className="p-1 rounded bg-slate-100 hover:bg-[#0B1633] text-slate-600 hover:text-white border border-slate-200 transition-colors"
                           title="Dossier öffnen"
                         >
                           <ExternalLink size={12} />
@@ -633,13 +645,6 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
                           title={company.watchlistStatus ? 'Gemerkt' : 'Auf Watchlist'}
                         >
                           <Bookmark size={12} className={company.watchlistStatus ? 'fill-amber-500 text-amber-600' : ''} />
-                        </button>
-                        <button
-                          onClick={() => onExportCrm(company.id)}
-                          className="p-1 rounded bg-slate-100 hover:bg-emerald-600 text-slate-600 hover:text-white border border-slate-200 transition-colors"
-                          title="In CRM übertragen"
-                        >
-                          <Send size={12} />
                         </button>
                       </div>
                     </td>

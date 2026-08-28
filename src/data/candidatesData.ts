@@ -36,9 +36,17 @@ export const mockCandidates: Candidate[] = [
       interests: ['Leidenschaftlicher Touren-Motorradfahrer (BMW R1250 GS Adventure)', 'Marathonläufer (Bestzeit 3:28h)', 'Ehrenamtlicher Mentor bei Start-up BW'],
       leadershipStyle: 'Kooperativ-leistungsorientiert, ausgeprägte Shopfloor-Präsenz (Gemba Walk), strukturierte OKR-Führung.',
       personalityTraits: ['Analytisch stark', 'Verhandlungsfest', 'Hohe emotionale Intelligenz', 'Krisenerprobt'],
-      socialMediaNotes: 'Sehr professioneller LinkedIn-Auftritt mit Beiträgen zu Lean Production und Industrie 4.0; privat engagiert im Rotary Club Stuttgart-Solitude; verheiratet, 2 erwachsene Kinder.',
       languages: ['Deutsch (Muttersprache)', 'Englisch (Verhandlungssicher / C2)', 'Französisch (Fließend / B2)'],
-      education: ['Promotion Dr.-Ing. (Produktionstechnik) – RWTH Aachen', 'Dipl.-Wirtsch.-Ing. – Karlsruher Institut für Technologie (KIT)', 'Executive Management Program – INSEAD Fontainebleau']
+      education: ['Promotion Dr.-Ing. (Produktionstechnik) – RWTH Aachen', 'Dipl.-Wirtsch.-Ing. – Karlsruher Institut für Technologie (KIT)', 'Executive Management Program – INSEAD Fontainebleau'],
+      toneOfVoice: 'Sachlich-technokratisch, stark faktenorientiert (OEE- und Lean-Kennzahlen). Keine polemischen oder emotional aufgeladenen Statements.',
+      crisisPostingAudit: 'Sehr hohe Medienhygiene. Keine privaten Eskapaden, keine politische Polarisierung. Privater Content beschränkt sich strikt auf sportliche Meilensteine.',
+      employerLoyalty: {
+        status: '⚠️ Deutliche Distanzierung / Starker Wechselindikator',
+        trend: 'declining',
+        details: 'Bis Mai 2025 regelmäßige Reposts von Firmen-News der Kraus & Meissner GmbH. Seit Juni 2025 vollständiger Stopp von Arbeitgeber-Erwähnungen. Gleichzeitig sprunghafter Anstieg von Interaktionen mit Private-Equity-Investoren und M&A-Boutiquen auf LinkedIn.',
+        recentPostingQuote: '„Erfolgreiche operative Transformation scheitert selten an der Mannschaft auf dem Shopfloor – meist am Mut der Gesellschafter, notwendige Capex freizugeben.“ (LinkedIn vor 3 Wochen)',
+        lastCompanyMentionDate: '14.05.2025'
+      }
     },
     employmentHistory: [
       {
@@ -69,20 +77,6 @@ export const mockCandidates: Candidate[] = [
           'Umsetzung eines 12 Mio. € Automatisierungsprogramms inklusive fahrerloser Transportsysteme'
         ],
         kpiScore: 96
-      },
-      {
-        id: 'HIST-3',
-        role: 'Leiter Produktion & Continuous Improvement',
-        company: 'Festo SE & Co. KG',
-        period: '2010 – 2016 (6 Jahre)',
-        isCurrent: false,
-        revenueResponsibility: '35 Mio. €',
-        teamSize: '120 Mitarbeiter',
-        keyAchievements: [
-          'Auszeichnung mit dem Factory of the Year Award (Kategorie Schlanke Produktion)',
-          'Reduktion der Ausschussrate von 2,4% auf 0,6%'
-        ],
-        kpiScore: 91
       }
     ],
     employerIntelligence: {
@@ -135,9 +129,17 @@ export const mockCandidates: Candidate[] = [
       interests: ['Regattasegeln (Starnberger See, Dragon-Klasse)', 'Klassische Musik & Opernbesuche', 'Förderin von Female Leadership in Finance'],
       leadershipStyle: 'Transparente Zahlenkultur, datengestützte Entscheidungsfindung, pragmatisch und lösungsorientiert.',
       personalityTraits: ['Verhandlungsstark', 'Strategischer Weitblick', 'Hohe Durchsetzungsstärke', 'Integrität'],
-      socialMediaNotes: 'Aktives Mitglied im Verband der Finanzexperten (VFE); Gastdozentin für Corporate Finance an der LMU München; keine auffälligen privaten Kontroversen.',
       languages: ['Deutsch (Muttersprache)', 'Englisch (C2)', 'Spanisch (Grundkenntnisse)'],
-      education: ['Diplom-Kauffrau – Ludwig-Maximilians-Universität München (LMU)', 'MBA – IE Business School Madrid', 'CFA Charterholder Level 2']
+      education: ['Diplom-Kauffrau – Ludwig-Maximilians-Universität München (LMU)', 'MBA – IE Business School Madrid', 'CFA Charterholder Level 2'],
+      toneOfVoice: 'Präzise, hochprofessionell, zurückhaltend. Verwendet fundierte Finanzterminologie, publiziert nur zu Fachthemen.',
+      crisisPostingAudit: 'Makellos. Keine unbedachten Kommentare, keine privaten Äußerungen im beruflichen Netzwerk.',
+      employerLoyalty: {
+        status: 'Strategisch neutral (Post-Merger-Phase abgeschlossen)',
+        trend: 'neutral',
+        details: 'Hält sich bei Unternehmenslob bewusst zurück; sucht nach erfolgreicher Konsortialkredit-Strukturierung die nächste PE-Buyout Herausforderung.',
+        recentPostingQuote: '„Erfolgreiche Post-Merger-Integration verlangt vor allem Disziplin im Working Capital Management.“ (Fachartikel vor 2 Monaten)',
+        lastCompanyMentionDate: '10.01.2026'
+      }
     },
     employmentHistory: [
       {
@@ -154,20 +156,6 @@ export const mockCandidates: Candidate[] = [
           'Erfolgreicher Zukauf und Integration eines Schweizer Messtechnik-Unternehmens'
         ],
         kpiScore: 95
-      },
-      {
-        id: 'HIST-12',
-        role: 'Director Corporate Controlling & Treasury',
-        company: 'Infineon Technologies AG',
-        period: '2014 – 2019 (5 Jahre)',
-        isCurrent: false,
-        revenueResponsibility: 'Division Automotive Power (240 Mio. €)',
-        teamSize: '15 Mitarbeiter',
-        keyAchievements: [
-          'Aufbau eines Predictive Forecasting Modells für volatile Halbleitermärkte',
-          'Leitung der Budgetplanung für internationale F&E Standorte'
-        ],
-        kpiScore: 92
       }
     ],
     employerIntelligence: {
@@ -184,145 +172,5 @@ export const mockCandidates: Candidate[] = [
       turnoverRisk: 'Medium'
     },
     shortlisted: true
-  },
-  {
-    id: 'CAND-7821',
-    name: 'Dipl.-Ing. Carsten Böttcher',
-    title: 'Dipl.-Ing. Maschinenbau',
-    currentRole: 'Geschäftsführer Vertrieb & Marketing (CSO)',
-    currentCompany: 'ThermaTec Kältesysteme GmbH',
-    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250',
-    age: 54,
-    location: 'Nürnberg',
-    state: 'Bayern',
-    radiusKm: 80,
-    mobilityDACH: true,
-    totalExperienceYears: 27,
-    leadershipExperienceYears: 16,
-    industryExperienceYears: 22,
-    targetRoles: ['CEO / Alleingeschäftsführer', 'CSO / Geschäftsführer Vertrieb & Internationalisierung'],
-    industries: ['Kältetechnik & HVAC', 'Anlagenbau', 'Energietechnik', 'Gebäudeautomation'],
-    matchScore: 92,
-    status: 'Aktiv suchend',
-    salaryExpectation: {
-      min: 190,
-      max: 240,
-      currency: 'EUR',
-      packageDetails: '195k € Fixum + 25% variable Tantieme'
-    },
-    contact: {
-      email: 'c.boettcher.exec@t-online.de',
-      phone: '+49 172 6194820',
-      linkedin: 'https://linkedin.com/in/carsten-boettcher-industrial'
-    },
-    executiveSummary: 'Vertriebsstarker Ingenieur mit tiefem Verständnis für komplexe technische B2B-Investitionsgüter. Führte Vertriebsorganisationen von 15 Mio. auf 50 Mio. € Umsatz durch Erschließung von DACH- und US-Märkten.',
-    personalInsights: {
-      interests: ['Mountainbiken im Frankenwald', 'Hobby-Imker (12 Bienenvölker)', 'Historische Architektur'],
-      leadershipStyle: 'Unternehmerisch, kundenfokussiert, inspirierend, fördert Eigenverantwortung.',
-      personalityTraits: ['Kommunikativ', 'Akquisitionsstark', 'Hohe Resilienz', 'Bodenständig'],
-      socialMediaNotes: 'Moderates Profil, Fokus auf B2B-Kundenpflege und Verbandsarbeit (VDMA Kälte- und Klimatechnik).',
-      languages: ['Deutsch (Muttersprache)', 'Englisch (Verhandlungssicher)', 'Italienisch (Konversationssicher)'],
-      education: ['Dipl.-Ing. Maschinenbau – TU Dresden', 'Aufbaustudium Internationales Marketing – FH Nürnberg']
-    },
-    employmentHistory: [
-      {
-        id: 'HIST-21',
-        role: 'Geschäftsführer Vertrieb & Marketing (CSO)',
-        company: 'ThermaTec Kältesysteme GmbH',
-        period: '2017 – Heute (9 Jahre)',
-        isCurrent: true,
-        revenueResponsibility: '42 Mio. € Vertriebsbudget',
-        teamSize: '35 Mitarbeiter (Vertrieb & Service Außendienst)',
-        keyAchievements: [
-          'Verdopplung des Auftragseingangs im Bereich Wärmepumpen-Großanlagen',
-          'Aufbau eines Key-Account-Management-Systems für europäische Food & Retail Ketten'
-        ],
-        kpiScore: 93
-      }
-    ],
-    employerIntelligence: {
-      companyName: 'ThermaTec Kältesysteme GmbH',
-      industry: 'Industriekälte & Wärmepumpen',
-      employees: 190,
-      kununuScore: 3.1,
-      kununuTrend: 'down',
-      kununuDetails: 'Übernahme durch ausländischen Konzern führte zu starker Bürokratisierung und Entmachtung des lokalen Managements. Böttcher sucht daher gezielt mittelständisches Eigentümerumfeld.',
-      glassdoorSalaryEstimate: '175.000 € – 215.000 €',
-      mediaSummary: 'Berichte über Restrukturierungsprogramm der Muttergesellschaft in den Medien.',
-      revenueTrend: 'Stagnation',
-      employeeGrowthYoY: '-5.0%',
-      turnoverRisk: 'High'
-    },
-    shortlisted: false
-  },
-  {
-    id: 'CAND-6319',
-    name: 'Dr. Michael Staudt',
-    title: 'Dr. rer. nat. / Master of Science',
-    currentRole: 'Chief Technology Officer (CTO)',
-    currentCompany: 'OptoGrid Inspection Systems GmbH',
-    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=250',
-    age: 45,
-    location: 'Frankfurt am Main',
-    state: 'Hessen',
-    radiusKm: 60,
-    mobilityDACH: true,
-    totalExperienceYears: 19,
-    leadershipExperienceYears: 9,
-    industryExperienceYears: 16,
-    targetRoles: ['CTO / Geschäftsführer F&E', 'Geschäftsführer Tech / DeepTech MD'],
-    industries: ['Optoelektronik', 'Industrielle Bildverarbeitung', 'KI-basierte Robotik', 'Sondermaschinenbau'],
-    matchScore: 91,
-    status: 'Offen für Gespräche',
-    salaryExpectation: {
-      min: 185,
-      max: 230,
-      currency: 'EUR',
-      packageDetails: '190k € Grundgehalt + Beteiligungsprogramm'
-    },
-    contact: {
-      email: 'm.staudt.tech@gmail.com',
-      phone: '+49 173 5519821',
-      linkedin: 'https://linkedin.com/in/dr-michael-staudt'
-    },
-    executiveSummary: 'Technologie-Pionier mit über 20 Patenten in industrieller Bildverarbeitung und Machine Vision. Bringt State-of-the-Art KI-Algorithmen erfolgreich in robuste Industrieanwendungen auf den Shopfloor.',
-    personalInsights: {
-      interests: ['Klassische Gitarre', 'Segelfliegen (Luftsportverein Langen)', 'Open-Source Hardware Projekte'],
-      leadershipStyle: 'Agil, forschend, ermutigend, enge Verzahnung von F&E mit Vertrieb und Kunden.',
-      personalityTraits: ['Präzise', 'Innovationshungrig', 'Teamorientiert', 'Problemlöser'],
-      socialMediaNotes: 'Veröffentlicht regelmäßig wissenschaftliche Papers auf arXiv & SPIE Konferenzen; hohe Vernetzung mit Fraunhofer Instituten.',
-      languages: ['Deutsch (Muttersprache)', 'Englisch (C2)'],
-      education: ['Promotion Physik / Optik – Universität Heidelberg', 'M.Sc. Technische Physik – TU Darmstadt']
-    },
-    employmentHistory: [
-      {
-        id: 'HIST-31',
-        role: 'Chief Technology Officer (CTO)',
-        company: 'OptoGrid Inspection Systems GmbH',
-        period: '2020 – Heute (6 Jahre)',
-        isCurrent: true,
-        revenueResponsibility: '8,5 Mio. € F&E Budget',
-        teamSize: '45 Ingenieure und Software-Entwickler',
-        keyAchievements: [
-          'Entwicklung der patentierten 3D-Kameraserie HyperSight mit 10-facher Bildrate',
-          'Erhöhung der Software-Margen durch Einführung eines SaaS-Lizenzmodells'
-        ],
-        kpiScore: 96
-      }
-    ],
-    employerIntelligence: {
-      companyName: 'OptoGrid Inspection Systems GmbH',
-      industry: 'Industrielle Bildverarbeitung',
-      employees: 110,
-      kununuScore: 4.1,
-      kununuTrend: 'stable',
-      kununuDetails: 'Gute Unternehmenskultur, jedoch Begrenzung der unternehmerischen Freiheit durch Mehrheitsinvestor.',
-      glassdoorSalaryEstimate: '170.000 € – 210.000 €',
-      mediaSummary: 'Positiv in Branchenmedien (Vision Systems Design, InVISION).',
-      revenueTrend: 'Stark wachsend (+14% YoY)',
-      employeeGrowthYoY: '+9.0%',
-      turnoverRisk: 'Low'
-    },
-    shortlisted: false
   }
 ];

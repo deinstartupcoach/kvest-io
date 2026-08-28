@@ -9,15 +9,12 @@ import { CompanyListView } from './components/company/CompanyListView';
 import { CompanyDetailModal } from './components/company/CompanyDetailModal';
 import { CandidateListView } from './components/candidate/CandidateListView';
 import { CandidateDetailModal } from './components/candidate/CandidateDetailModal';
+import { ApiConnectorsView } from './components/connectors/ApiConnectorsView';
 import {
   Bookmark,
-  Send,
-  Database,
-  Settings,
   Building2,
   Users,
-  CheckCircle2,
-  Download
+  CheckCircle2
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -96,8 +93,8 @@ export const App: React.FC = () => {
   const shortlistedCandidates = candidates.filter(c => c.shortlisted);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col selection:bg-[#1677FF] selection:text-white">
-      {/* Global Dark Navy Header (#0B1633) with new Logo */}
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col selection:bg-[#0B1633] selection:text-white">
+      {/* Global Dark Navy Header with white-with-emblem Logo */}
       <Header
         activeTab={mainTab}
         onSelectTab={(tab) => {
@@ -147,7 +144,7 @@ export const App: React.FC = () => {
 
           {mainTab === 'watchlist' && (
             <div className="space-y-6">
-              <div className="bg-white p-4 rounded-lg border border-slate-200">
+              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
                 <h2 className="text-lg font-bold text-[#0B1633]">Geparkte M&amp;A Targets &amp; Shortlisted Executives</h2>
                 <p className="text-xs text-slate-500 mt-0.5">Zentraler Workspace für selektierte Buyout-Targets und Management-Matches</p>
               </div>
@@ -155,7 +152,7 @@ export const App: React.FC = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xs font-bold text-[#0B1633] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <Building2 size={14} className="text-[#1677FF]" /> M&amp;A Watchlist ({watchlistCompanies.length} Targets)
+                    <Building2 size={14} className="text-[#0B1633]" /> M&amp;A Watchlist ({watchlistCompanies.length} Targets)
                   </h3>
                   {watchlistCompanies.length > 0 ? (
                     <CompanyListView
@@ -173,7 +170,7 @@ export const App: React.FC = () => {
 
                 <div>
                   <h3 className="text-xs font-bold text-[#0B1633] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <Users size={14} className="text-[#1677FF]" /> Shortlisted C-Level Kandidaten ({shortlistedCandidates.length} Profile)
+                    <Users size={14} className="text-[#0B1633]" /> Shortlisted C-Level Kandidaten ({shortlistedCandidates.length} Profile)
                   </h3>
                   {shortlistedCandidates.length > 0 ? (
                     <CandidateListView
@@ -191,79 +188,13 @@ export const App: React.FC = () => {
             </div>
           )}
 
-          {mainTab === 'pipeline' && (
-            <div className="space-y-4">
-              <div className="bg-white p-4 rounded-lg border border-slate-200">
-                <h2 className="text-lg font-bold text-[#0B1633]">CRM &amp; Deal Flow Connector</h2>
-                <p className="text-xs text-slate-500 mt-0.5">Automatisierter Datenabgleich mit HubSpot, Salesforce und DealRoom</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-slate-900">HubSpot CRM Sync</span>
-                    <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">VERBUNDEN</span>
-                  </div>
-                  <p className="text-xs text-slate-600">Synchronisiert Firmenstammdaten und Gesellschafter als Deal-Cards.</p>
-                </div>
-
-                <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-slate-900">Salesforce M&amp;A Cloud</span>
-                    <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">BEREIT</span>
-                  </div>
-                  <p className="text-xs text-slate-600">Direkter 2-Wege Sync für Due Diligence Dossiers.</p>
-                </div>
-
-                <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-slate-900">PDF One-Pager Export</span>
-                    <span className="text-[10px] font-mono text-[#1677FF] bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-bold">TEMPLATE</span>
-                  </div>
-                  <p className="text-xs text-slate-600">Gebrandete Teaser &amp; Management Profile auf Knopfdruck.</p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {mainTab === 'intelligence' && (
-            <div className="space-y-4">
-              <div className="bg-white p-4 rounded-lg border border-slate-200">
-                <h2 className="text-lg font-bold text-[#0B1633]">Datenquellen &amp; Registerabgleich</h2>
-                <p className="text-xs text-slate-500 mt-0.5">Multi-Source Datenaggregation (Handelsregister, Bundesanzeiger, LinkedIn)</p>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-3">
-                <div className="p-3 bg-slate-50 rounded border border-slate-200 flex items-center justify-between">
-                  <div>
-                    <span className="font-bold text-xs text-slate-900">Handelsregister &amp; Unternehmensregister (BReg)</span>
-                    <p className="text-[11px] text-slate-500">Neuanmeldungen, GF-Wechsel und Bilanzhinterlegungen</p>
-                  </div>
-                  <span className="font-mono text-xs text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded font-bold">100% Sync</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {mainTab === 'settings' && (
-            <div className="space-y-4">
-              <div className="bg-white p-4 rounded-lg border border-slate-200">
-                <h2 className="text-lg font-bold text-[#0B1633]">Screener Einstellungen</h2>
-                <p className="text-xs text-slate-500 mt-0.5">Konfiguration für kvest.io Screener-Parameter</p>
-              </div>
-
-              <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-3 max-w-xl">
-                <div>
-                  <label className="text-xs font-semibold text-slate-700 block mb-1">Nachfolge-Altersgrenze Eigner (Jahre):</label>
-                  <input type="number" defaultValue={60} className="p-2 bg-slate-50 border border-slate-300 rounded text-xs text-slate-900 w-40 font-mono" />
-                </div>
-              </div>
-            </div>
+          {mainTab === 'connectors' && (
+            <ApiConnectorsView />
           )}
         </main>
       </div>
 
-      {/* Mockup 2: Company Detail Modal (Blurred Backdrop) */}
+      {/* Mockup 2: Company Detail Modal */}
       {selectedCompany && (
         <CompanyDetailModal
           company={selectedCompany}
@@ -273,7 +204,7 @@ export const App: React.FC = () => {
         />
       )}
 
-      {/* Mockup 4: Candidate Detail Modal (Blurred Backdrop) */}
+      {/* Mockup 4: Candidate Detail Modal */}
       {selectedCandidate && (
         <CandidateDetailModal
           candidate={selectedCandidate}

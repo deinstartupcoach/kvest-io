@@ -29,7 +29,11 @@ export interface NewsItem {
   date: string;
   source: string;
   headline: string;
+  author?: string;
+  publicationUrl?: string;
+  fullExcerpt: string;
   sentiment: 'positive' | 'neutral' | 'negative';
+  relevanceTag: string;
 }
 
 export interface Shareholding {
@@ -95,18 +99,12 @@ export interface CareerStation {
   kpiScore: number;
 }
 
-export interface EmployerIntelligence {
-  companyName: string;
-  industry: string;
-  employees: number;
-  kununuScore: number;
-  kununuTrend: 'up' | 'down' | 'stable';
-  kununuDetails: string;
-  glassdoorSalaryEstimate: string;
-  mediaSummary: string;
-  revenueTrend: string;
-  employeeGrowthYoY: string;
-  turnoverRisk: 'High' | 'Medium' | 'Low';
+export interface EmployerLoyaltyAudit {
+  status: string;
+  trend: 'declining' | 'neutral' | 'loyal';
+  details: string;
+  recentPostingQuote?: string;
+  lastCompanyMentionDate: string;
 }
 
 export interface Candidate {
@@ -144,12 +142,26 @@ export interface Candidate {
     interests: string[];
     leadershipStyle: string;
     personalityTraits: string[];
-    socialMediaNotes: string;
     languages: string[];
     education: string[];
+    toneOfVoice: string;
+    crisisPostingAudit: string;
+    employerLoyalty: EmployerLoyaltyAudit;
   };
   employmentHistory: CareerStation[];
-  employerIntelligence: EmployerIntelligence;
+  employerIntelligence: {
+    companyName: string;
+    industry: string;
+    employees: number;
+    kununuScore: number;
+    kununuTrend: 'up' | 'down' | 'stable';
+    kununuDetails: string;
+    glassdoorSalaryEstimate: string;
+    mediaSummary: string;
+    revenueTrend: string;
+    employeeGrowthYoY: string;
+    turnoverRisk: 'High' | 'Medium' | 'Low';
+  };
   shortlisted: boolean;
 }
 
@@ -159,4 +171,4 @@ export type ActiveMockupView =
   | 'candidate-list' 
   | 'candidate-detail';
 
-export type MainTab = 'companies' | 'candidates' | 'watchlist' | 'intelligence' | 'pipeline' | 'settings';
+export type MainTab = 'companies' | 'candidates' | 'watchlist' | 'connectors';

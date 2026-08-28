@@ -43,11 +43,48 @@ export const mockCompanies: Company[] = [
     ],
     mediaRating: 4.6,
     mediaRatingTrend: 'up',
-    mediaSummary: 'Sehr stabiles Reputationsprofil in Fachmedien (DeviceMed, MedTech ZFF). Positiv hervorgehoben wird die ISO 13485 Reinraum-Erweiterung 2023 und die Partnerschaft mit B. Braun. Keine negativen Arbeitsrechtsprozesse auffindbar.',
+    mediaSummary: 'Ausgewertete Berichterstattung der letzten 24 Monate: Kontinuierlich positive Berichterstattung über technologische Marktführerschaft bei Titan-Implantaten. Deutliche Hinweise auf anstehenden Gesellschafterwechsel im Südkurier und Handelsblatt. Keine negativen Arbeitsgerichtsprozesse.',
     newsItems: [
-      { date: '14.01.2026', source: 'Südkurier Wirtschaft', headline: 'Vetter Präzision investiert 2,4 Mio. € in neue Fünf-Achs-Fräszentren', sentiment: 'positive' },
-      { date: '08.10.2025', source: 'MedTech Journal DACH', headline: 'Titan-Implantate: Vetter erhält FDA 510(k) Zertifizierung für US-Export', sentiment: 'positive' },
-      { date: '12.04.2025', source: 'Handelsregister Bekanntmachung', headline: 'Gewinnabführung und Eigenkapital-Aufstockung um 1,2 Mio. €', sentiment: 'neutral' }
+      {
+        date: '18.01.2026',
+        source: 'Handelsblatt',
+        headline: 'Mittelstands-Nachfolge im Südwesten: Medizintechnik-Pioniere vor Generationenwechsel',
+        author: 'Martin Murphy, Korrespondent Baden-Württemberg',
+        publicationUrl: 'https://www.handelsblatt.com/unternehmen/industrie/medizintechnik-vetter-nachfolge-2026',
+        fullExcerpt: '„...Unternehmer Dr. Gerhard Vetter (65) bestätigt im Gespräch, dass die Weichen für die Zukunft gestellt werden: Eine familieninterne Nachfolge scheide aus. Ziel sei die Übergabe an einen strategischen Partner oder ein unternehmerisches Management-Team, das den US-Export weiter forciert...“',
+        sentiment: 'positive',
+        relevanceTag: 'Nachfolge & M&A'
+      },
+      {
+        date: '04.11.2025',
+        source: 'Südkurier Wirtschaft',
+        headline: 'Vetter Präzision investiert 2,4 Mio. Euro in vollautomatisierte Reinraum-Fertigung',
+        author: 'Stefan Hilser',
+        publicationUrl: 'https://www.suedkurier.de/region/schwarzwald/villingen-schwenningen/vetter-praezision-investition-2025',
+        fullExcerpt: '„...Mit der Inbetriebnahme von vier Fünf-Achs-CNC-Fräszentren sichert Vetter die Fertigung für OEM-Kunden wie Aesculap und Karl Storz. Die Jahreskapazität steigt um 25 Prozent bei gleichzeitiger Senkung der Stückkosten...“',
+        sentiment: 'positive',
+        relevanceTag: 'Kapazitätserweiterung'
+      },
+      {
+        date: '12.06.2025',
+        source: 'WirtschaftsWoche',
+        headline: 'Hidden Champions im Profil: Die heimlichen Gewinner der MedTech-Lieferketten',
+        author: 'Florian Güßgen',
+        publicationUrl: 'https://www.wiwo.de/unternehmen/mittelstand/hidden-champions-vetter-praezision-medtech',
+        fullExcerpt: '„...Mit einer Eigenkapitalquote von über 50 Prozent und einer EBITDA-Marge von 15,1 Prozent gehört das Unternehmen aus Villingen-Schwenningen zur Spitzengruppe im deutschen Feinmechanik-Sektor...“',
+        sentiment: 'positive',
+        relevanceTag: 'Finanzprofil'
+      },
+      {
+        date: '15.02.2025',
+        source: 'Bundesanzeiger',
+        headline: 'Feststellung des Jahresabschlusses zum 31.12.2024: Bilanzgewinn 2.812.450 EUR',
+        author: 'Elektronischer Bundesanzeiger',
+        publicationUrl: 'https://www.bundesanzeiger.de/ebanzwww/wexsservlet?id=HRB602819-2024',
+        fullExcerpt: '„...Der Jahresüberschuss in Höhe von 2.812 TEUR wird auf neue Rechnung vorgetragen. Die Liquiditätslage ist mit liquiden Mitteln in Höhe von 4,2 Mio. Euro überdurchschnittlich komfortabel...“',
+        sentiment: 'neutral',
+        relevanceTag: 'Bilanz-Offenlegung'
+      }
     ],
     keyClients: ['B. Braun Melsungen', 'Karl Storz SE', 'Aesculap AG', 'Stryker Trauma GmbH', 'Erbe Elektromedizin'],
     certifications: ['ISO 13485:2016 (Medizinprodukte)', 'ISO 9001:2015', 'FDA Registered Facility Class II/III', 'DIN EN ISO 14001'],
@@ -108,8 +145,26 @@ export const mockCompanies: Company[] = [
     mediaRatingTrend: 'up',
     mediaSummary: 'Hohe Medienpräsenz bei LogiMAT und Automatisierungs-Fachmessen. Fokus auf Fahrerlose Transportsysteme (FTS/AGV). Mitarbeiterbewertungen auf Kununu bei 4.1 Sternen bei solider Weiterempfehlungsquote.',
     newsItems: [
-      { date: '22.02.2026', source: 'Logistik Heute', headline: 'Hofmann liefert 40 autonome Flurförderzeuge an Automobil-Zulieferer', sentiment: 'positive' },
-      { date: '19.11.2025', source: 'Main-Post Wirtschaft', headline: '40 Jahre Hofmann Fördertechnik: Rekordumsatz im Geschäftsjahr 2024/25', sentiment: 'positive' }
+      {
+        date: '22.02.2026',
+        source: 'Frankfurter Allgemeine Zeitung (FAZ)',
+        headline: 'Autonome Fabriken: Fränkischer Fördertechnik-Spezialist rüstet Automobilwerke um',
+        author: 'Holger Steltzner',
+        publicationUrl: 'https://www.faz.net/aktuell/wirtschaft/unternehmen/hofmann-foerdertechnik-agv-schweinfurt-2026',
+        fullExcerpt: '„...Mit 40 fahrerlosen Transportsystemen für ein neues Batteriewerk unterstreicht Hofmann & Söhne die Technologieführerschaft im gehobenen Anlagenbau...“',
+        sentiment: 'positive',
+        relevanceTag: 'Großauftrag'
+      },
+      {
+        date: '10.11.2025',
+        source: 'Main-Post Wirtschaft',
+        headline: '40 Jahre Hofmann Fördertechnik: Klaus-Peter Hofmann kündigt mittelfristigen Stabswechsel an',
+        author: 'Norbert Steiche',
+        publicationUrl: 'https://www.mainpost.de/regional/schweinfurt/hofmann-foerdertechnik-jubilaeum-nachfolge',
+        fullExcerpt: '„...Senior-Chef Klaus-Peter Hofmann (67) betonte auf dem Firmenjubiläum, dass der Fortbestand des Standorts Schweinfurt oberste Priorität hat. Die Suche nach einem kapitalkräftigen Mehrheitsgesellschafter läuft...“',
+        sentiment: 'positive',
+        relevanceTag: 'Nachfolge'
+      }
     ],
     keyClients: ['Schaeffler Technologies', 'ZF Friedrichshafen', 'BMW Group Dingolfing', 'Krones AG', 'KION Group Partner'],
     certifications: ['DIN EN ISO 9001:2015', 'CE Konformität Intralogistik', 'TÜV Rheinland Functional Safety SIL3'],
@@ -167,10 +222,18 @@ export const mockCompanies: Company[] = [
     ],
     mediaRating: 4.5,
     mediaRatingTrend: 'up',
-    mediaSummary: 'Anerkannter Spezialist für Batterie-Zellmontagelinien und Halbleiter-Handling. Auszeichnung mit dem Innovationspreis Ostwürttemberg 2024. Stark wachsende Auftragspipelines aus Clean Energy.',
+    mediaSummary: 'Anerkannter Spezialist für Batterie-Zellmontagelinien und Halbleiter-Handling. Innovationspreis Ostwürttemberg. Stark wachsende Auftragspipelines aus Clean Energy.',
     newsItems: [
-      { date: '05.02.2026', source: 'Produktion.de', headline: 'Bergmann & Krauss baut neue Montagehalle für Batteriepack-Fertigungsstraßen', sentiment: 'positive' },
-      { date: '14.09.2025', source: 'Schwäbische Post', headline: 'Volle Auftragsbücher sichern Beschäftigung bis Q3 2027', sentiment: 'positive' }
+      {
+        date: '05.02.2026',
+        source: 'Produktion.de / VDI Verlag',
+        headline: 'Bergmann & Krauss errichtet 4.000 qm Montagehalle für Batteriezell-Produktionsstraßen',
+        author: 'Klaus Vollrath',
+        publicationUrl: 'https://www.produktion.de/nachrichten/unternehmen/bergmann-krauss-batteriemontage-aalen-2026',
+        fullExcerpt: '„...Das Unternehmen profitiert von massiven Investitionen der europäischen Zellfertiger und sichert sich Aufträge bis ins Jahr 2027...“',
+        sentiment: 'positive',
+        relevanceTag: 'Expansion'
+      }
     ],
     keyClients: ['VARTA Microbattery', 'Trumpf Gruppe', 'Carl Zeiss AG', 'Bosch Rexroth', 'Customcells Itzehoe'],
     certifications: ['DIN EN ISO 9001', 'ISO 14001', 'CE-Zertifizierung Sondermaschinenbau'],
@@ -229,7 +292,16 @@ export const mockCompanies: Company[] = [
     mediaRatingTrend: 'up',
     mediaSummary: 'Technologieführer bei optischer 3D-Inline-Inspektion für Halbleiter & Batteriefertigung. Exzellente Patente im Bereich Time-of-Flight Lasersensorik.',
     newsItems: [
-      { date: '18.01.2026', source: 'Elektronik Praxis', headline: 'OptiSens stellt ultrakompakten LiDAR-Distanzsensor mit 0.1 µm Auflösung vor', sentiment: 'positive' }
+      {
+        date: '18.01.2026',
+        source: 'Elektronik Praxis / Vogel Communications',
+        headline: 'OptiSens stellt ultrakompakten LiDAR-Distanzsensor mit 0.1 µm Auflösung vor',
+        author: 'Gerd Kucera',
+        publicationUrl: 'https://www.elektronikpraxis.de/optisens-lidar-sensor-halbleiter-inline-2026',
+        fullExcerpt: '„...Der neue Sensor ermöglicht erstmals die 100-Prozent-Prüfung von Wafern direkt im Bearbeitungszentrum...“',
+        sentiment: 'positive',
+        relevanceTag: 'Produktneuheit'
+      }
     ],
     keyClients: ['Infineon Technologies', 'ASML Partner Ecosystem', 'KLA Tencor Germany', 'Siemens Digital Industries'],
     certifications: ['ISO 9001:2015', 'ATEX Explosionsschutz', 'CE / UL Zertifizierungen'],
@@ -287,7 +359,16 @@ export const mockCompanies: Company[] = [
     mediaRatingTrend: 'neutral',
     mediaSummary: 'Hohe Marktstellung im fränkischen Gewerbe- und Industriekälte-Segment. Starke wiederkehrende Service- und Wartungsverträge (>40% Umsatzanteil).',
     newsItems: [
-      { date: '10.12.2025', source: 'Kälte Klima Aktuell', headline: 'Kühn Thermotechnik rüstet Großkühlhaus im Nürnberger Hafen auf CO2-Kältemittel um', sentiment: 'positive' }
+      {
+        date: '10.12.2025',
+        source: 'Kälte Klima Aktuell / Hüthig Verlag',
+        headline: 'Kühn Thermotechnik rüstet Großkühlhaus im Nürnberger Hafen auf CO2-Kältemittel um',
+        author: 'Rainer Schaal',
+        publicationUrl: 'https://www.kka-online.info/artikel/kuehn-thermotechnik-co2-kuehlhaus-nuernberg-2025',
+        fullExcerpt: '„...Mit modernster transkritischer CO2-Technik senkt Kühn den Energieverbrauch des Logistikzentrums um 30 Prozent...“',
+        sentiment: 'positive',
+        relevanceTag: 'Projektbericht'
+      }
     ],
     keyClients: ['EDEKA Nordbayern', 'Universitätsklinikum Erlangen', 'Datev eG Rechenzentren', 'NürnbergMesse GmbH'],
     certifications: ['WHG § 19 l Fachbetrieb', 'Zertifizierter Kälte-Klima-Fachbetrieb nach ChemKlimaschutzV', 'ISO 9001'],
@@ -302,181 +383,5 @@ export const mockCompanies: Company[] = [
     email: 'zentrale@kuehn-thermotechnik.de',
     watchlistStatus: true,
     crmExported: true
-  },
-  {
-    id: 'COMP-3021',
-    name: 'Nordic Flow Systems AG',
-    legalForm: 'AG',
-    foundingYear: 2002,
-    age: 24,
-    state: 'Schleswig-Holstein',
-    city: 'Lübeck',
-    postalCode: '23556',
-    address: 'Kanalstraße 18-20',
-    employeeCount: 95,
-    employeeBracket: '50-199',
-    industry: 'Pumpen- & Strömungstechnik',
-    wzCode: 'C 28.13',
-    wzDescription: 'Herstellung von Pumpen und Kompressoren',
-    hrNumber: 'HRB 8821 HL',
-    court: 'Amtsgericht Lübeck',
-    registerUrl: 'https://www.unternehmensregister.de/ureg/result.html?id=HRB8821HL',
-    owners: [
-      { name: 'Dr. Jens Holgersen', age: 63, sharePercentage: 70, role: 'Vorstandsvorsitzender & Hauptaktionär', isSuccessionCandidate: true },
-      { name: 'NordCapital Family Office', age: 55, sharePercentage: 30, role: 'Finanzinvestor', isSuccessionCandidate: false }
-    ],
-    managingDirectors: [
-      { name: 'Dr. Jens Holgersen', age: 63, title: 'Vorstandsvorsitzender (CEO)', sinceYear: 2002, email: 'j.holgersen@nordic-flow.de', phone: '+49 451 980-11' },
-      { name: 'Sönke Peters', age: 46, title: 'Vorstand Finanzen & Vertrieb (CFO)', sinceYear: 2021, email: 's.peters@nordic-flow.de', phone: '+49 451 980-15' }
-    ],
-    balanceSheetTotal: 14.1,
-    balanceSheetTotalTrend: 6.8,
-    netProfit: 1.9,
-    netProfitTrend: 10.5,
-    ebitda: 2.6,
-    revenue: 20.4,
-    equityRatio: 56.0,
-    financialHistory: [
-      { year: 2020, revenue: 15.0, balanceTotal: 10.9, profit: 1.2, ebitda: 1.7, employees: 80 },
-      { year: 2021, revenue: 16.5, balanceTotal: 11.8, profit: 1.4, ebitda: 2.0, employees: 84 },
-      { year: 2022, revenue: 18.0, balanceTotal: 12.6, profit: 1.6, ebitda: 2.3, employees: 88 },
-      { year: 2023, revenue: 19.3, balanceTotal: 13.4, profit: 1.8, ebitda: 2.4, employees: 92 },
-      { year: 2024, revenue: 20.4, balanceTotal: 14.1, profit: 1.9, ebitda: 2.6, employees: 95 }
-    ],
-    mediaRating: 4.3,
-    mediaRatingTrend: 'up',
-    mediaSummary: 'Spezialanbieter für korrosionsbeständige Industriepumpen in der maritimen Industrie und Chemie. Stabiles Wachstum und hohe Exportquote nach Skandinavien.',
-    newsItems: [
-      { date: '11.02.2026', source: 'Schiff & Hafen', headline: 'Nordic Flow stattet 6 Hybrid-Containerschiffe mit energieeffizienten Ballastwasserpumpen aus', sentiment: 'positive' }
-    ],
-    keyClients: ['Meyer Werft Papenburg', 'Wärtsilä Marine', 'BASF Werk Ludwigshafen', 'Aurubis AG Hamburg'],
-    certifications: ['DNV-GL Marine Type Approval', 'ISO 9001:2015', 'ATEX Zone 1/2'],
-    shareholdings: [
-      { entity: 'Nordic Flow Danmark ApS', type: 'subsidiary', share: '100%', jurisdiction: 'Kopenhagen, Dänemark' }
-    ],
-    successionScore: 'MEDIUM',
-    successionReason: 'CEO (63) beabsichtigt mittelfristige Übergabe an externen CEO oder Gesamtverkauf im Schulterschluss mit dem 30% Minderheitsinvestor.',
-    website: 'https://nordic-flow-systems.de',
-    phone: '+49 451 980-0',
-    email: 'info@nordic-flow.de',
-    watchlistStatus: false,
-    crmExported: false
-  },
-  {
-    id: 'COMP-1198',
-    name: 'AeroMech Precision Components GmbH',
-    legalForm: 'GmbH',
-    foundingYear: 1991,
-    age: 35,
-    state: 'Bayern',
-    city: 'Donauwörth',
-    postalCode: '86609',
-    address: 'Flugplatzstraße 7',
-    employeeCount: 195,
-    employeeBracket: '50-199',
-    industry: 'Luft- & Raumfahrt Zulieferer',
-    wzCode: 'C 30.30',
-    wzDescription: 'Luft- und Raumfahrzeugbau & Komponentenfertigung',
-    hrNumber: 'HRB 18920',
-    court: 'Amtsgericht Augsburg',
-    registerUrl: 'https://www.unternehmensregister.de/ureg/result.html?id=HRB18920',
-    owners: [
-      { name: 'Dr. Walter Neumeier', age: 68, sharePercentage: 80, role: 'Mehrheitsgesellschafter', isSuccessionCandidate: true },
-      { name: 'Sabine Neumeier-Bauer', age: 41, sharePercentage: 20, role: 'Minderheitsgesellschafterin', isSuccessionCandidate: false }
-    ],
-    managingDirectors: [
-      { name: 'Dr. Walter Neumeier', age: 68, title: 'CEO', sinceYear: 1991, email: 'w.neumeier@aeromech.de', phone: '+49 906 7780-10' },
-      { name: 'Jürgen Kraemer', age: 56, title: 'COO / Leitung Luftfahrtzertifizierung', sinceYear: 2014, email: 'j.kraemer@aeromech.de', phone: '+49 906 7780-25' }
-    ],
-    balanceSheetTotal: 31.2,
-    balanceSheetTotalTrend: 8.5,
-    netProfit: 4.1,
-    netProfitTrend: 15.3,
-    ebitda: 5.6,
-    revenue: 44.8,
-    equityRatio: 51.5,
-    financialHistory: [
-      { year: 2020, revenue: 31.5, balanceTotal: 23.4, profit: 2.6, ebitda: 3.8, employees: 165 },
-      { year: 2021, revenue: 35.0, balanceTotal: 25.8, profit: 3.1, ebitda: 4.3, employees: 175 },
-      { year: 2022, revenue: 39.2, balanceTotal: 27.9, profit: 3.5, ebitda: 4.9, employees: 182 },
-      { year: 2023, revenue: 42.1, balanceTotal: 29.4, profit: 3.8, ebitda: 5.2, employees: 190 },
-      { year: 2024, revenue: 44.8, balanceTotal: 31.2, profit: 4.1, ebitda: 5.6, employees: 195 }
-    ],
-    mediaRating: 4.7,
-    mediaRatingTrend: 'up',
-    mediaSummary: 'Tier-1 Lieferant für Hubschrauber-Strukturbauteile und Triebwerksgehäuse. Hohe Eintrittsbarrieren durch EN 9100 Zulassung und qualifizierte Sonderprozesse.',
-    newsItems: [
-      { date: '02.02.2026', source: 'Flug Revue Business', headline: 'Airbus Helicopters zeichnet AeroMech als Preferred Supplier of the Year aus', sentiment: 'positive' }
-    ],
-    keyClients: ['Airbus Helicopters Deutschland', 'MTU Aero Engines', 'Liebherr Aerospace', 'Diehl Aviation'],
-    certifications: ['EN 9100:2018 (Luftfahrt)', 'NADCAP NonDestructive Testing & Chemical Processing', 'ISO 14001'],
-    shareholdings: [
-      { entity: 'AeroMech Surface Technologies GmbH', type: 'subsidiary', share: '100%', jurisdiction: 'Deutschland' }
-    ],
-    successionScore: 'CRITICAL_HIGH',
-    successionReason: 'Gründer (68 Jahre) sucht strategischen Investor oder PE-Käufer, der das starke internationale Wachstum im Defence & Aerospace Sektor finanzieren kann.',
-    website: 'https://aeromech-precision.de',
-    phone: '+49 906 7780-0',
-    email: 'info@aeromech.de',
-    watchlistStatus: false,
-    crmExported: false
-  },
-  {
-    id: 'COMP-9082',
-    name: 'Dr. Weiland Kunststofftechnik GmbH',
-    legalForm: 'GmbH',
-    foundingYear: 1981,
-    age: 45,
-    state: 'Bayern',
-    city: 'Coburg',
-    postalCode: '96450',
-    address: 'Graf-Zeppelin-Straße 11',
-    employeeCount: 130,
-    employeeBracket: '50-199',
-    industry: 'Kunststoff- & Spritzgusstechnik',
-    wzCode: 'C 22.29',
-    wzDescription: 'Herstellung von sonstigen Kunststoffwaren',
-    hrNumber: 'HRB 2419',
-    court: 'Amtsgericht Coburg',
-    registerUrl: 'https://www.unternehmensregister.de/ureg/result.html?id=HRB2419',
-    owners: [
-      { name: 'Dr. Ulrich Weiland', age: 71, sharePercentage: 100, role: 'Alleingesellschafter', isSuccessionCandidate: true }
-    ],
-    managingDirectors: [
-      { name: 'Dr. Ulrich Weiland', age: 71, title: 'Geschäftsführer', sinceYear: 1981, email: 'u.weiland@weiland-kunststoff.de', phone: '+49 9561 740-10' },
-      { name: 'Corinna Seidel', age: 49, title: 'Prokuristin & Kaufmännische Leitung', sinceYear: 2011, email: 'c.seidel@weiland-kunststoff.de', phone: '+49 9561 740-18' }
-    ],
-    balanceSheetTotal: 17.8,
-    balanceSheetTotalTrend: 3.2,
-    netProfit: 2.4,
-    netProfitTrend: 5.1,
-    ebitda: 3.1,
-    revenue: 22.5,
-    equityRatio: 61.2,
-    financialHistory: [
-      { year: 2020, revenue: 19.0, balanceTotal: 15.2, profit: 2.0, ebitda: 2.6, employees: 122 },
-      { year: 2021, revenue: 20.1, balanceTotal: 16.0, profit: 2.1, ebitda: 2.7, employees: 125 },
-      { year: 2022, revenue: 21.2, balanceTotal: 16.8, profit: 2.3, ebitda: 2.9, employees: 128 },
-      { year: 2023, revenue: 21.9, balanceTotal: 17.3, profit: 2.3, ebitda: 3.0, employees: 129 },
-      { year: 2024, revenue: 22.5, balanceTotal: 17.8, profit: 2.4, ebitda: 3.1, employees: 130 }
-    ],
-    mediaRating: 4.1,
-    mediaRatingTrend: 'neutral',
-    mediaSummary: 'Sehr gesunde Bilanzstruktur und schuldenfrei. Spezialisiert auf hochpräzise Mehrkomponenten-Spritzgussteile für Medizingerätegehäuse und Industrieelektronik.',
-    newsItems: [
-      { date: '19.12.2025', source: 'K-Zeitung', headline: 'Weiland investiert in vollelektrische Spritzgussmaschinen der neuen Generation', sentiment: 'positive' }
-    ],
-    keyClients: ['Brose Fahrzeugteile', 'Drägerwerk AG', 'Rosenberger Hochfrequenztechnik', 'WAGO Kontakttechnik'],
-    certifications: ['IATF 16949:2016', 'ISO 9001:2015', 'ISO 50001 Energiemanagement'],
-    shareholdings: [
-      { entity: 'Weiland Immobilien GbR', type: 'sister', share: '100%', jurisdiction: 'Coburg, Deutschland' }
-    ],
-    successionScore: 'CRITICAL_HIGH',
-    successionReason: 'Inhaber ist 71 Jahre alt, kinderlos. Übernahmegespräche für vollständige Firmenübernahme inklusive Betriebsimmobilie werden aktiv gesucht.',
-    website: 'https://weiland-kunststofftechnik.de',
-    phone: '+49 9561 740-0',
-    email: 'zentrale@weiland-kunststoff.de',
-    watchlistStatus: false,
-    crmExported: false
   }
 ];

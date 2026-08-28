@@ -3,12 +3,10 @@ import { MainTab } from '../../types';
 import {
   Search,
   Bell,
-  SlidersHorizontal,
   Bookmark,
-  Send,
   Building2,
   Users,
-  ChevronDown
+  Zap
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -24,9 +22,8 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <header className="bg-[#0B1633] text-white border-b border-[#162750] sticky top-0 z-40">
-      {/* Top Primary Navigation Bar */}
       <div className="h-14 px-6 flex items-center justify-between">
-        {/* Left: Brand Logo & Top Context */}
+        {/* Left: Brand Logo & Navigation */}
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3">
             <img
@@ -43,18 +40,18 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => onSelectTab('companies')}
               className={`px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5 ${
                 activeTab === 'companies'
-                  ? 'bg-[#1677FF] text-white shadow-sm'
+                  ? 'bg-[#1677FF] text-white shadow-xs'
                   : 'text-slate-300 hover:text-white hover:bg-[#162750]'
               }`}
             >
               <Building2 size={14} />
-              <span>Company Search (Targets)</span>
+              <span>Target Screener (M&amp;A)</span>
             </button>
             <button
               onClick={() => onSelectTab('candidates')}
               className={`px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5 ${
                 activeTab === 'candidates'
-                  ? 'bg-[#1677FF] text-white shadow-sm'
+                  ? 'bg-[#1677FF] text-white shadow-xs'
                   : 'text-slate-300 hover:text-white hover:bg-[#162750]'
               }`}
             >
@@ -65,12 +62,12 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => onSelectTab('watchlist')}
               className={`px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5 ${
                 activeTab === 'watchlist'
-                  ? 'bg-[#1677FF] text-white shadow-sm'
+                  ? 'bg-[#1677FF] text-white shadow-xs'
                   : 'text-slate-300 hover:text-white hover:bg-[#162750]'
               }`}
             >
               <Bookmark size={14} />
-              <span>Watchlist &amp; Shortlists</span>
+              <span>Watchlist</span>
               {watchlistCount > 0 && (
                 <span className="ml-1 bg-amber-400 text-slate-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">
                   {watchlistCount}
@@ -78,20 +75,21 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
             <button
-              onClick={() => onSelectTab('pipeline')}
+              onClick={() => onSelectTab('connectors')}
               className={`px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5 ${
-                activeTab === 'pipeline'
-                  ? 'bg-[#1677FF] text-white shadow-sm'
+                activeTab === 'connectors'
+                  ? 'bg-[#1677FF] text-white shadow-xs'
                   : 'text-slate-300 hover:text-white hover:bg-[#162750]'
               }`}
             >
-              <Send size={14} />
-              <span>CRM &amp; Deal Flow</span>
+              <Zap size={14} />
+              <span>API Connectors</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-green-pulse ml-0.5"></span>
             </button>
           </nav>
         </div>
 
-        {/* Center: Global Screener Search Input */}
+        {/* Center: Search */}
         <div className="relative w-80 hidden lg:block">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
@@ -101,13 +99,8 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </div>
 
-        {/* Right: Deal Status & User Profile */}
+        {/* Right: Status & Profile */}
         <div className="flex items-center gap-4">
-          <div className="hidden xl:flex items-center gap-2 text-[11px] font-mono text-slate-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Unternehmensregister: <strong>Live-Abfrage DACH</strong></span>
-          </div>
-
           <button className="p-1.5 rounded-md bg-[#0E1A3C] text-slate-300 hover:text-white border border-[#1F3163] transition-colors relative">
             <Bell size={15} />
             <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#1677FF]"></span>

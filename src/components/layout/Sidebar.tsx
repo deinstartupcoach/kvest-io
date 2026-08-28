@@ -4,13 +4,8 @@ import {
   Building2,
   Users,
   Bookmark,
-  Send,
-  Database,
-  Settings,
-  Layers,
-  ChevronRight,
-  TrendingUp,
-  FileSpreadsheet
+  Zap,
+  ChevronRight
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -31,45 +26,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'companies' as MainTab,
       label: 'Target Screener',
       sub: 'M&A & Nachfolge',
-      icon: <Building2 size={18} />,
+      icon: <Building2 size={16} />,
       count: '1.428'
     },
     {
       id: 'candidates' as MainTab,
       label: 'Executive Sourcing',
       sub: 'C-Level & MBI Match',
-      icon: <Users size={18} />,
+      icon: <Users size={16} />,
       count: '640'
     },
     {
       id: 'watchlist' as MainTab,
       label: 'Watchlist & Pipeline',
       sub: 'Geparkte Targets',
-      icon: <Bookmark size={18} />,
+      icon: <Bookmark size={16} />,
       badge: watchlistCount + shortlistCount
     },
     {
-      id: 'pipeline' as MainTab,
-      label: 'CRM Export & Deals',
-      sub: 'HubSpot / Salesforce',
-      icon: <Send size={18} />
-    },
-    {
-      id: 'intelligence' as MainTab,
-      label: 'Datenquellen (BReg)',
-      sub: 'Handelsregister Sync',
-      icon: <Database size={18} />
-    },
-    {
-      id: 'settings' as MainTab,
-      label: 'Einstellungen',
-      sub: 'Filter & Export-Setup',
-      icon: <Settings size={18} />
+      id: 'connectors' as MainTab,
+      label: 'API Connectors',
+      sub: 'North Data, LinkedIn, CRM',
+      icon: <Zap size={16} />,
+      liveDot: true
     }
   ];
 
   return (
-    <aside className="w-60 bg-[#0B1633] text-white border-r border-[#162750] flex flex-col justify-between shrink-0 h-full min-h-[calc(100vh-3.5rem)]">
+    <aside className="w-56 bg-[#0B1633] text-white border-r border-[#162750] flex flex-col justify-between shrink-0 h-full min-h-[calc(100vh-3.5rem)]">
       <div className="p-3 space-y-1">
         <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
           M&amp;A Screener Module
@@ -81,13 +65,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={item.id}
               onClick={() => onSelectTab(item.id)}
-              className={`w-full text-left px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
+              className={`w-full text-left px-3 py-2.5 rounded-md text-xs font-semibold flex items-center justify-between transition-colors ${
                 isActive
-                  ? 'bg-[#1677FF] text-white shadow-sm'
+                  ? 'bg-[#1677FF] text-white shadow-xs'
                   : 'text-slate-300 hover:bg-[#162750] hover:text-white'
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <span className={isActive ? 'text-white' : 'text-slate-400'}>
                   {item.icon}
                 </span>
@@ -110,6 +94,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   {item.badge}
                 </span>
               )}
+
+              {item.liveDot && (
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-green-pulse"></span>
+              )}
             </button>
           );
         })}
@@ -118,10 +106,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-4 border-t border-[#162750] text-[11px] text-slate-400 space-y-1">
         <div className="flex items-center justify-between text-xs font-semibold text-slate-200">
           <span>PE Enterprise Seat</span>
-          <span className="text-emerald-400 font-mono text-[10px]">ACTIVE</span>
+          <span className="text-emerald-400 font-mono text-[10px] font-bold">CONNECTED</span>
         </div>
         <p className="text-[10px] text-slate-400 leading-tight">
-          Handelsregister &amp; Bundesanzeiger Datenbestand Stand Q1 2026.
+          Handelsregister &amp; BReg Datenbestand Stand Q1 2026.
         </p>
       </div>
     </aside>

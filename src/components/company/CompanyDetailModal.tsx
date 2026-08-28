@@ -24,7 +24,8 @@ import {
   AlertTriangle,
   Award,
   Globe,
-  FileText
+  FileText,
+  Newspaper
 } from 'lucide-react';
 
 interface CompanyDetailModalProps {
@@ -47,135 +48,133 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
   return (
     <div className="modal-backdrop animate-fadeIn" onClick={onClose}>
       <div
-        className="relative w-full max-w-5xl max-h-[92vh] institutional-modal rounded-xl flex flex-col overflow-hidden text-slate-800"
+        className="relative w-full max-w-5xl max-h-[92vh] bg-white rounded-xl flex flex-col overflow-hidden text-slate-800 border border-slate-300 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Bar (Dark Navy #0B1633) */}
-        <div className="p-6 bg-[#0B1633] text-white border-b border-[#162750] flex items-start justify-between">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-lg bg-[#162750] border border-blue-400/40 flex items-center justify-center text-white shrink-0">
-              <Building2 size={24} className="text-[#69B8FF]" />
+        <div className="p-5 bg-[#0B1633] text-white border-b border-[#162750] flex items-center justify-between">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-lg bg-[#162750] border border-blue-400/30 flex items-center justify-center text-white shrink-0">
+              <Building2 size={22} className="text-[#69B8FF]" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-xl font-bold tracking-tight text-white">{company.name}</h2>
-                <Badge variant="primary" size="sm">{company.legalForm}</Badge>
+                <h2 className="text-lg font-bold tracking-tight text-white">{company.name}</h2>
+                <span className="text-[10px] font-mono font-bold bg-[#162750] text-[#69B8FF] px-2 py-0.5 rounded border border-blue-400/20">
+                  {company.legalForm}
+                </span>
                 {company.successionScore === 'CRITICAL_HIGH' && (
-                  <Badge variant="warning" size="sm" icon={<AlertTriangle size={11} />}>
-                    Nachfolgerelevanz (&gt;60 J. Eigner)
-                  </Badge>
-                )}
-                {company.watchlistStatus && (
-                  <span className="text-[10px] bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">
-                    ★ Auf Watchlist
+                  <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded flex items-center gap-1">
+                    <AlertTriangle size={11} /> Nachfolgedringlichkeit (&gt;60 J.)
                   </span>
                 )}
               </div>
 
-              <div className="flex items-center gap-4 mt-2 text-xs text-slate-300 flex-wrap font-mono">
+              <div className="flex items-center gap-3 mt-1.5 text-xs text-slate-300 flex-wrap font-mono">
                 <span className="flex items-center gap-1 text-slate-300">
-                  <MapPin size={13} className="text-[#69B8FF]" />
+                  <MapPin size={12} className="text-[#69B8FF]" />
                   {company.postalCode} {company.city} ({company.state})
                 </span>
                 <span className="flex items-center gap-1 text-slate-300">
-                  <Calendar size={13} className="text-[#69B8FF]" />
+                  <Calendar size={12} className="text-[#69B8FF]" />
                   Gegr. {company.foundingYear} ({company.age} J.)
                 </span>
                 <span className="flex items-center gap-1 text-slate-300">
-                  <Users size={13} className="text-[#69B8FF]" />
-                  {company.employeeCount} Mitarbeiter
+                  <Users size={12} className="text-[#69B8FF]" />
+                  {company.employeeCount} MA
                 </span>
                 <a
                   href={company.registerUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-1 text-[#69B8FF] hover:underline bg-[#162750] px-2 py-0.5 rounded border border-blue-400/30"
+                  className="flex items-center gap-1 text-[#69B8FF] hover:underline bg-[#162750] px-2 py-0.5 rounded border border-blue-400/20"
                 >
-                  <FileText size={11} />
+                  <FileText size={10} />
                   {company.hrNumber} ({company.court})
-                  <ExternalLink size={10} />
+                  <ExternalLink size={9} />
                 </a>
               </div>
             </div>
           </div>
 
+          {/* Clean Institutional Top Action Buttons */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => onToggleWatchlist(company.id)}
-              className={`px-3 py-1.5 rounded text-xs font-semibold border transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                 company.watchlistStatus
-                  ? 'bg-amber-400 text-slate-950 border-amber-400'
-                  : 'bg-[#0E1A3C] text-slate-200 border-[#1F3163] hover:text-white'
+                  ? 'bg-amber-400 text-slate-950 font-bold'
+                  : 'bg-[#162750] text-slate-200 hover:text-white border border-[#1F3163]'
               }`}
             >
               <BookmarkPlus size={14} />
-              {company.watchlistStatus ? 'Gemerkt' : 'Watchlist'}
+              {company.watchlistStatus ? 'Auf Watchlist' : 'Watchlist'}
             </button>
             <button
               onClick={() => onExportCrm(company.id)}
-              className="px-3 py-1.5 rounded bg-[#1677FF] hover:bg-[#1677FF]/90 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors"
+              className="px-3.5 py-1.5 rounded bg-[#1677FF] hover:bg-blue-600 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors"
             >
               <Send size={13} />
-              Export to CRM
+              In CRM übertragen
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded bg-[#0E1A3C] text-slate-400 hover:text-white border border-[#1F3163] transition-colors ml-2"
+              className="p-1.5 rounded bg-[#162750] text-slate-400 hover:text-white hover:bg-rose-950/40 border border-[#1F3163] transition-colors ml-1"
             >
-              <X size={18} />
+              <X size={17} />
             </button>
           </div>
         </div>
 
-        {/* Tab Navigation (Clean Light) */}
-        <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
+        {/* Tab Navigation */}
+        <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'overview'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             1. Übersicht &amp; Kontakte
           </button>
           <button
             onClick={() => setActiveTab('graph')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'graph'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             2. Gesellschafter-Graph &amp; Holding
           </button>
           <button
             onClick={() => setActiveTab('financials')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
               activeTab === 'financials'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             3. Bilanzen &amp; Kennzahlen
           </button>
           <button
             onClick={() => setActiveTab('media')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeTab === 'media'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
-            4. Media-Check &amp; Reputation
+            <Newspaper size={13} />
+            4. Presse- &amp; Medien-Auswertung ({company.newsItems.length})
           </button>
         </div>
 
         {/* Modal Scrollable Content */}
-        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6 bg-white">
+        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-5 bg-white">
           {activeTab === 'overview' && (
             <div className="space-y-5">
-              {/* Succession Urgency Banner */}
               {company.successionScore === 'CRITICAL_HIGH' && (
                 <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 flex items-start gap-3">
                   <AlertTriangle className="text-amber-700 shrink-0 mt-0.5" size={18} />
@@ -190,12 +189,11 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                 </div>
               )}
 
-              {/* Grid: Contacts & Ownership */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Managing Directors */}
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-3 border-b border-slate-200 pb-2">
-                    <Briefcase size={15} className="text-[#1677FF]" />
+                    <Briefcase size={15} className="text-[#0B1633]" />
                     <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                       Geschäftsführung (GF)
                     </h4>
@@ -212,7 +210,7 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                         <p className="text-xs text-slate-600 mt-0.5">{md.title} (seit {md.sinceYear})</p>
                         <div className="mt-2 flex items-center gap-3 text-xs flex-wrap font-mono">
                           {md.email && (
-                            <a href={`mailto:${md.email}`} className="flex items-center gap-1 text-[#1677FF] hover:underline">
+                            <a href={`mailto:${md.email}`} className="flex items-center gap-1 text-[#0B1633] hover:underline font-semibold">
                               <Mail size={11} /> {md.email}
                             </a>
                           )}
@@ -223,7 +221,7 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                           )}
                           {md.linkedinUrl && (
                             <a href={md.linkedinUrl} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[#0077B5] hover:underline">
-                              <LinkedinIcon size={11} /> LinkedIn Profil
+                              <LinkedinIcon size={11} /> LinkedIn
                             </a>
                           )}
                         </div>
@@ -255,7 +253,7 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                           <span className="text-xs text-slate-500">{owner.role || 'Gesellschafter'}</span>
                         </div>
                         <div className="text-right">
-                          <span className="text-base font-mono font-bold text-[#1677FF]">
+                          <span className="text-base font-mono font-bold text-[#0B1633]">
                             {owner.sharePercentage}%
                           </span>
                           <span className="block text-[10px] text-slate-500 font-mono">Alter: {owner.age} J.</span>
@@ -289,7 +287,7 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
 
                 <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2 border-b border-slate-200 pb-2">
-                    <ShieldCheck size={15} className="text-indigo-700" />
+                    <ShieldCheck size={15} className="text-slate-700" />
                     <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                       Zertifizierungen &amp; Normen
                     </h4>
@@ -298,7 +296,7 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                     {company.certifications.map((cert, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 rounded bg-white text-xs font-mono text-indigo-900 border border-indigo-200"
+                        className="px-2.5 py-1 rounded bg-white text-xs font-mono text-slate-800 border border-slate-300"
                       >
                         {cert}
                       </span>
@@ -322,7 +320,6 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                 equityRatio={company.equityRatio}
               />
 
-              {/* Financial Detail Table */}
               <div className="bg-white border border-slate-200 rounded-lg p-4">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
                   Kennzahlen-Detailtabelle (G&amp;V &amp; Bilanzverlauf)
@@ -343,9 +340,9 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                       <tr key={row.year} className="hover:bg-slate-50">
                         <td className="py-2 px-3 font-bold text-slate-900">{row.year}</td>
                         <td className="py-2 px-3">{row.revenue.toFixed(1)} Mio. €</td>
-                        <td className="py-2 px-3 font-semibold text-[#1677FF]">{row.balanceTotal.toFixed(1)} Mio. €</td>
+                        <td className="py-2 px-3 font-semibold text-[#0B1633]">{row.balanceTotal.toFixed(1)} Mio. €</td>
                         <td className="py-2 px-3 font-bold text-emerald-800">{row.profit.toFixed(1)} Mio. €</td>
-                        <td className="py-2 px-3 text-indigo-900">{row.ebitda.toFixed(1)} Mio. €</td>
+                        <td className="py-2 px-3 text-slate-700">{row.ebitda.toFixed(1)} Mio. €</td>
                         <td className="py-2 px-3 text-slate-700">{row.employees} MA</td>
                       </tr>
                     ))}
@@ -355,14 +352,15 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
             </div>
           )}
 
+          {/* Tab 4: Creative & Detailed Media & Press Intelligence */}
           {activeTab === 'media' && (
             <div className="space-y-5">
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-5">
                 <div className="flex items-center justify-between mb-2 border-b border-slate-200 pb-2">
                   <div className="flex items-center gap-2">
-                    <Sparkles size={16} className="text-[#1677FF]" />
+                    <Sparkles size={16} className="text-[#0B1633]" />
                     <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-                      Aggregierte Medienauswertung &amp; Branchenreputation
+                      KI-Zusammenfassung des Medien- &amp; Branchen-Sentiments
                     </h4>
                   </div>
                   <div className="flex items-center gap-2">
@@ -375,29 +373,58 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
                 </p>
               </div>
 
-              <div className="bg-white border border-slate-200 rounded-lg p-4">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
-                  Erfasste Wirtschafts- und Registermeldungen
-                </h4>
-                <div className="space-y-2">
+              {/* Verified Press Citations with Dummy Links */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Erfasste Presseberichte &amp; Exzerpte zu Unternehmen &amp; Eigner
+                  </h4>
+                  <span className="text-slate-500 text-[11px] font-mono">
+                    {company.newsItems.length} verifizierte Artikel
+                  </span>
+                </div>
+
+                <div className="space-y-3">
                   {company.newsItems.map((news, idx) => (
                     <div
                       key={idx}
-                      className="p-3 bg-slate-50 rounded border border-slate-200 flex items-center justify-between gap-4"
+                      className="p-4 bg-white rounded-lg border border-slate-200 shadow-2xs space-y-2 hover:border-slate-300 transition-colors"
                     >
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-mono font-bold text-[#1677FF]">{news.date}</span>
-                          <span className="text-[11px] text-slate-500 font-semibold">• {news.source}</span>
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-bold text-xs text-[#0B1633] bg-slate-100 px-2 py-0.5 rounded">
+                              {news.source}
+                            </span>
+                            <span className="text-[11px] font-mono text-slate-500">{news.date}</span>
+                            {news.author && (
+                              <span className="text-[11px] text-slate-400 font-medium">von {news.author}</span>
+                            )}
+                          </div>
+                          <h5 className="text-sm font-bold text-slate-900 mt-1">{news.headline}</h5>
                         </div>
-                        <p className="text-xs font-medium text-slate-800 mt-0.5">{news.headline}</p>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200 shrink-0">
+                          {news.relevanceTag}
+                        </span>
                       </div>
-                      <Badge
-                        variant={news.sentiment === 'positive' ? 'success' : 'neutral'}
-                        size="sm"
-                      >
-                        {news.sentiment === 'positive' ? 'Positiv' : 'Neutral'}
-                      </Badge>
+
+                      <div className="p-3 bg-slate-50 rounded border-l-2 border-[#0B1633] text-xs text-slate-700 italic leading-relaxed">
+                        {news.fullExcerpt}
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] pt-1">
+                        <span className="text-slate-500 font-mono">Quelle verifiziert im DACH Medien-Archiv</span>
+                        <a
+                          href={news.publicationUrl || '#'}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            alert(`Dummy-Link geöffnet: ${news.source} (${news.date}) - "${news.headline}"`);
+                          }}
+                          className="text-[#0B1633] hover:underline font-semibold flex items-center gap-1"
+                        >
+                          Artikel auf {news.source.split(' ')[0].toLowerCase()}.de aufrufen <ExternalLink size={11} />
+                        </a>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -407,28 +434,14 @@ export const CompanyDetailModal: React.FC<CompanyDetailModalProps> = ({
         </div>
 
         {/* Modal Footer Bar */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600 font-sans">
-          <div className="flex items-center gap-2 font-mono">
-            <span>Stand: Q1 2026</span>
-            <span>•</span>
-            <span>Unternehmensregister, Bundesanzeiger, LinkedIn</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onClose}
-              className="px-3.5 py-1.5 rounded bg-white hover:bg-slate-100 text-slate-700 font-semibold border border-slate-300 transition-colors"
-            >
-              Schließen
-            </button>
-            <button
-              onClick={() => onExportCrm(company.id)}
-              className="px-4 py-1.5 rounded bg-[#1677FF] hover:bg-[#1677FF]/90 text-white font-bold flex items-center gap-1.5 shadow-xs transition-colors"
-            >
-              <Send size={13} />
-              In CRM Pipeline übertragen
-            </button>
-          </div>
+        <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600">
+          <span className="font-mono">Unternehmens-ID: {company.id}</span>
+          <button
+            onClick={onClose}
+            className="px-3.5 py-1.5 rounded bg-white hover:bg-slate-100 text-slate-700 font-semibold border border-slate-300 transition-colors"
+          >
+            Schließen
+          </button>
         </div>
       </div>
     </div>

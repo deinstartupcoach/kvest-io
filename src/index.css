@@ -3,44 +3,30 @@
 :root {
   --primary-navy: #0B1633;
   --signal-blue: #1677FF;
-  --light-blue: #69B8FF;
-  --sand: #E9DFCF;
-  --sand-light: #FAF7F2;
-  --warm-gray: #8A8176;
-  --dark-warm-gray: #5B534A;
-  
-  --bg-page: #F8FAFC;
+  --dark-charcoal: #0F172A;
+  --slate-body: #1E293B;
+  --slate-details: #64748B;
+  --border-slate: #E2E8F0;
+  --bg-canvas: #F8FAFC;
   --bg-card: #FFFFFF;
-  --border-card: #E2E8F0;
-  --border-subtle: #EDF2F7;
-  
-  --text-primary: #0B1633;
-  --text-secondary: #475569;
-  --text-muted: #8A8176;
-  
-  --success: #0D9488;
-  --success-light: #F0FDF4;
-  --warning: #D97706;
-  --warning-light: #FFFBEB;
-  --danger: #DC2626;
-  --danger-light: #FEF2F2;
 }
 
 * {
   box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--bg-page);
-  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--slate-body);
   min-height: 100vh;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Scrollbars for Light UI */
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -56,32 +42,6 @@ body {
   background: #94A3B8;
 }
 
-/* Typography Helpers */
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
-}
-.font-heading {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-}
-
-/* Institutional Panels */
-.screener-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-}
-
-.table-row-hover:hover {
-  background-color: #F8FAFC;
-}
-
-/* High-End Institutional Modal */
-.institutional-modal {
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  box-shadow: 0 20px 25px -5px rgba(11, 22, 51, 0.2), 0 8px 10px -6px rgba(11, 22, 51, 0.15);
-}
-
 /* Modal Overlay Backdrop */
 .modal-backdrop {
   position: fixed !important;
@@ -95,13 +55,18 @@ body {
   -webkit-backdrop-filter: blur(8px) !important;
 }
 
-/* Custom Table Grid */
 .custom-scrollbar {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #CBD5E1 #F1F5F9;
 }
 
-.btn-transition {
-  transition: all 0.15s ease-in-out;
+/* Green Live Indicator Pulse */
+@keyframes green-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.animate-green-pulse {
+  animation: green-pulse 2s infinite ease-in-out;
 }

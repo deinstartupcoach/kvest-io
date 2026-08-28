@@ -24,7 +24,10 @@ import {
   BookmarkPlus,
   Compass,
   CheckCircle2,
-  Calendar
+  Calendar,
+  MessageSquareQuote,
+  ShieldAlert,
+  Radio
 } from 'lucide-react';
 
 interface CandidateDetailModalProps {
@@ -45,118 +48,109 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
   return (
     <div className="modal-backdrop animate-fadeIn" onClick={onClose}>
       <div
-        className="relative w-full max-w-5xl max-h-[92vh] institutional-modal rounded-xl flex flex-col overflow-hidden text-slate-800"
+        className="relative w-full max-w-5xl max-h-[92vh] bg-white rounded-xl flex flex-col overflow-hidden text-slate-800 border border-slate-300 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Bar (Dark Navy #0B1633) */}
-        <div className="p-6 bg-[#0B1633] text-white border-b border-[#162750] flex items-start justify-between">
-          <div className="flex items-start gap-4">
+        <div className="p-5 bg-[#0B1633] text-white border-b border-[#162750] flex items-center justify-between">
+          <div className="flex items-center gap-3.5">
             <div className="relative">
               <img
                 src={candidate.avatarUrl}
                 alt={candidate.name}
-                className="w-14 h-14 rounded-lg object-cover border-2 border-blue-400/50 shadow-sm"
+                className="w-12 h-12 rounded-lg object-cover border border-blue-400/40 shadow-sm"
               />
               <div className="absolute -bottom-1 -right-1 bg-[#0077B5] text-white p-0.5 rounded border border-white">
-                <LinkedinIcon size={11} />
+                <LinkedinIcon size={10} />
               </div>
             </div>
 
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-xl font-bold tracking-tight text-white">{candidate.name}</h2>
+                <h2 className="text-lg font-bold tracking-tight text-white">{candidate.name}</h2>
                 <span className="font-mono text-xs text-slate-300 bg-[#162750] px-2 py-0.5 rounded">
                   {candidate.age} Jahre
                 </span>
-                <Badge variant="primary" size="sm">{candidate.currentRole}</Badge>
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-blue-500/20 text-[#69B8FF] border border-blue-400/30">
+                  {candidate.currentRole}
+                </span>
                 <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">
                   {candidate.matchScore}% Match
                 </span>
-                {candidate.shortlisted && (
-                  <span className="text-[10px] bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">
-                    ★ In Shortlist
-                  </span>
-                )}
               </div>
 
-              <p className="text-xs text-slate-300 mt-1">
-                Aktuell bei <strong className="text-white">{candidate.currentCompany}</strong> • {candidate.location} ({candidate.radiusKm} km Radius)
-              </p>
-
-              {/* Direct Contacts */}
-              <div className="flex items-center gap-4 mt-2 text-xs text-slate-300 flex-wrap font-mono">
-                <a href={`mailto:${candidate.contact.email}`} className="flex items-center gap-1 text-[#69B8FF] hover:underline">
-                  <Mail size={11} /> {candidate.contact.email}
-                </a>
-                <a href={`tel:${candidate.contact.phone}`} className="flex items-center gap-1 text-slate-300 hover:underline">
-                  <Phone size={11} /> {candidate.contact.phone}
-                </a>
-                <a href={candidate.contact.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[#69B8FF] hover:underline">
-                  <LinkedinIcon size={11} /> LinkedIn Profil
+              <div className="flex items-center gap-3 mt-1.5 text-xs text-slate-300 flex-wrap font-mono">
+                <span>Aktuell bei <strong className="text-white">{candidate.currentCompany}</strong></span>
+                <span>•</span>
+                <span>{candidate.location} ({candidate.radiusKm} km Radius)</span>
+                <span>•</span>
+                <a href={`mailto:${candidate.contact.email}`} className="text-[#69B8FF] hover:underline">
+                  {candidate.contact.email}
                 </a>
               </div>
             </div>
           </div>
 
+          {/* Clean Institutional Top Action Buttons */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => onToggleShortlist(candidate.id)}
-              className={`px-3 py-1.5 rounded text-xs font-semibold border transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded text-xs font-semibold transition-colors flex items-center gap-1.5 ${
                 candidate.shortlisted
-                  ? 'bg-amber-400 text-slate-950 border-amber-400'
-                  : 'bg-[#0E1A3C] text-slate-200 border-[#1F3163] hover:text-white'
+                  ? 'bg-amber-400 text-slate-950 font-bold'
+                  : 'bg-[#162750] text-slate-200 hover:text-white border border-[#1F3163]'
               }`}
             >
               <BookmarkPlus size={14} />
-              {candidate.shortlisted ? 'In Shortlist' : 'Auf Shortlist'}
+              {candidate.shortlisted ? 'In Shortlist' : 'Shortlist'}
             </button>
-            <button className="px-3.5 py-1.5 rounded bg-[#1677FF] hover:bg-[#1677FF]/90 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors">
+            <button className="px-3.5 py-1.5 rounded bg-[#1677FF] hover:bg-blue-600 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors">
               <Send size={13} />
               Direkt ansprechen
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded bg-[#0E1A3C] text-slate-400 hover:text-white border border-[#1F3163] transition-colors ml-2"
+              className="p-1.5 rounded bg-[#162750] text-slate-400 hover:text-white hover:bg-rose-950/40 border border-[#1F3163] transition-colors ml-1"
             >
-              <X size={18} />
+              <X size={17} />
             </button>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
+        <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
           <button
             onClick={() => setActiveSection('timeline')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'timeline'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             <Briefcase size={13} />
-            1. LinkedIn Werdegang &amp; Stationen
+            1. Werdegang &amp; Stationen
           </button>
           <button
             onClick={() => setActiveSection('insights')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'insights'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
-            <Heart size={13} />
-            2. Personal Summary &amp; Background
+            <MessageSquareQuote size={13} />
+            2. Charakter- &amp; Social-Media-Audit (Tone-of-Voice)
           </button>
           <button
             onClick={() => setActiveSection('employer')}
-            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'employer'
-                ? 'border-[#1677FF] text-[#1677FF]'
-                : 'border-transparent text-slate-600 hover:text-slate-900'
+                ? 'border-[#0B1633] text-[#0B1633]'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             <Building2 size={13} />
-            3. Derzeitiger Arbeitgeber (Kununu Intelligence)
+            3. Arbeitgeber-Audit (Kununu &amp; Wechselwilligkeit)
           </button>
         </div>
 
@@ -177,7 +171,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
               </div>
               <div className="bg-white p-2 rounded border border-slate-200">
                 <span className="text-[10px] text-slate-500 block font-sans">FÜHRUNGSERFAHRUNG</span>
-                <strong className="text-[#1677FF]">{candidate.leadershipExperienceYears} Jahre C-Level / GF</strong>
+                <strong className="text-[#0B1633]">{candidate.leadershipExperienceYears} Jahre C-Level / GF</strong>
               </div>
               <div className="bg-white p-2 rounded border border-slate-200">
                 <span className="text-[10px] text-slate-500 block font-sans">GEHALT (BENCHMARK)</span>
@@ -192,7 +186,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
 
           {/* Section 1: Employment History */}
           {activeSection === 'timeline' && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                   Chronologischer Werdegang (LinkedIn &amp; Referenzen)
@@ -210,10 +204,12 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                         <div className="flex items-center gap-2">
                           <h5 className="text-sm font-bold text-slate-900">{station.role}</h5>
                           {station.isCurrent && (
-                            <Badge variant="primary" size="sm">Aktuell</Badge>
+                            <span className="text-[10px] bg-blue-100 text-blue-900 font-bold px-2 py-0.2 rounded">
+                              Aktuell
+                            </span>
                           )}
                         </div>
-                        <span className="text-xs font-semibold text-[#1677FF]">
+                        <span className="text-xs font-semibold text-[#0B1633]">
                           {station.company}
                         </span>
                       </div>
@@ -245,42 +241,69 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             </div>
           )}
 
-          {/* Section 2: Personal Insights */}
+          {/* Section 2: Creative Tone of Voice & Psychological Social Audit */}
           {activeSection === 'insights' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-1.5">
-                  Interessen &amp; Persönliches Profil
-                </h4>
-                <div className="space-y-1.5">
-                  {candidate.personalInsights.interests.map((interest, idx) => (
-                    <div key={idx} className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
-                      • {interest}
-                    </div>
-                  ))}
+            <div className="space-y-4">
+              {/* Employer Loyalty & Posting Shift Banner */}
+              <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Radio size={16} className="text-amber-700 animate-pulse" />
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">
+                      Arbeitgeber-Loyalitäts-Trend &amp; Wechsel-Indikation
+                    </h4>
+                  </div>
+                  <span className="text-[10px] font-mono font-bold bg-amber-200 text-amber-950 px-2 py-0.5 rounded">
+                    {candidate.personalInsights.employerLoyalty.status}
+                  </span>
                 </div>
-                <div className="pt-2">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Social Media Background:</span>
-                  <p className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
-                    {candidate.personalInsights.socialMediaNotes}
-                  </p>
+                <p className="text-xs text-amber-900 leading-relaxed font-medium">
+                  {candidate.personalInsights.employerLoyalty.details}
+                </p>
+                {candidate.personalInsights.employerLoyalty.recentPostingQuote && (
+                  <div className="p-2.5 bg-white rounded border border-amber-200 text-xs text-slate-800 italic font-serif">
+                    {candidate.personalInsights.employerLoyalty.recentPostingQuote}
+                  </div>
+                )}
+                <div className="text-[10px] text-amber-800 font-mono pt-1">
+                  Letzte offizielle Arbeitgeber-Erwähnung: {candidate.personalInsights.employerLoyalty.lastCompanyMentionDate}
                 </div>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-1.5">
-                  Führungsstil &amp; Ausbildung
-                </h4>
-                <p className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
-                  {candidate.personalInsights.leadershipStyle}
-                </p>
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block">Ausbildung:</span>
-                  {candidate.personalInsights.education.map((edu, idx) => (
-                    <div key={idx} className="text-xs font-mono text-[#0B1633] bg-white p-1.5 rounded border border-slate-200">
-                      {edu}
+              {/* Grid: Tone-of-Voice & Boundary Audits */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-1.5">
+                    Tone-of-Voice Analyse (Social Media)
+                  </h4>
+                  <p className="text-xs text-slate-700 leading-relaxed bg-white p-3 rounded border border-slate-200">
+                    {candidate.personalInsights.toneOfVoice}
+                  </p>
+                  <div className="pt-2">
+                    <span className="text-[11px] font-bold text-slate-500 uppercase block mb-1">Führungsphilosophie:</span>
+                    <p className="text-xs text-slate-700 bg-white p-2.5 rounded border border-slate-200">
+                      {candidate.personalInsights.leadershipStyle}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-1.5">
+                    Krisen- &amp; Diskretions-Check
+                  </h4>
+                  <p className="text-xs text-slate-700 leading-relaxed bg-white p-3 rounded border border-slate-200">
+                    {candidate.personalInsights.crisisPostingAudit}
+                  </p>
+                  <div className="pt-2">
+                    <span className="text-[11px] font-bold text-slate-500 uppercase block mb-1">Interessen &amp; Background:</span>
+                    <div className="space-y-1">
+                      {candidate.personalInsights.interests.map((interest, idx) => (
+                        <div key={idx} className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
+                          • {interest}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -298,16 +321,9 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                     {candidate.employerIntelligence.industry} • {candidate.employerIntelligence.employees} MA
                   </span>
                 </div>
-                <Badge
-                  variant={
-                    candidate.employerIntelligence.turnoverRisk === 'High'
-                      ? 'danger'
-                      : 'warning'
-                  }
-                  size="md"
-                >
+                <span className="text-xs font-bold text-rose-800 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded">
                   Wechselbereitschaft: {candidate.employerIntelligence.turnoverRisk}
-                </Badge>
+                </span>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
