@@ -1,0 +1,8 @@
+kvest Brand Color Palette
+
+Primary Navy: #0B1633
+Signal Blue: #1677FF
+Light Blue: #69B8FF
+Sand: #E9DFCF
+Warm Gray: #8A8176
+Dark Warm Gray: #5B534A
