@@ -12,14 +12,14 @@ export const TrendIndicator: React.FC<TrendIndicatorProps> = ({
   value,
   direction,
   showPercentage = true,
-  size = 14
+  size = 13
 }) => {
   const calculatedDirection = direction || (value !== undefined ? (value > 0 ? 'up' : value < 0 ? 'down' : 'neutral') : 'neutral');
 
   if (calculatedDirection === 'up') {
     return (
-      <span className="inline-flex items-center gap-0.5 text-emerald-400 font-mono text-xs font-medium">
-        <TrendingUp size={size} className="text-emerald-400" />
+      <span className="inline-flex items-center gap-0.5 text-emerald-700 font-mono text-[11px] font-semibold">
+        <TrendingUp size={size} className="text-emerald-600" />
         {showPercentage && value !== undefined && `+${value.toFixed(1)}%`}
       </span>
     );
@@ -27,15 +27,15 @@ export const TrendIndicator: React.FC<TrendIndicatorProps> = ({
 
   if (calculatedDirection === 'down') {
     return (
-      <span className="inline-flex items-center gap-0.5 text-rose-400 font-mono text-xs font-medium">
-        <TrendingDown size={size} className="text-rose-400" />
+      <span className="inline-flex items-center gap-0.5 text-rose-700 font-mono text-[11px] font-semibold">
+        <TrendingDown size={size} className="text-rose-600" />
         {showPercentage && value !== undefined && `${value.toFixed(1)}%`}
       </span>
     );
   }
 
   return (
-    <span className="inline-flex items-center gap-0.5 text-slate-400 font-mono text-xs font-medium">
+    <span className="inline-flex items-center gap-0.5 text-slate-500 font-mono text-[11px] font-medium">
       <Minus size={size} className="text-slate-400" />
       {showPercentage && value !== undefined && `${value.toFixed(1)}%`}
     </span>

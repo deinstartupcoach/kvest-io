@@ -43,55 +43,56 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
   if (!candidate) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop animate-fadeIn">
+    <div className="modal-backdrop animate-fadeIn" onClick={onClose}>
       <div
-        className="relative w-full max-w-5xl max-h-[92vh] glass-modal rounded-2xl flex flex-col overflow-hidden text-[#E9DFCF]"
+        className="relative w-full max-w-5xl max-h-[92vh] institutional-modal rounded-xl flex flex-col overflow-hidden text-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Header Bar */}
-        <div className="p-6 border-b border-[#1F3163] bg-gradient-to-r from-[#0B1633] via-[#0E1A3C] to-[#0B1633] flex items-start justify-between relative">
+        {/* Modal Header Bar (Dark Navy #0B1633) */}
+        <div className="p-6 bg-[#0B1633] text-white border-b border-[#162750] flex items-start justify-between">
           <div className="flex items-start gap-4">
-            {/* LinkedIn Avatar */}
             <div className="relative">
               <img
                 src={candidate.avatarUrl}
                 alt={candidate.name}
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-[#1677FF] shadow-lg"
+                className="w-14 h-14 rounded-lg object-cover border-2 border-blue-400/50 shadow-sm"
               />
-              <div className="absolute -bottom-1.5 -right-1.5 bg-[#0077B5] text-white p-1 rounded-full border border-white/40 shadow">
-                <LinkedinIcon size={12} />
+              <div className="absolute -bottom-1 -right-1 bg-[#0077B5] text-white p-0.5 rounded border border-white">
+                <LinkedinIcon size={11} />
               </div>
             </div>
 
             <div>
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <h2 className="text-xl font-bold text-white tracking-tight">{candidate.name}</h2>
-                <span className="font-mono text-xs text-slate-300 bg-[#0B1633] px-2 py-0.5 rounded border border-[#1F3163]">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-xl font-bold tracking-tight text-white">{candidate.name}</h2>
+                <span className="font-mono text-xs text-slate-300 bg-[#162750] px-2 py-0.5 rounded">
                   {candidate.age} Jahre
                 </span>
-                <Badge variant="primary" size="md">{candidate.currentRole}</Badge>
-                <Badge variant="success" size="md" icon={<Sparkles size={11} />}>
+                <Badge variant="primary" size="sm">{candidate.currentRole}</Badge>
+                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">
                   {candidate.matchScore}% Match
-                </Badge>
+                </span>
                 {candidate.shortlisted && (
-                  <Badge variant="warning" size="sm">★ In Shortlist</Badge>
+                  <span className="text-[10px] bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">
+                    ★ In Shortlist
+                  </span>
                 )}
               </div>
 
-              <p className="text-xs text-slate-300 font-medium mt-1">
+              <p className="text-xs text-slate-300 mt-1">
                 Aktuell bei <strong className="text-white">{candidate.currentCompany}</strong> • {candidate.location} ({candidate.radiusKm} km Radius)
               </p>
 
               {/* Direct Contacts */}
-              <div className="flex items-center gap-4 mt-2.5 text-xs text-slate-300 flex-wrap font-mono">
+              <div className="flex items-center gap-4 mt-2 text-xs text-slate-300 flex-wrap font-mono">
                 <a href={`mailto:${candidate.contact.email}`} className="flex items-center gap-1 text-[#69B8FF] hover:underline">
-                  <Mail size={12} /> {candidate.contact.email}
+                  <Mail size={11} /> {candidate.contact.email}
                 </a>
                 <a href={`tel:${candidate.contact.phone}`} className="flex items-center gap-1 text-slate-300 hover:underline">
-                  <Phone size={12} /> {candidate.contact.phone}
+                  <Phone size={11} /> {candidate.contact.phone}
                 </a>
-                <a href={candidate.contact.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[#0077B5] hover:underline">
-                  <LinkedinIcon size={12} /> LinkedIn Profil
+                <a href={candidate.contact.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-[#69B8FF] hover:underline">
+                  <LinkedinIcon size={11} /> LinkedIn Profil
                 </a>
               </div>
             </div>
@@ -100,387 +101,257 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => onToggleShortlist(candidate.id)}
-              className={`p-2 rounded-lg border btn-transition flex items-center gap-1.5 text-xs font-semibold ${
+              className={`px-3 py-1.5 rounded text-xs font-semibold border transition-colors flex items-center gap-1.5 ${
                 candidate.shortlisted
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                  : 'bg-[#0E1A3C] text-slate-300 border-[#1F3163] hover:text-white hover:border-[#1677FF]'
+                  ? 'bg-amber-400 text-slate-950 border-amber-400'
+                  : 'bg-[#0E1A3C] text-slate-200 border-[#1F3163] hover:text-white'
               }`}
             >
-              <BookmarkPlus size={15} />
+              <BookmarkPlus size={14} />
               {candidate.shortlisted ? 'In Shortlist' : 'Auf Shortlist'}
             </button>
-            <button className="px-3.5 py-2 rounded-lg bg-[#1677FF] hover:bg-[#1677FF]/90 text-white text-xs font-bold border border-blue-400/50 shadow-md flex items-center gap-1.5 btn-transition">
-              <Send size={14} />
+            <button className="px-3.5 py-1.5 rounded bg-[#1677FF] hover:bg-[#1677FF]/90 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors">
+              <Send size={13} />
               Direkt ansprechen
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg bg-[#0E1A3C] text-slate-400 hover:text-white hover:bg-rose-900/40 hover:border-rose-500/50 border border-[#1F3163] btn-transition ml-2"
+              className="p-1.5 rounded bg-[#0E1A3C] text-slate-400 hover:text-white border border-[#1F3163] transition-colors ml-2"
             >
               <X size={18} />
             </button>
           </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="px-6 bg-[#091126] border-b border-[#1F3163] flex items-center gap-2">
+        {/* Tab Navigation */}
+        <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-2">
           <button
             onClick={() => setActiveSection('timeline')}
-            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'timeline'
-                ? 'border-[#1677FF] text-[#69B8FF]'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#1677FF] text-[#1677FF]'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Briefcase size={14} />
+            <Briefcase size={13} />
             1. LinkedIn Werdegang &amp; Stationen
           </button>
           <button
             onClick={() => setActiveSection('insights')}
-            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'insights'
-                ? 'border-[#1677FF] text-[#69B8FF]'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#1677FF] text-[#1677FF]'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Heart size={14} />
-            2. Personal Summary &amp; Social Insights
+            <Heart size={13} />
+            2. Personal Summary &amp; Background
           </button>
           <button
             onClick={() => setActiveSection('employer')}
-            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'employer'
-                ? 'border-[#1677FF] text-[#69B8FF]'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#1677FF] text-[#1677FF]'
+                : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Building2 size={14} />
-            3. Derzeitiger Arbeitgeber (Kununu / Media Intelligence)
+            <Building2 size={13} />
+            3. Derzeitiger Arbeitgeber (Kununu Intelligence)
           </button>
         </div>
 
-        {/* Scrollable Modal Body */}
-        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6">
-          {/* Executive Summary Pitch */}
-          <div className="p-4 bg-[#0A132C] rounded-xl border border-[#1677FF]/40">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles size={16} className="text-[#69B8FF]" />
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#69B8FF]">
-                Executive Summary &amp; Eignungsprofil
-              </h4>
-            </div>
-            <p className="text-xs text-slate-200 leading-relaxed font-sans">
+        {/* Scrollable Content */}
+        <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-5 bg-white">
+          {/* Executive Summary */}
+          <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0B1633] mb-1.5">
+              Executive Summary &amp; Eignungsprofil
+            </h4>
+            <p className="text-xs text-slate-700 leading-relaxed font-sans">
               {candidate.executiveSummary}
             </p>
-            {/* KPI Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-3.5 pt-3 border-t border-[#1F3163]/60 font-mono text-xs">
-              <div className="bg-[#0E1A3C] p-2 rounded border border-[#1F3163]">
-                <span className="text-[10px] text-slate-400 block">GESAMTERFAHRUNG</span>
-                <strong className="text-white">{candidate.totalExperienceYears} Jahre</strong>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-3 pt-2.5 border-t border-slate-200 font-mono text-xs">
+              <div className="bg-white p-2 rounded border border-slate-200">
+                <span className="text-[10px] text-slate-500 block font-sans">GESAMTERFAHRUNG</span>
+                <strong className="text-slate-900">{candidate.totalExperienceYears} Jahre</strong>
               </div>
-              <div className="bg-[#0E1A3C] p-2 rounded border border-[#1F3163]">
-                <span className="text-[10px] text-slate-400 block">FÜHRUNGSERFAHRUNG</span>
-                <strong className="text-[#69B8FF]">{candidate.leadershipExperienceYears} Jahre C-Level / VP</strong>
+              <div className="bg-white p-2 rounded border border-slate-200">
+                <span className="text-[10px] text-slate-500 block font-sans">FÜHRUNGSERFAHRUNG</span>
+                <strong className="text-[#1677FF]">{candidate.leadershipExperienceYears} Jahre C-Level / GF</strong>
               </div>
-              <div className="bg-[#0E1A3C] p-2 rounded border border-[#1F3163]">
-                <span className="text-[10px] text-slate-400 block">GEHALTSKORRIDOR</span>
-                <strong className="text-emerald-400">{candidate.salaryExpectation.min}k – {candidate.salaryExpectation.max}k €</strong>
+              <div className="bg-white p-2 rounded border border-slate-200">
+                <span className="text-[10px] text-slate-500 block font-sans">GEHALT (BENCHMARK)</span>
+                <strong className="text-emerald-800">{candidate.salaryExpectation.min}k – {candidate.salaryExpectation.max}k €</strong>
               </div>
-              <div className="bg-[#0E1A3C] p-2 rounded border border-[#1F3163]">
-                <span className="text-[10px] text-slate-400 block">STATUS</span>
-                <strong className="text-amber-300">{candidate.status}</strong>
+              <div className="bg-white p-2 rounded border border-slate-200">
+                <span className="text-[10px] text-slate-500 block font-sans">STATUS</span>
+                <strong className="text-slate-800">{candidate.status}</strong>
               </div>
             </div>
           </div>
 
-          {/* Section 1: Employment History Timeline */}
+          {/* Section 1: Employment History */}
           {activeSection === 'timeline' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                   Chronologischer Werdegang (LinkedIn &amp; Referenzen)
                 </h4>
-                <span className="text-[11px] text-slate-400 font-mono">
-                  {candidate.employmentHistory.length} verifizierte Stationen
+                <span className="text-[11px] text-slate-500 font-mono">
+                  {candidate.employmentHistory.length} Stationen
                 </span>
               </div>
 
-              <div className="relative pl-6 space-y-6 before:absolute before:left-2.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-[#1F3163]">
-                {candidate.employmentHistory.map((station, index) => (
-                  <div key={station.id} className="relative group">
-                    {/* Timeline Node Point */}
-                    <div className={`absolute -left-6 top-1.5 w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      station.isCurrent
-                        ? 'bg-[#1677FF] border-white shadow-[0_0_8px_#1677FF]'
-                        : 'bg-[#0B1633] border-[#69B8FF]'
-                    }`}>
-                      {station.isCurrent && <span className="w-1.5 h-1.5 bg-white rounded-full"></span>}
-                    </div>
-
-                    <div className="bg-[#0A132C] border border-[#1F3163] rounded-xl p-4.5 hover:border-[#1677FF]/60 transition-colors space-y-2.5">
-                      <div className="flex items-start justify-between flex-wrap gap-2">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h5 className="text-sm font-bold text-white">{station.role}</h5>
-                            {station.isCurrent && (
-                              <Badge variant="primary" size="sm">Aktuelle Position</Badge>
-                            )}
-                          </div>
-                          <span className="text-xs font-semibold text-[#69B8FF] block mt-0.5">
-                            {station.company}
-                          </span>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-xs font-mono text-slate-300 bg-[#0E1A3C] px-2 py-0.5 rounded border border-[#1F3163]">
-                            {station.period}
-                          </span>
-                          <div className="text-[10px] text-emerald-400 font-mono font-bold mt-1">
-                            KPI Score: {station.kpiScore}/100
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Revenue & Team scope */}
-                      {(station.revenueResponsibility || station.teamSize) && (
-                        <div className="flex items-center gap-4 text-xs font-mono text-slate-300 bg-[#0E1A3C] p-2 rounded border border-[#1F3163]/60">
-                          {station.revenueResponsibility && (
-                            <span className="flex items-center gap-1">
-                              <DollarSign size={13} className="text-emerald-400" />
-                              {station.revenueResponsibility}
-                            </span>
-                          )}
-                          {station.teamSize && (
-                            <span className="flex items-center gap-1">
-                              <User size={13} className="text-[#69B8FF]" />
-                              {station.teamSize}
-                            </span>
-                          )}
-                        </div>
-                      )}
-
-                      {/* Key Achievements */}
+              <div className="space-y-3">
+                {candidate.employmentHistory.map((station) => (
+                  <div key={station.id} className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+                    <div className="flex items-start justify-between flex-wrap gap-2">
                       <div>
-                        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                          Wesentliche Erfolge &amp; Transformationen:
+                        <div className="flex items-center gap-2">
+                          <h5 className="text-sm font-bold text-slate-900">{station.role}</h5>
+                          {station.isCurrent && (
+                            <Badge variant="primary" size="sm">Aktuell</Badge>
+                          )}
+                        </div>
+                        <span className="text-xs font-semibold text-[#1677FF]">
+                          {station.company}
                         </span>
-                        <ul className="space-y-1 text-xs text-slate-200">
-                          {station.keyAchievements.map((ach, aIdx) => (
-                            <li key={aIdx} className="flex items-start gap-2">
-                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
-                              <span>{ach}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-xs font-mono font-semibold text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">
+                          {station.period}
+                        </span>
                       </div>
                     </div>
+
+                    {(station.revenueResponsibility || station.teamSize) && (
+                      <div className="flex items-center gap-4 text-xs font-mono text-slate-700 bg-white p-2 rounded border border-slate-200">
+                        {station.revenueResponsibility && <span>P&amp;L: <strong>{station.revenueResponsibility}</strong></span>}
+                        {station.teamSize && <span>Team: <strong>{station.teamSize}</strong></span>}
+                      </div>
+                    )}
+
+                    <ul className="space-y-1 text-xs text-slate-700 pt-1">
+                      {station.keyAchievements.map((ach, aIdx) => (
+                        <li key={aIdx} className="flex items-start gap-1.5">
+                          <CheckCircle2 size={13} className="text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{ach}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Section 2: Personal Insights & Psychometrics */}
+          {/* Section 2: Personal Insights */}
           {activeSection === 'insights' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Interests & Social Notes */}
-              <div className="bg-[#0A132C] border border-[#1F3163] rounded-xl p-4 space-y-4">
-                <div className="flex items-center gap-2 border-b border-[#1F3163] pb-2">
-                  <Heart size={16} className="text-rose-400" />
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                    Persönlichkeit &amp; Social Media Intelligence
-                  </h4>
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-1.5">
+                  Interessen &amp; Persönliches Profil
+                </h4>
+                <div className="space-y-1.5">
+                  {candidate.personalInsights.interests.map((interest, idx) => (
+                    <div key={idx} className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
+                      • {interest}
+                    </div>
+                  ))}
                 </div>
-
-                <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-                    Hobbys &amp; Persönliche Interessen:
-                  </span>
-                  <div className="space-y-1.5">
-                    {candidate.personalInsights.interests.map((interest, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs text-slate-200 bg-[#0E1A3C] p-2 rounded border border-[#1F3163]/60">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                        {interest}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                    Social Media &amp; Background Check:
-                  </span>
-                  <p className="text-xs text-slate-300 leading-relaxed bg-[#0E1A3C] p-2.5 rounded border border-[#1F3163]/60">
+                <div className="pt-2">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block mb-1">Social Media Background:</span>
+                  <p className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
                     {candidate.personalInsights.socialMediaNotes}
                   </p>
                 </div>
               </div>
 
-              {/* Leadership Style & Education */}
-              <div className="bg-[#0A132C] border border-[#1F3163] rounded-xl p-4 space-y-4">
-                <div className="flex items-center gap-2 border-b border-[#1F3163] pb-2">
-                  <GraduationCap size={16} className="text-[#1677FF]" />
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                    Führungsstil, Werte &amp; Ausbildung
-                  </h4>
-                </div>
-
-                <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                    Führungsphilosophie:
-                  </span>
-                  <p className="text-xs text-slate-200 leading-relaxed bg-[#0E1A3C] p-2.5 rounded border border-[#1F3163]/60">
-                    {candidate.personalInsights.leadershipStyle}
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-                    Akademische Ausbildung &amp; Executive Education:
-                  </span>
-                  <div className="space-y-1.5">
-                    {candidate.personalInsights.education.map((edu, idx) => (
-                      <div key={idx} className="text-xs font-mono text-[#69B8FF] bg-[#0E1A3C] p-2 rounded border border-[#1F3163]/60">
-                        {edu}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
-                    Sprachkenntnisse:
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {candidate.personalInsights.languages.map((lang, idx) => (
-                      <Badge key={idx} variant="sand" size="sm">
-                        {lang}
-                      </Badge>
-                    ))}
-                  </div>
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-1.5">
+                  Führungsstil &amp; Ausbildung
+                </h4>
+                <p className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
+                  {candidate.personalInsights.leadershipStyle}
+                </p>
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block">Ausbildung:</span>
+                  {candidate.personalInsights.education.map((edu, idx) => (
+                    <div key={idx} className="text-xs font-mono text-[#0B1633] bg-white p-1.5 rounded border border-slate-200">
+                      {edu}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           )}
 
-          {/* Section 3: Current Employer Intelligence Block */}
+          {/* Section 3: Employer Intelligence */}
           {activeSection === 'employer' && (
-            <div className="space-y-5">
-              <div className="bg-[#0A132C] border border-[#1677FF]/40 rounded-xl p-5 relative overflow-hidden space-y-4">
-                <div className="flex items-center justify-between border-b border-[#1F3163] pb-3">
-                  <div className="flex items-center gap-2">
-                    <Building2 size={20} className="text-[#1677FF]" />
-                    <div>
-                      <h4 className="text-sm font-bold text-white">
-                        Arbeitgeber-Analyse: {candidate.employerIntelligence.companyName}
-                      </h4>
-                      <span className="text-xs text-slate-400 font-mono">
-                        {candidate.employerIntelligence.industry} • {candidate.employerIntelligence.employees} MA
-                      </span>
-                    </div>
-                  </div>
-                  <Badge
-                    variant={
-                      candidate.employerIntelligence.turnoverRisk === 'High'
-                        ? 'danger'
-                        : candidate.employerIntelligence.turnoverRisk === 'Medium'
-                        ? 'warning'
-                        : 'success'
-                    }
-                    size="md"
-                    icon={<AlertTriangle size={12} />}
-                  >
-                    Wechselwahrscheinlichkeit: {candidate.employerIntelligence.turnoverRisk}
-                  </Badge>
-                </div>
-
-                {/* 4 KPI Grid Cards for Employer */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 font-mono">
-                  {/* Kununu Card */}
-                  <div className="p-3 bg-[#0E1A3C] rounded-lg border border-[#1F3163]">
-                    <span className="text-[10px] text-slate-400 block uppercase">Kununu Score</span>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-lg font-bold text-amber-400">
-                        {candidate.employerIntelligence.kununuScore} ★
-                      </span>
-                      <TrendIndicator direction={candidate.employerIntelligence.kununuTrend} />
-                    </div>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">
-                      {candidate.employerIntelligence.kununuTrend === 'down' ? 'Fallende Tendenz' : 'Stabiler Trend'}
-                    </span>
-                  </div>
-
-                  {/* Glassdoor Salary Band */}
-                  <div className="p-3 bg-[#0E1A3C] rounded-lg border border-[#1F3163]">
-                    <span className="text-[10px] text-slate-400 block uppercase">Glassdoor Benchmark</span>
-                    <span className="text-xs font-bold text-emerald-400 block mt-1">
-                      {candidate.employerIntelligence.glassdoorSalaryEstimate}
-                    </span>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">Geschätztes C-Level Band</span>
-                  </div>
-
-                  {/* Revenue Trend */}
-                  <div className="p-3 bg-[#0E1A3C] rounded-lg border border-[#1F3163]">
-                    <span className="text-[10px] text-slate-400 block uppercase">Umsatzentwicklung</span>
-                    <span className="text-xs font-bold text-[#69B8FF] block mt-1">
-                      {candidate.employerIntelligence.revenueTrend}
-                    </span>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">Letztes Geschäftsjahr</span>
-                  </div>
-
-                  {/* Employee Growth */}
-                  <div className="p-3 bg-[#0E1A3C] rounded-lg border border-[#1F3163]">
-                    <span className="text-[10px] text-slate-400 block uppercase">Headcount YoY</span>
-                    <span className="text-xs font-bold text-amber-300 block mt-1">
-                      {candidate.employerIntelligence.employeeGrowthYoY}
-                    </span>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">Personalwachstum</span>
-                  </div>
-                </div>
-
-                {/* Kununu Sentiment Details */}
-                <div className="p-3.5 bg-[#070E22] rounded-lg border border-[#1F3163]/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300 block mb-1">
-                    Kununu Sentiment-Audit &amp; Kündigungstreiber:
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900">
+                    Arbeitgeber-Audit: {candidate.employerIntelligence.companyName}
+                  </h4>
+                  <span className="text-xs text-slate-500 font-mono">
+                    {candidate.employerIntelligence.industry} • {candidate.employerIntelligence.employees} MA
                   </span>
-                  <p className="text-xs text-slate-200 leading-relaxed">
-                    {candidate.employerIntelligence.kununuDetails}
-                  </p>
+                </div>
+                <Badge
+                  variant={
+                    candidate.employerIntelligence.turnoverRisk === 'High'
+                      ? 'danger'
+                      : 'warning'
+                  }
+                  size="md"
+                >
+                  Wechselbereitschaft: {candidate.employerIntelligence.turnoverRisk}
+                </Badge>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <span className="text-[10px] text-slate-500 block uppercase font-sans">Kununu Rating</span>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="text-base font-bold text-amber-600">{candidate.employerIntelligence.kununuScore} ★</span>
+                    <TrendIndicator direction={candidate.employerIntelligence.kununuTrend} />
+                  </div>
                 </div>
 
-                {/* Media Intelligence Summary */}
-                <div className="p-3.5 bg-[#070E22] rounded-lg border border-[#1F3163]/60">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#69B8FF] block mb-1">
-                    Wirtschaftsmedien &amp; Branchen-Scraping Summary:
-                  </span>
-                  <p className="text-xs text-slate-200 leading-relaxed">
-                    {candidate.employerIntelligence.mediaSummary}
-                  </p>
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <span className="text-[10px] text-slate-500 block uppercase font-sans">Glassdoor Benchmark</span>
+                  <span className="text-xs font-bold text-emerald-800 block mt-1">{candidate.employerIntelligence.glassdoorSalaryEstimate}</span>
                 </div>
+
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <span className="text-[10px] text-slate-500 block uppercase font-sans">Umsatztrend</span>
+                  <span className="text-xs font-bold text-slate-800 block mt-1">{candidate.employerIntelligence.revenueTrend}</span>
+                </div>
+
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <span className="text-[10px] text-slate-500 block uppercase font-sans">Headcount YoY</span>
+                  <span className="text-xs font-bold text-amber-800 block mt-1">{candidate.employerIntelligence.employeeGrowthYoY}</span>
+                </div>
+              </div>
+
+              <div className="p-3 bg-white rounded border border-slate-200">
+                <span className="text-[11px] font-bold text-amber-900 uppercase block mb-1">Kununu Kündigungstreiber &amp; Sentiment:</span>
+                <p className="text-xs text-slate-700 leading-relaxed">{candidate.employerIntelligence.kununuDetails}</p>
               </div>
             </div>
           )}
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-[#081024] border-t border-[#1F3163] flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-slate-400 font-mono">
-            <span>Profil-ID: {candidate.id}</span>
-            <span>•</span>
-            <span>DSGVO-konforme Aggregation aus offenen Business-Netzwerken</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-[#0E1A3C] hover:bg-[#162750] text-slate-300 font-semibold border border-[#1F3163] btn-transition"
-            >
-              Schließen
-            </button>
-            <button className="px-4 py-2 rounded-lg bg-[#1677FF] hover:bg-[#1677FF]/90 text-white font-bold border border-blue-400/40 flex items-center gap-1.5 shadow-md btn-transition">
-              <Send size={13} />
-              In Executive Search Pipeline übernehmen
-            </button>
-          </div>
+        <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600">
+          <span className="font-mono">Kandidaten-ID: {candidate.id}</span>
+          <button
+            onClick={onClose}
+            className="px-3.5 py-1.5 rounded bg-white hover:bg-slate-100 text-slate-700 font-semibold border border-slate-300 transition-colors"
+          >
+            Schließen
+          </button>
         </div>
       </div>
     </div>

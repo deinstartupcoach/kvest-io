@@ -14,12 +14,10 @@ import {
   Send,
   Database,
   Settings,
-  Sparkles,
   Building2,
   Users,
   CheckCircle2,
-  Download,
-  Share2
+  Download
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -33,7 +31,6 @@ export const App: React.FC = () => {
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Active Mockup View calculation
   const currentMockupView: ActiveMockupView = selectedCompany
     ? 'company-detail'
     : selectedCandidate
@@ -47,7 +44,6 @@ export const App: React.FC = () => {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  // Action Handlers
   const handleToggleWatchlist = (id: string) => {
     setCompanies(prev =>
       prev.map(c => (c.id === id ? { ...c, watchlistStatus: !c.watchlistStatus } : c))
@@ -73,10 +69,9 @@ export const App: React.FC = () => {
       prev.map(c => (c.id === id ? { ...c, crmExported: true } : c))
     );
     const target = companies.find(c => c.id === id);
-    showToast(`Target "${target?.name || id}" erfolgreich in CRM (HubSpot/Salesforce) übertragen!`);
+    showToast(`Target "${target?.name || id}" erfolgreich an CRM (HubSpot/Salesforce) gesendet.`);
   };
 
-  // Mockup Switcher direct Jump
   const handleSelectMockup = (mockup: ActiveMockupView) => {
     if (mockup === 'company-list') {
       setSelectedCompany(null);
@@ -85,7 +80,7 @@ export const App: React.FC = () => {
     } else if (mockup === 'company-detail') {
       setMainTab('companies');
       setSelectedCandidate(null);
-      setSelectedCompany(companies[0]); // Select first company (Vetter Präzision)
+      setSelectedCompany(companies[0]);
     } else if (mockup === 'candidate-list') {
       setSelectedCompany(null);
       setSelectedCandidate(null);
@@ -93,7 +88,7 @@ export const App: React.FC = () => {
     } else if (mockup === 'candidate-detail') {
       setMainTab('candidates');
       setSelectedCompany(null);
-      setSelectedCandidate(candidates[0]); // Select first candidate (Dr. Maximilian von Berg)
+      setSelectedCandidate(candidates[0]);
     }
   };
 
@@ -101,32 +96,38 @@ export const App: React.FC = () => {
   const shortlistedCandidates = candidates.filter(c => c.shortlisted);
 
   return (
-    <div className="flex min-h-screen bg-[#070E22] text-[#E9DFCF] selection:bg-[#1677FF] selection:text-white">
-      {/* Sidebar Navigation */}
-      <Sidebar
-        currentTab={mainTab}
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 flex flex-col selection:bg-[#1677FF] selection:text-white">
+      {/* Global Dark Navy Header (#0B1633) with new Logo */}
+      <Header
+        activeTab={mainTab}
         onSelectTab={(tab) => {
           setMainTab(tab);
           setSelectedCompany(null);
           setSelectedCandidate(null);
         }}
-        watchlistCount={watchlistCompanies.length}
-        shortlistCount={shortlistedCandidates.length}
+        watchlistCount={watchlistCompanies.length + shortlistedCandidates.length}
       />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Global Header */}
-        <Header activeTab={mainTab} />
+      {/* Mockup Quick Navigator Bar */}
+      <MockupBar
+        currentMockup={currentMockupView}
+        onSelectMockup={handleSelectMockup}
+      />
 
-        {/* Mockup Navigator Bar for 1-Click Demonstration */}
-        <MockupBar
-          currentMockup={currentMockupView}
-          onSelectMockup={handleSelectMockup}
+      {/* Layout Body: Slim Dark Sidebar + Light Workstation Area */}
+      <div className="flex-1 flex min-w-0">
+        <Sidebar
+          currentTab={mainTab}
+          onSelectTab={(tab) => {
+            setMainTab(tab);
+            setSelectedCompany(null);
+            setSelectedCandidate(null);
+          }}
+          watchlistCount={watchlistCompanies.length}
+          shortlistCount={shortlistedCandidates.length}
         />
 
-        {/* Dynamic Page Views */}
-        <main className="p-6 flex-1 overflow-x-hidden">
+        <main className="flex-1 p-6 overflow-x-hidden min-w-0">
           {mainTab === 'companies' && (
             <CompanyListView
               companies={companies}
@@ -146,17 +147,15 @@ export const App: React.FC = () => {
 
           {mainTab === 'watchlist' && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-white">Geparkte M&amp;A Targets &amp; Shortlisted Executives</h2>
-                  <p className="text-xs text-slate-400 mt-1">Zentraler Arbeitsbereich für selektierte Buyout-Targets und Management-Matches</p>
-                </div>
+              <div className="bg-white p-4 rounded-lg border border-slate-200">
+                <h2 className="text-lg font-bold text-[#0B1633]">Geparkte M&amp;A Targets &amp; Shortlisted Executives</h2>
+                <p className="text-xs text-slate-500 mt-0.5">Zentraler Workspace für selektierte Buyout-Targets und Management-Matches</p>
               </div>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-sm font-bold text-[#69B8FF] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <Building2 size={16} /> M&amp;A Watchlist ({watchlistCompanies.length} Targets)
+                  <h3 className="text-xs font-bold text-[#0B1633] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <Building2 size={14} className="text-[#1677FF]" /> M&amp;A Watchlist ({watchlistCompanies.length} Targets)
                   </h3>
                   {watchlistCompanies.length > 0 ? (
                     <CompanyListView
@@ -166,15 +165,15 @@ export const App: React.FC = () => {
                       onExportCrm={handleExportCrm}
                     />
                   ) : (
-                    <div className="p-8 text-center bg-[#0B1633] rounded-xl border border-[#1F3163] text-slate-400 text-xs">
-                      Noch keine Targets auf der Watchlist. Klicke auf das Lesezeichen-Symbol in der Firmensuche.
+                    <div className="p-8 text-center bg-white rounded-lg border border-slate-200 text-slate-500 text-xs">
+                      Noch keine Targets auf der Watchlist.
                     </div>
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-[#69B8FF] uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <Users size={16} /> Shortlisted C-Level Kandidaten ({shortlistedCandidates.length} Profile)
+                  <h3 className="text-xs font-bold text-[#0B1633] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <Users size={14} className="text-[#1677FF]" /> Shortlisted C-Level Kandidaten ({shortlistedCandidates.length} Profile)
                   </h3>
                   {shortlistedCandidates.length > 0 ? (
                     <CandidateListView
@@ -183,7 +182,7 @@ export const App: React.FC = () => {
                       onToggleShortlist={handleToggleShortlist}
                     />
                   ) : (
-                    <div className="p-8 text-center bg-[#0B1633] rounded-xl border border-[#1F3163] text-slate-400 text-xs">
+                    <div className="p-8 text-center bg-white rounded-lg border border-slate-200 text-slate-500 text-xs">
                       Noch keine Kandidaten in der Shortlist.
                     </div>
                   )}
@@ -193,116 +192,70 @@ export const App: React.FC = () => {
           )}
 
           {mainTab === 'pipeline' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-white">CRM Pipeline &amp; Deal Flow Connector</h2>
-                  <p className="text-xs text-slate-400 mt-1">Automatisierter Datenabgleich mit HubSpot, Salesforce und DealRoom</p>
-                </div>
+            <div className="space-y-4">
+              <div className="bg-white p-4 rounded-lg border border-slate-200">
+                <h2 className="text-lg font-bold text-[#0B1633]">CRM &amp; Deal Flow Connector</h2>
+                <p className="text-xs text-slate-500 mt-0.5">Automatisierter Datenabgleich mit HubSpot, Salesforce und DealRoom</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div className="bg-[#0B1633] border border-[#1F3163] rounded-xl p-5 space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-white">HubSpot CRM Sync</span>
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">VERBUNDEN</span>
+                    <span className="font-bold text-xs text-slate-900">HubSpot CRM Sync</span>
+                    <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">VERBUNDEN</span>
                   </div>
-                  <p className="text-xs text-slate-300">Synchronisiert Firmenstammdaten, Gesellschafter und Kontaktdaten als Deal-Cards in Ihre Pipeline.</p>
-                  <div className="text-[11px] font-mono text-slate-400 pt-2 border-t border-[#1F3163]">
-                    Letzter Push: Heute, 11:30 Uhr (8 Leads)
-                  </div>
+                  <p className="text-xs text-slate-600">Synchronisiert Firmenstammdaten und Gesellschafter als Deal-Cards.</p>
                 </div>
 
-                <div className="bg-[#0B1633] border border-[#1F3163] rounded-xl p-5 space-y-3">
+                <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-white">Salesforce M&amp;A Cloud</span>
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">BEREIT</span>
+                    <span className="font-bold text-xs text-slate-900">Salesforce M&amp;A Cloud</span>
+                    <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">BEREIT</span>
                   </div>
-                  <p className="text-xs text-slate-300">Direkter 2-Wege Sync für Due Diligence Dossiers und NDA-Tracking.</p>
-                  <div className="text-[11px] font-mono text-slate-400 pt-2 border-t border-[#1F3163]">
-                    API Endpunkt: Aktiver Webhook
-                  </div>
+                  <p className="text-xs text-slate-600">Direkter 2-Wege Sync für Due Diligence Dossiers.</p>
                 </div>
 
-                <div className="bg-[#0B1633] border border-[#1F3163] rounded-xl p-5 space-y-3">
+                <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-white">PDF One-Pager Export</span>
-                    <span className="text-[10px] font-mono text-[#69B8FF] bg-[#1677FF]/20 px-2 py-0.5 rounded border border-[#1677FF]/30">TEMPLATE V3</span>
+                    <span className="font-bold text-xs text-slate-900">PDF One-Pager Export</span>
+                    <span className="text-[10px] font-mono text-[#1677FF] bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-bold">TEMPLATE</span>
                   </div>
-                  <p className="text-xs text-slate-300">Erzeugt gebrandete Teaser &amp; Management Profile auf Knopfdruck für Investoren-Komitees.</p>
-                  <button className="px-3 py-1.5 rounded bg-[#1677FF] hover:bg-[#1677FF]/90 text-white text-xs font-bold flex items-center gap-1.5">
-                    <Download size={13} /> Muster-Teaser laden
-                  </button>
+                  <p className="text-xs text-slate-600">Gebrandete Teaser &amp; Management Profile auf Knopfdruck.</p>
                 </div>
               </div>
             </div>
           )}
 
           {mainTab === 'intelligence' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-white">Datafeeds, BrightData &amp; SSOT Pipeline</h2>
-                  <p className="text-xs text-slate-400 mt-1">Multi-Source Datenaggregation (Handelsregister, Bundesanzeiger, LinkedIn, Wirtschaftspresse)</p>
-                </div>
+            <div className="space-y-4">
+              <div className="bg-white p-4 rounded-lg border border-slate-200">
+                <h2 className="text-lg font-bold text-[#0B1633]">Datenquellen &amp; Registerabgleich</h2>
+                <p className="text-xs text-slate-500 mt-0.5">Multi-Source Datenaggregation (Handelsregister, Bundesanzeiger, LinkedIn)</p>
               </div>
 
-              <div className="bg-[#0B1633] border border-[#1F3163] rounded-xl p-5 space-y-4">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">Aktive Scraping- und Aggregations-Pipelines</h3>
-                <div className="space-y-3">
-                  <div className="p-3.5 bg-[#0E1A3C] rounded-lg border border-[#1F3163] flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-xs text-white">Handelsregister &amp; Unternehmensregister (BReg)</span>
-                      <p className="text-[11px] text-slate-400 mt-0.5">Erfassung von Neuanmeldungen, GF-Wechseln und Bilanzhinterlegungen</p>
-                    </div>
-                    <span className="font-mono text-xs text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-500/30">100% Sync (Täglich)</span>
+              <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-3">
+                <div className="p-3 bg-slate-50 rounded border border-slate-200 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-xs text-slate-900">Handelsregister &amp; Unternehmensregister (BReg)</span>
+                    <p className="text-[11px] text-slate-500">Neuanmeldungen, GF-Wechsel und Bilanzhinterlegungen</p>
                   </div>
-
-                  <div className="p-3.5 bg-[#0E1A3C] rounded-lg border border-[#1F3163] flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-xs text-white">BrightData LinkedIn Executive Enrichment</span>
-                      <p className="text-[11px] text-slate-400 mt-0.5">Tracking von C-Level Wechseln, Organigrammen und Headcount-Trends</p>
-                    </div>
-                    <span className="font-mono text-xs text-[#69B8FF] bg-[#1677FF]/20 px-2.5 py-1 rounded border border-[#1677FF]/30">68.416 Profile</span>
-                  </div>
-
-                  <div className="p-3.5 bg-[#0E1A3C] rounded-lg border border-[#1F3163] flex items-center justify-between">
-                    <div>
-                      <span className="font-bold text-xs text-white">Kununu &amp; Glassdoor Sentiment Scraper</span>
-                      <p className="text-[11px] text-slate-400 mt-0.5">Früherkennung von Management-Krisen und Wechselwilligkeit</p>
-                    </div>
-                    <span className="font-mono text-xs text-amber-400 bg-amber-950/40 px-2.5 py-1 rounded border border-amber-500/30">Live Monitoring</span>
-                  </div>
+                  <span className="font-mono text-xs text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded font-bold">100% Sync</span>
                 </div>
               </div>
             </div>
           )}
 
           {mainTab === 'settings' && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-xl font-bold text-white">Systemeinstellungen &amp; Konfiguration</h2>
-                <p className="text-xs text-slate-400 mt-1">Konfiguration für kvest.io B2B SaaS Mockup-Umgebung</p>
+            <div className="space-y-4">
+              <div className="bg-white p-4 rounded-lg border border-slate-200">
+                <h2 className="text-lg font-bold text-[#0B1633]">Screener Einstellungen</h2>
+                <p className="text-xs text-slate-500 mt-0.5">Konfiguration für kvest.io Screener-Parameter</p>
               </div>
 
-              <div className="bg-[#0B1633] border border-[#1F3163] rounded-xl p-5 space-y-4 max-w-2xl">
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1">Standard-Suchradius (km):</label>
-                    <input type="number" defaultValue={75} className="p-2 bg-[#070E22] border border-[#1F3163] rounded-lg text-xs text-white w-48 font-mono" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1">Nachfolge-Altersgrenze Eigner (Jahre):</label>
-                    <input type="number" defaultValue={60} className="p-2 bg-[#070E22] border border-[#1F3163] rounded-lg text-xs text-white w-48 font-mono" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-slate-300 block mb-1">Standard Export CRM:</label>
-                    <select className="p-2 bg-[#070E22] border border-[#1F3163] rounded-lg text-xs text-white w-48">
-                      <option>HubSpot</option>
-                      <option>Salesforce</option>
-                      <option>Pipedrive</option>
-                    </select>
-                  </div>
+              <div className="bg-white border border-slate-200 rounded-lg p-4 space-y-3 max-w-xl">
+                <div>
+                  <label className="text-xs font-semibold text-slate-700 block mb-1">Nachfolge-Altersgrenze Eigner (Jahre):</label>
+                  <input type="number" defaultValue={60} className="p-2 bg-slate-50 border border-slate-300 rounded text-xs text-slate-900 w-40 font-mono" />
                 </div>
               </div>
             </div>
@@ -331,8 +284,8 @@ export const App: React.FC = () => {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#1677FF] text-white font-semibold text-xs py-2.5 px-4 rounded-xl shadow-2xl border border-blue-400 flex items-center gap-2 animate-fadeIn">
-          <CheckCircle2 size={16} />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#0B1633] text-white font-semibold text-xs py-2 px-4 rounded shadow-lg border border-slate-700 flex items-center gap-2 animate-fadeIn">
+          <CheckCircle2 size={15} className="text-[#69B8FF]" />
           <span>{toastMessage}</span>
         </div>
       )}

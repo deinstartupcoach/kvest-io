@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActiveMockupView } from '../../types';
-import { Building2, User, Eye, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Building2, User, Eye, Sparkles } from 'lucide-react';
 
 interface MockupBarProps {
   currentMockup: ActiveMockupView;
@@ -20,40 +20,39 @@ export const MockupBar: React.FC<MockupBarProps> = ({
   }> = [
     {
       id: 'company-list',
-      title: 'Mockup 1: Company Search (Liste)',
-      description: 'Filter, Eignerstruktur, Bilanzen, Nachfolge-Check',
-      icon: <Building2 size={15} />,
+      title: 'Mockup 1: Target Screener (Liste)',
+      description: 'M&A Filterkriterien, Eigner-Alter, Bilanzgewinn, WZ-Code',
+      icon: <Building2 size={14} />,
       badge: 'View 1'
     },
     {
       id: 'company-detail',
-      title: 'Mockup 2: Company Detail (Popup/Blur)',
-      description: 'Eigner-Graph, Bilanz-Chart, Kontakte, Media-Check',
-      icon: <Eye size={15} />,
+      title: 'Mockup 2: Target Dossier (Modal/Blur)',
+      description: 'Gesellschafter-Graph, Bilanzverlauf, Handelsregister, Kontakte',
+      icon: <Eye size={14} />,
       badge: 'View 2'
     },
     {
       id: 'candidate-list',
       title: 'Mockup 3: Candidate Search (Liste)',
-      description: 'Free-Text AI Briefing, PDF-Upload, Match-Scoring',
-      icon: <User size={15} />,
+      description: 'AI Briefing-Matching, PDF Profil Upload, Filterung',
+      icon: <User size={14} />,
       badge: 'View 3'
     },
     {
       id: 'candidate-detail',
-      title: 'Mockup 4: Candidate Detail (Popup/Blur)',
-      description: 'LinkedIn History, Psychometrics, Kununu Audit',
-      icon: <Sparkles size={15} />,
+      title: 'Mockup 4: Candidate Dossier (Modal/Blur)',
+      description: 'LinkedIn Werdegang, Social Check, Kununu Arbeitgeber-Audit',
+      icon: <Sparkles size={14} />,
       badge: 'View 4'
     }
   ];
 
   return (
-    <div className="bg-[#070E22] border-b border-[#1677FF]/30 px-6 py-2.5 flex items-center justify-between gap-4 overflow-x-auto shadow-md">
+    <div className="bg-[#FAF7F2] border-b border-[#E9DFCF] px-6 py-2 flex items-center justify-between gap-4 overflow-x-auto">
       <div className="flex items-center gap-2 shrink-0">
-        <span className="w-2 h-2 rounded-full bg-[#1677FF] animate-pulse"></span>
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-300 font-mono">
-          Mockup Navigator:
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#5B534A] font-mono">
+          Mockup Quick Navigator:
         </span>
       </div>
 
@@ -64,15 +63,15 @@ export const MockupBar: React.FC<MockupBarProps> = ({
             <button
               key={m.id}
               onClick={() => onSelectMockup(m.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all border ${
+              className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-2 transition-all border ${
                 isActive
-                  ? 'bg-[#1677FF] text-white border-blue-400 shadow-[0_0_12px_rgba(22,119,255,0.4)]'
-                  : 'bg-[#0B1633] text-slate-300 border-[#1F3163] hover:border-[#1677FF]/60 hover:text-white'
+                  ? 'bg-[#0B1633] text-white border-[#0B1633] shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-[#1677FF] hover:text-[#1677FF]'
               }`}
             >
-              <span className={isActive ? 'text-white' : 'text-[#69B8FF]'}>{m.icon}</span>
-              <span className="font-sans">{m.title}</span>
-              <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-[#0E1A3C] text-slate-400'}`}>
+              <span className={isActive ? 'text-[#69B8FF]' : 'text-slate-500'}>{m.icon}</span>
+              <span>{m.title}</span>
+              <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'}`}>
                 {m.badge}
               </span>
             </button>

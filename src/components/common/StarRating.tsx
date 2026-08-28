@@ -11,7 +11,7 @@ interface StarRatingProps {
 export const StarRating: React.FC<StarRatingProps> = ({
   rating,
   maxStars = 5,
-  size = 14,
+  size = 13,
   showValue = true
 }) => {
   const fullStars = Math.floor(rating);
@@ -20,17 +20,17 @@ export const StarRating: React.FC<StarRatingProps> = ({
 
   return (
     <div className="inline-flex items-center gap-1.5">
-      <div className="flex items-center text-amber-400">
+      <div className="flex items-center text-amber-500">
         {Array.from({ length: fullStars }).map((_, i) => (
-          <Star key={`full-${i}`} size={size} className="fill-amber-400 text-amber-400" />
+          <Star key={`full-${i}`} size={size} className="fill-amber-400 text-amber-500" />
         ))}
-        {hasHalfStar && <StarHalf size={size} className="fill-amber-400 text-amber-400" />}
+        {hasHalfStar && <StarHalf size={size} className="fill-amber-400 text-amber-500" />}
         {Array.from({ length: Math.max(0, emptyStars) }).map((_, i) => (
-          <Star key={`empty-${i}`} size={size} className="text-slate-600" />
+          <Star key={`empty-${i}`} size={size} className="text-slate-300" />
         ))}
       </div>
       {showValue && (
-        <span className="font-mono text-xs font-semibold text-[#E9DFCF] bg-[#0E1A3C] px-1.5 py-0.5 rounded border border-[#1F3163]">
+        <span className="font-mono text-xs font-semibold text-slate-800 bg-slate-100 px-1.5 py-0.2 rounded border border-slate-200">
           {rating.toFixed(1)}
         </span>
       )}
