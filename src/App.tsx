@@ -14,7 +14,8 @@ import {
   Bookmark,
   Building2,
   Users,
-  CheckCircle2
+  CheckCircle2,
+  Download
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -144,15 +145,29 @@ export const App: React.FC = () => {
 
           {mainTab === 'watchlist' && (
             <div className="space-y-6">
-              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
-                <h2 className="text-lg font-bold text-[#0B1633]">Geparkte M&amp;A Targets &amp; Shortlisted Executives</h2>
-                <p className="text-xs text-slate-500 mt-0.5">Zentraler Workspace für selektierte Buyout-Targets und Management-Matches</p>
+              {/* Clean Watchlist Top Bar */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
+                    Watchlist &amp; Shortlist
+                  </h1>
+                  <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                    {watchlistCompanies.length} Targets • {shortlistedCandidates.length} Kandidaten
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+                    <Download size={13} />
+                    <span>Dossier Export</span>
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xs font-bold text-[#0B1633] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <Building2 size={14} className="text-[#0B1633]" /> M&amp;A Watchlist ({watchlistCompanies.length} Targets)
+                    <Building2 size={14} className="text-[#0B1633]" /> M&amp;A Targets ({watchlistCompanies.length})
                   </h3>
                   {watchlistCompanies.length > 0 ? (
                     <CompanyListView
@@ -171,13 +186,14 @@ export const App: React.FC = () => {
 
                 <div>
                   <h3 className="text-xs font-bold text-[#0B1633] uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <Users size={14} className="text-[#0B1633]" /> Shortlisted C-Level Kandidaten ({shortlistedCandidates.length} Profile)
+                    <Users size={14} className="text-[#0B1633]" /> Executive Shortlist ({shortlistedCandidates.length})
                   </h3>
                   {shortlistedCandidates.length > 0 ? (
                     <CandidateListView
                       candidates={shortlistedCandidates}
                       onSelectCandidate={(candidate) => setSelectedCandidate(candidate)}
                       onToggleShortlist={handleToggleShortlist}
+                      hideHeader={true}
                     />
                   ) : (
                     <div className="p-8 text-center bg-white rounded-lg border border-slate-200 text-slate-500 text-xs">
