@@ -419,30 +419,30 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Summary Stats */}
+      {/* 3. Summary Stats (Warm Semi-Transparent Sand Fill #E9DFCF) */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-sans">
-        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide block">Gefilterte Targets</span>
+        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+          <span className="text-[11px] font-bold text-[#5B534A] uppercase tracking-wide block">Gefilterte Targets</span>
           <div className="text-xl font-bold text-[#0B1633] font-mono mt-0.5">{filteredCount}</div>
-          <span className="text-[10px] text-slate-400">von {totalUniverse} im System</span>
+          <span className="text-[10px] text-[#8A8176]">von {totalUniverse} im System</span>
         </div>
 
-        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wide block">Nachfolge-Fokus</span>
-          <div className="text-xl font-bold text-amber-700 font-mono mt-0.5">{criticalSuccessionCount}</div>
-          <span className="text-[10px] text-slate-400">Hauptgesellschafter &gt; 60 Jahre</span>
+        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+          <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wide block">Nachfolge-Fokus</span>
+          <div className="text-xl font-bold text-amber-800 font-mono mt-0.5">{criticalSuccessionCount}</div>
+          <span className="text-[10px] text-[#8A8176]">Hauptgesellschafter &gt; 60 Jahre</span>
         </div>
 
-        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wide block">Ø Bilanzgewinn</span>
-          <div className="text-xl font-bold text-emerald-700 font-mono mt-0.5">{avgProfit} Mio. €</div>
-          <span className="text-[10px] text-slate-400">Ø Rendite im Set</span>
+        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+          <span className="text-[11px] font-bold text-emerald-900 uppercase tracking-wide block">Ø Bilanzgewinn</span>
+          <div className="text-xl font-bold text-emerald-800 font-mono mt-0.5">{avgProfit} Mio. €</div>
+          <span className="text-[10px] text-[#8A8176]">Ø Rendite im Set</span>
         </div>
 
-        <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-2xs">
-          <span className="text-[11px] font-bold text-[#0B1633] uppercase tracking-wide block">Ø Bilanzsumme</span>
+        <div className="bg-[#E9DFCF]/40 border border-[#D8CCB9] p-3.5 rounded-lg shadow-2xs backdrop-blur-xs transition-colors">
+          <span className="text-[11px] font-bold text-[#5B534A] uppercase tracking-wide block">Ø Bilanzsumme</span>
           <div className="text-xl font-bold text-[#0B1633] font-mono mt-0.5">{avgBalance} Mio. €</div>
-          <span className="text-[10px] text-slate-400">Substanzwert</span>
+          <span className="text-[10px] text-[#8A8176]">Substanzwert</span>
         </div>
       </div>
 
