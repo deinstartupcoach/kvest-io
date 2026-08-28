@@ -229,21 +229,16 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row (Hidden on Watchlist) */}
+      {/* 1. Header Row: Simply "Target Search" without subtitle */}
       {!hideHeader && (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
-                M&amp;A Buyout &amp; Succession Screener
-              </h1>
-              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
-                {filteredCount} von {totalUniverse} Targets
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Screener für Nachfolgeregelungen, Eigentümerstrukturen und Bilanzkennzahlen im deutschen Mittelstand
-            </p>
+          <div className="flex items-center gap-3">
+            <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
+              Target Search
+            </h1>
+            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              {filteredCount} von {totalUniverse} Targets
+            </span>
           </div>
 
           <div className="flex items-center gap-2">

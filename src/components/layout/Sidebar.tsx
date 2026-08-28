@@ -4,8 +4,7 @@ import {
   Building2,
   Users,
   Bookmark,
-  Zap,
-  ChevronRight
+  Zap
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -24,14 +23,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = [
     {
       id: 'companies' as MainTab,
-      label: 'Target Screener',
+      label: 'Target Search',
       sub: 'M&A & Nachfolge',
       icon: <Building2 size={16} />,
       count: '1.428'
     },
     {
       id: 'candidates' as MainTab,
-      label: 'Executive Sourcing',
+      label: 'Candidate Search',
       sub: 'C-Level & MBI Match',
       icon: <Users size={16} />,
       count: '640'
@@ -56,7 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside className="w-56 bg-[#0B1633] text-white border-r border-[#162750] flex flex-col justify-between shrink-0 h-full min-h-[calc(100vh-3.5rem)]">
       <div className="p-3 space-y-1">
         <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">
-          M&amp;A Screener Module
+          M&amp;A Search Module
         </div>
 
         {navItems.map((item) => {

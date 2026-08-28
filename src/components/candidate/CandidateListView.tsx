@@ -1,36 +1,27 @@
 import React, { useState, useMemo } from 'react';
 import { Candidate } from '../../types';
 import { PdfUploadParser } from './PdfUploadParser';
-import { Badge } from '../common/Badge';
 import {
   Search,
-  SlidersHorizontal,
-  MapPin,
-  Briefcase,
   Bookmark,
   Send,
   ExternalLink,
-  Users,
-  Award,
-  Sparkles,
-  ArrowUpDown,
-  RotateCcw,
-  Check,
-  Building2,
-  Calendar,
-  X
+  Download,
+  BellRing
 } from 'lucide-react';
 
 interface CandidateListViewProps {
   candidates: Candidate[];
   onSelectCandidate: (candidate: Candidate) => void;
   onToggleShortlist: (id: string) => void;
+  hideHeader?: boolean;
 }
 
 export const CandidateListView: React.FC<CandidateListViewProps> = ({
   candidates,
   onSelectCandidate,
-  onToggleShortlist
+  onToggleShortlist,
+  hideHeader = false
 }) => {
   const [promptText, setPromptText] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -126,9 +117,46 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
     sortBy
   ]);
 
+  const totalUniverse = candidates.length;
+  const filteredCount = filteredCandidates.length;
+
   return (
     <div className="space-y-4">
-      {/* AI Prompt & PDF Upload */}
+      {/* 1. Header Row: Candidate Search in exact style of Target Search */}
+      {!hideHeader && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
+          <div className="flex items-center gap-3">
+            <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
+              Candidate Search
+            </h1>
+            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              {filteredCount} von {totalUniverse} Kandidaten
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {selectedCandidates.length > 0 && (
+              <button
+                onClick={() => selectedCandidates.forEach(id => onToggleShortlist(id))}
+                className="px-3 py-1.5 rounded bg-[#0B1633] hover:bg-[#162750] text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+              >
+                <Bookmark size={13} />
+                <span>{selectedCandidates.length} in Shortlist</span>
+              </button>
+            )}
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+              <Download size={13} />
+              <span>Excel Export</span>
+            </button>
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+              <BellRing size={13} />
+              <span>Talent Alert</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Briefing Prompt & PDF Upload */}
       <PdfUploadParser
         promptText={promptText}
         onPromptChange={setPromptText}
@@ -136,7 +164,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
       />
 
       {/* Screener Filter Bar */}
-      <div className="bg-white rounded-lg border border-[#E2E8F0] p-4 shadow-xs space-y-3">
+      <div className="bg-white rounded-lg border border-[#E2E8F0] p-4 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
           {/* Target Role */}
           <div className="space-y-1">
@@ -146,7 +174,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
               <option value="all">Alle Rollen (C-Level / GF)</option>
               {roles.map(r => <option key={r} value={r}>{r}</option>)}
@@ -161,7 +189,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={minLeadershipExp}
               onChange={(e) => setMinLeadershipExp(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
               <option value={0}>Führung: Beliebig</option>
               <option value={8}>Mind. 8 Jahre</option>
@@ -178,7 +206,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={minAge}
               onChange={(e) => setMinAge(Number(e.target.value))}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
               <option value={0}>Alter: Alle</option>
               <option value={40}>&gt; 40 Jahre</option>
@@ -195,7 +223,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
             <select
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
-              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-800 outline-none focus:border-[#1677FF]"
+              className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs font-medium text-slate-900 outline-none focus:border-[#0B1633]"
             >
               <option value="all">DACH gesamt</option>
               {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
@@ -212,7 +240,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Name, Arbeitgeber, Fachbereich..."
-              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-[#1677FF] rounded text-xs text-slate-800 placeholder:text-slate-400 outline-none"
+              className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-[#0B1633] rounded text-xs text-slate-900 placeholder:text-slate-400 outline-none"
             />
           </div>
 
@@ -234,23 +262,13 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
         <div className="flex items-center gap-2">
           <span>Gefundene Profile: <strong className="text-slate-900">{filteredCandidates.length}</strong></span>
           {selectedCandidates.length > 0 && (
-            <span className="bg-blue-50 text-[#1677FF] px-2 py-0.5 rounded border border-blue-200 font-semibold">
+            <span className="bg-slate-100 text-slate-800 px-2 py-0.5 rounded border border-slate-200 font-semibold font-mono text-[11px]">
               {selectedCandidates.length} markiert
             </span>
           )}
         </div>
 
         <div className="flex items-center gap-2">
-          {selectedCandidates.length > 0 && (
-            <button
-              onClick={() => selectedCandidates.forEach(id => onToggleShortlist(id))}
-              className="px-3 py-1 rounded bg-amber-100 text-amber-900 border border-amber-300 font-bold flex items-center gap-1.5 shadow-2xs"
-            >
-              <Bookmark size={12} className="fill-amber-600 text-amber-600" />
-              Zur Shortlist hinzufügen
-            </button>
-          )}
-
           <div className="flex items-center gap-1">
             <span>Sortieren nach:</span>
             <select
@@ -268,7 +286,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
       </div>
 
       {/* Candidate Table */}
-      <div className="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden shadow-xs">
+      <div className="bg-white border border-[#E2E8F0] rounded-lg overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
@@ -278,7 +296,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     type="checkbox"
                     checked={selectedCandidates.length === filteredCandidates.length && filteredCandidates.length > 0}
                     onChange={toggleSelectAll}
-                    className="rounded border-slate-300 text-[#1677FF] focus:ring-0 cursor-pointer"
+                    className="rounded border-slate-300 text-[#0B1633] focus:ring-0 cursor-pointer"
                   />
                 </th>
                 <th className="py-3 px-4 min-w-[240px]">Kandidat &amp; Aktuelle Position</th>
@@ -299,7 +317,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     key={candidate.id}
                     onClick={() => onSelectCandidate(candidate)}
                     className={`cursor-pointer transition-colors duration-100 ${
-                      isSelected ? 'bg-blue-50/50' : 'hover:bg-slate-50/80'
+                      isSelected ? 'bg-slate-100' : 'hover:bg-slate-50'
                     }`}
                   >
                     <td className="py-3 px-3 text-center" onClick={(e) => toggleRow(candidate.id, e)}>
@@ -307,7 +325,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => {}}
-                        className="rounded border-slate-300 text-[#1677FF] focus:ring-0 cursor-pointer"
+                        className="rounded border-slate-300 text-[#0B1633] focus:ring-0 cursor-pointer"
                       />
                     </td>
 
@@ -321,7 +339,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                         />
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <span className="font-bold text-[#0B1633] text-xs hover:text-[#1677FF] transition-colors">
+                            <span className="font-bold text-[#0B1633] text-xs hover:underline">
                               {candidate.name}
                             </span>
                             <span className="font-mono text-[10px] text-slate-500">({candidate.age} J.)</span>
@@ -339,7 +357,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     {/* Match Score */}
                     <td className="py-3 px-3">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-sm text-[#1677FF] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
+                        <span className="font-mono font-bold text-sm text-[#0B1633] bg-slate-100 border border-slate-300 px-2 py-0.5 rounded">
                           {candidate.matchScore}%
                         </span>
                         <div className="space-y-0.5">
@@ -353,7 +371,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                     <td className="py-3 px-3">
                       <div className="font-mono text-[11px] space-y-0.5">
                         <div className="text-slate-800 font-semibold">{candidate.totalExperienceYears} J. Gesamt</div>
-                        <div className="text-[#1677FF]">{candidate.leadershipExperienceYears} J. C-Level / Führung</div>
+                        <div className="text-[#0B1633]">{candidate.leadershipExperienceYears} J. C-Level / Führung</div>
                       </div>
                     </td>
 
@@ -387,7 +405,7 @@ export const CandidateListView: React.FC<CandidateListViewProps> = ({
                       <div className="flex items-center justify-center gap-1">
                         <button
                           onClick={() => onSelectCandidate(candidate)}
-                          className="p-1 rounded bg-slate-100 hover:bg-[#1677FF] text-slate-600 hover:text-white border border-slate-200 transition-colors"
+                          className="p-1 rounded bg-slate-100 hover:bg-[#0B1633] text-slate-600 hover:text-white border border-slate-200 transition-colors"
                           title="Profil öffnen"
                         >
                           <ExternalLink size={12} />

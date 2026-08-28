@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Building2 size={14} />
-              <span>Target Screener (M&amp;A)</span>
+              <span>Target Search</span>
             </button>
             <button
               onClick={() => onSelectTab('candidates')}
@@ -55,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Users size={14} />
-              <span>Executive Search (C-Level)</span>
+              <span>Candidate Search</span>
             </button>
             <button
               onClick={() => onSelectTab('watchlist')}
