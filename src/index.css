@@ -61,12 +61,20 @@ body {
   scrollbar-color: #CBD5E1 #F1F5F9;
 }
 
-/* Green Live Indicator Pulse */
-@keyframes green-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.1); }
+/* Slow Green Live Indicator Pulse (3.5s) */
+@keyframes green-pulse-slow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.15);
+    box-shadow: 0 0 6px 2px rgba(16, 185, 129, 0.3);
+  }
 }
 
 .animate-green-pulse {
-  animation: green-pulse 2s infinite ease-in-out;
+  animation: green-pulse-slow 3.5s infinite ease-in-out;
 }

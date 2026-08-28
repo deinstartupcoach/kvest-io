@@ -160,6 +160,7 @@ export const App: React.FC = () => {
                       onSelectCompany={(company) => setSelectedCompany(company)}
                       onToggleWatchlist={handleToggleWatchlist}
                       onExportCrm={handleExportCrm}
+                      hideHeader={true}
                     />
                   ) : (
                     <div className="p-8 text-center bg-white rounded-lg border border-slate-200 text-slate-500 text-xs">

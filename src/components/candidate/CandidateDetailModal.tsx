@@ -105,40 +105,40 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation: 1. Übersicht, 2. Profil-Audit, 3. Wechselbereitschaft */}
         <div className="px-6 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
           <button
             onClick={() => setActiveSection('timeline')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'timeline'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             <Briefcase size={13} />
-            1. Werdegang &amp; Stationen
+            1. Übersicht
           </button>
           <button
             onClick={() => setActiveSection('insights')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'insights'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             <MessageSquareQuote size={13} />
-            2. Charakter- &amp; Social-Media-Audit
+            2. Profil-Audit
           </button>
           <button
             onClick={() => setActiveSection('employer')}
-            className={`py-3 px-3.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
+            className={`py-3 px-4 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center gap-1.5 ${
               activeSection === 'employer'
                 ? 'border-[#0B1633] text-[#0B1633]'
                 : 'border-transparent text-slate-500 hover:text-slate-900'
             }`}
           >
             <Building2 size={13} />
-            3. Arbeitgeber-Audit (Kununu &amp; Wechselbereitschaft)
+            3. Wechselbereitschaft
           </button>
         </div>
 
@@ -172,7 +172,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             </div>
           </div>
 
-          {/* Section 1: Employment History */}
+          {/* Section 1: Employment History (1. Übersicht) */}
           {activeSection === 'timeline' && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -229,7 +229,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             </div>
           )}
 
-          {/* Section 2: Tone of Voice & Social Audit without Emojis */}
+          {/* Section 2: Profil-Audit (Tone of Voice, Crisis & Psychological Social Audit) */}
           {activeSection === 'insights' && (
             <div className="space-y-4">
               {/* Employer Loyalty & Posting Shift Banner */}
@@ -297,7 +297,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
             </div>
           )}
 
-          {/* Section 3: Employer Intelligence */}
+          {/* Section 3: Wechselbereitschaft (Employer Intelligence & Kununu Audit) */}
           {activeSection === 'employer' && (
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-200 pb-3">

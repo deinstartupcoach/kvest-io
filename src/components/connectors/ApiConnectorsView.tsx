@@ -50,7 +50,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '68.416 C-Level Profile',
       description: 'Automatisierte Proxies zur Extraktion von Organigrammen, Headcount-Wachstum und offenen Stellen.',
       endpoint: 'https://api.brightdata.com/dca/trigger',
-      logoClass: 'h-5 max-w-[90px]' // 20% smaller
+      logoClass: 'h-5 max-w-[90px]'
     },
     {
       id: 'linkedin',
@@ -62,7 +62,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '124.500 Profile',
       description: 'Tracking von Management-Wechseln, Werdegängen, Post-Aktivitäten und Sentiment-Indikatoren.',
       endpoint: 'https://api.linkedin.com/v2/talent-enrich',
-      logoClass: 'h-10 max-w-[150px] scale-125 origin-left' // significantly bigger
+      logoClass: 'h-12 max-w-[170px] scale-150 origin-left' // +30% bigger
     },
     {
       id: 'kununu',
@@ -74,7 +74,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '89.200 Arbeitgeber-Reviews',
       description: 'Audit von Mitarbeiterzufriedenheit, Führungswechseln und Kündigungstreibern zur Wechselwilligkeits-Früherkennung.',
       endpoint: 'https://api.kununu.com/v3/company-scores',
-      logoClass: 'h-5 max-w-[100px]' // 20% smaller
+      logoClass: 'h-5 max-w-[100px]'
     },
     {
       id: 'glassdoor',
@@ -86,7 +86,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '45.100 Gehaltsbänder',
       description: 'C-Level und VP Gehaltsbenchmarks (Fixum, Bonus, Tantiemen) für verlässliche Executive Search Verhandlungen.',
       endpoint: 'https://api.glassdoor.com/v1/salary-insights',
-      logoClass: 'h-9 max-w-[150px] scale-125 origin-left' // significantly bigger
+      logoClass: 'h-10 max-w-[160px] scale-135 origin-left'
     },
     {
       id: 'coleo',
@@ -110,7 +110,7 @@ export const ApiConnectorsView: React.FC = () => {
       recordsCount: '34 Deals synchronisiert',
       description: 'Automatisierter 2-Wege-Sync für selektierte M&A Targets und Shortlisted Candidates direkt in Ihre Deal-Pipeline.',
       endpoint: 'https://api.hubapi.com/crm/v3/deals',
-      logoClass: 'h-6 max-w-[110px]'
+      logoClass: 'h-8 max-w-[140px] scale-125 origin-left' // +25% bigger
     }
   ];
 
@@ -121,17 +121,13 @@ export const ApiConnectorsView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-lg font-bold text-[#0B1633]">API Connectors &amp; Data Pipeline Status</h1>
-            <span className="bg-emerald-50 text-emerald-800 text-xs font-mono font-bold px-2 py-0.5 rounded border border-emerald-200 flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-green-pulse"></span>
-              Alle 8 Connectors Live
-            </span>
           </div>
           <p className="text-xs text-slate-500 mt-1">
             Zentrales Gateway für behördliche Register, Scraping-Engines, Arbeitgeber-Reviews und CRM-Schnittstellen
           </p>
         </div>
 
-        <button className="px-3.5 py-1.5 rounded bg-[#0B1633] hover:bg-[#162750] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors">
+        <button className="px-4 py-2 rounded bg-[#1677FF] hover:bg-blue-600 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors">
           <RefreshCw size={13} />
           <span>Sync jetzt anstoßen</span>
         </button>
@@ -144,9 +140,9 @@ export const ApiConnectorsView: React.FC = () => {
             key={c.id}
             className="bg-white rounded-lg border border-slate-200 p-4.5 flex flex-col justify-between space-y-4 hover:border-slate-300 transition-colors shadow-2xs"
           >
-            {/* Top: Logo & Green Live Indicator */}
+            {/* Top: Logo & Green Live Indicator with Slow Pulse */}
             <div>
-              <div className="flex items-start justify-between min-h-[44px]">
+              <div className="flex items-start justify-between min-h-[46px]">
                 <div className="h-10 w-36 flex items-center overflow-visible">
                   <img
                     src={c.logoUrl}
@@ -154,7 +150,7 @@ export const ApiConnectorsView: React.FC = () => {
                     className={`${c.logoClass || 'h-7 max-w-full'} object-contain`}
                   />
                 </div>
-                <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-emerald-200">
+                <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 text-[10px] font-mono font-bold px-2 py-0.5 rounded border border-emerald-200 shrink-0">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-green-pulse"></span>
                   CONNECTED
                 </div>

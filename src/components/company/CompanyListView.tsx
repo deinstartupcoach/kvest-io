@@ -2,15 +2,12 @@ import React, { useState, useMemo } from 'react';
 import { Company } from '../../types';
 import { StarRating } from '../common/StarRating';
 import { TrendIndicator } from '../common/TrendIndicator';
-import { Badge } from '../common/Badge';
 import {
   Search,
   Bookmark,
   Send,
-  Building2,
   ExternalLink,
   ArrowUpDown,
-  AlertTriangle,
   X,
   Download,
   BellRing
@@ -21,13 +18,15 @@ interface CompanyListViewProps {
   onSelectCompany: (company: Company) => void;
   onToggleWatchlist: (id: string) => void;
   onExportCrm: (id: string) => void;
+  hideHeader?: boolean;
 }
 
 export const CompanyListView: React.FC<CompanyListViewProps> = ({
   companies,
   onSelectCompany,
   onToggleWatchlist,
-  onExportCrm
+  onExportCrm,
+  hideHeader = false
 }) => {
   // Credible Enum Filter States
   const [searchTerm, setSearchTerm] = useState('');
@@ -230,42 +229,44 @@ export const CompanyListView: React.FC<CompanyListViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Header Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
-        <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
-              M&amp;A Buyout &amp; Succession Screener
-            </h1>
-            <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
-              {filteredCount} von {totalUniverse} Targets
-            </span>
+      {/* 1. Header Row (Hidden on Watchlist) */}
+      {!hideHeader && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
+          <div>
+            <div className="flex items-center gap-3">
+              <h1 className="text-lg font-bold text-[#0B1633] tracking-tight">
+                M&amp;A Buyout &amp; Succession Screener
+              </h1>
+              <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                {filteredCount} von {totalUniverse} Targets
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Screener für Nachfolgeregelungen, Eigentümerstrukturen und Bilanzkennzahlen im deutschen Mittelstand
+            </p>
           </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Screener für Nachfolgeregelungen, Eigentümerstrukturen und Bilanzkennzahlen im deutschen Mittelstand
-          </p>
-        </div>
 
-        <div className="flex items-center gap-2">
-          {selectedRows.length > 0 && (
-            <button
-              onClick={() => selectedRows.forEach(id => onExportCrm(id))}
-              className="px-3 py-1.5 rounded bg-[#0B1633] hover:bg-[#162750] text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
-            >
-              <Send size={13} />
-              <span>{selectedRows.length} in CRM Sync</span>
+          <div className="flex items-center gap-2">
+            {selectedRows.length > 0 && (
+              <button
+                onClick={() => selectedRows.forEach(id => onExportCrm(id))}
+                className="px-3 py-1.5 rounded bg-[#0B1633] hover:bg-[#162750] text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+              >
+                <Send size={13} />
+                <span>{selectedRows.length} in CRM Sync</span>
+              </button>
+            )}
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+              <Download size={13} />
+              <span>Excel Export</span>
             </button>
-          )}
-          <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
-            <Download size={13} />
-            <span>Excel Export</span>
-          </button>
-          <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
-            <BellRing size={13} />
-            <span>Deal Alert</span>
-          </button>
+            <button className="px-3 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 flex items-center gap-1.5 transition-colors">
+              <BellRing size={13} />
+              <span>Deal Alert</span>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 2. Structured Screener Filter Bar without Emojis */}
       <div className="bg-white rounded-lg border border-slate-200 p-4 shadow-2xs space-y-3">
