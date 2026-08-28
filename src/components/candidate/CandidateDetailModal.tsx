@@ -180,12 +180,12 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                   Chronologischer Werdegang (LinkedIn &amp; Referenzen)
                 </h4>
                 <span className="text-[11px] text-slate-500 font-mono">
-                  {candidate.employmentHistory.length} Stationen
+                  {candidate.employmentHistory?.length || 0} Stationen
                 </span>
               </div>
 
               <div className="space-y-3">
-                {candidate.employmentHistory.map((station) => (
+                {candidate.employmentHistory?.map((station) => (
                   <div key={station.id} className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
                     <div className="flex items-start justify-between flex-wrap gap-2">
                       <div>
@@ -216,7 +216,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                     )}
 
                     <ul className="space-y-1 text-xs text-slate-700 pt-1">
-                      {station.keyAchievements.map((ach, aIdx) => (
+                      {station.keyAchievements?.map((ach, aIdx) => (
                         <li key={aIdx} className="flex items-start gap-1.5">
                           <CheckCircle2 size={13} className="text-emerald-600 shrink-0 mt-0.5" />
                           <span>{ach}</span>
@@ -233,30 +233,34 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
           {activeSection === 'insights' && (
             <div className="space-y-4">
               {/* Employer Loyalty & Posting Shift Banner */}
-              <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Radio size={16} className="text-amber-700 animate-pulse" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">
-                      Arbeitgeber-Loyalitäts-Trend &amp; Wechsel-Indikation
-                    </h4>
+              {candidate.personalInsights?.employerLoyalty && (
+                <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Radio size={16} className="text-amber-700 animate-pulse" />
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">
+                        Arbeitgeber-Loyalitäts-Trend &amp; Wechsel-Indikation
+                      </h4>
+                    </div>
+                    <span className="text-[10px] font-mono font-bold bg-amber-200 text-amber-950 px-2 py-0.5 rounded">
+                      {candidate.personalInsights.employerLoyalty.status?.replace('⚠️', '').trim() || 'Beobachtung'}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono font-bold bg-amber-200 text-amber-950 px-2 py-0.5 rounded">
-                    {candidate.personalInsights.employerLoyalty.status.replace('⚠️', '').trim()}
-                  </span>
+                  <p className="text-xs text-amber-900 leading-relaxed font-medium">
+                    {candidate.personalInsights.employerLoyalty.details}
+                  </p>
+                  {candidate.personalInsights.employerLoyalty.recentPostingQuote && (
+                    <div className="p-2.5 bg-white rounded border border-amber-200 text-xs text-slate-800 italic font-serif">
+                      {candidate.personalInsights.employerLoyalty.recentPostingQuote}
+                    </div>
+                  )}
+                  {candidate.personalInsights.employerLoyalty.lastCompanyMentionDate && (
+                    <div className="text-[10px] text-amber-800 font-mono pt-1">
+                      Letzte offizielle Arbeitgeber-Erwähnung: {candidate.personalInsights.employerLoyalty.lastCompanyMentionDate}
+                    </div>
+                  )}
                 </div>
-                <p className="text-xs text-amber-900 leading-relaxed font-medium">
-                  {candidate.personalInsights.employerLoyalty.details}
-                </p>
-                {candidate.personalInsights.employerLoyalty.recentPostingQuote && (
-                  <div className="p-2.5 bg-white rounded border border-amber-200 text-xs text-slate-800 italic font-serif">
-                    {candidate.personalInsights.employerLoyalty.recentPostingQuote}
-                  </div>
-                )}
-                <div className="text-[10px] text-amber-800 font-mono pt-1">
-                  Letzte offizielle Arbeitgeber-Erwähnung: {candidate.personalInsights.employerLoyalty.lastCompanyMentionDate}
-                </div>
-              </div>
+              )}
 
               {/* Grid: Tone-of-Voice & Boundary Audits */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -265,12 +269,12 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                     Tone-of-Voice Analyse (Social Media)
                   </h4>
                   <p className="text-xs text-slate-700 leading-relaxed bg-white p-3 rounded border border-slate-200">
-                    {candidate.personalInsights.toneOfVoice}
+                    {candidate.personalInsights?.toneOfVoice || 'Keine Auffälligkeiten.'}
                   </p>
                   <div className="pt-2">
                     <span className="text-[11px] font-bold text-slate-500 uppercase block mb-1">Führungsphilosophie:</span>
                     <p className="text-xs text-slate-700 bg-white p-2.5 rounded border border-slate-200">
-                      {candidate.personalInsights.leadershipStyle}
+                      {candidate.personalInsights?.leadershipStyle || 'Kooperativ & zielorientiert.'}
                     </p>
                   </div>
                 </div>
@@ -280,12 +284,12 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
                     Krisen- &amp; Diskretions-Check
                   </h4>
                   <p className="text-xs text-slate-700 leading-relaxed bg-white p-3 rounded border border-slate-200">
-                    {candidate.personalInsights.crisisPostingAudit}
+                    {candidate.personalInsights?.crisisPostingAudit || 'Hohe Diskretion.'}
                   </p>
                   <div className="pt-2">
                     <span className="text-[11px] font-bold text-slate-500 uppercase block mb-1">Interessen &amp; Background:</span>
                     <div className="space-y-1">
-                      {candidate.personalInsights.interests.map((interest, idx) => (
+                      {candidate.personalInsights?.interests?.map((interest, idx) => (
                         <div key={idx} className="text-xs text-slate-700 bg-white p-2 rounded border border-slate-200">
                           • {interest}
                         </div>
@@ -298,7 +302,7 @@ export const CandidateDetailModal: React.FC<CandidateDetailModalProps> = ({
           )}
 
           {/* Section 3: Wechselbereitschaft (Employer Intelligence & Kununu Audit) */}
-          {activeSection === 'employer' && (
+          {activeSection === 'employer' && candidate.employerIntelligence && (
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                 <div>
