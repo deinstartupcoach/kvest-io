@@ -1,7 +1,6 @@
 import React from 'react';
 import { MainTab } from '../../types';
 import {
-  Search,
   Bell,
   Bookmark,
   Building2,
@@ -74,16 +73,6 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
           </nav>
-        </div>
-
-        {/* Center: Search */}
-        <div className="relative w-80 hidden lg:block">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Globale Suche: Firmen, WZ-Code, Eigner, GF..."
-            className="w-full pl-9 pr-3 py-1.5 bg-[#070E22] border border-[#1F3163] focus:border-[#1677FF] rounded-md text-xs text-white placeholder:text-slate-500 outline-none"
-          />
         </div>
 
         {/* Right: Status & Profile */}

@@ -1,82 +1,51 @@
-import React from 'react';
-import { ActiveMockupView } from '../../types';
-import { Building2, User, Eye, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, X, Sparkles } from 'lucide-react';
 
 interface MockupBarProps {
-  currentMockup: ActiveMockupView;
-  onSelectMockup: (mockup: ActiveMockupView) => void;
+  currentMockup?: string;
+  onSelectMockup?: (mockup: any) => void;
+  onSearch?: (query: string) => void;
 }
 
-export const MockupBar: React.FC<MockupBarProps> = ({
-  currentMockup,
-  onSelectMockup
-}) => {
-  const mockups: Array<{
-    id: ActiveMockupView;
-    title: string;
-    description: string;
-    icon: React.ReactNode;
-    badge: string;
-  }> = [
-    {
-      id: 'company-list',
-      title: 'Mockup 1: Target Screener (Liste)',
-      description: 'M&A Filterkriterien, Eigner-Alter, Bilanzgewinn, WZ-Code',
-      icon: <Building2 size={14} />,
-      badge: 'View 1'
-    },
-    {
-      id: 'company-detail',
-      title: 'Mockup 2: Target Dossier (Modal/Blur)',
-      description: 'Gesellschafter-Graph, Bilanzverlauf, Handelsregister, Kontakte',
-      icon: <Eye size={14} />,
-      badge: 'View 2'
-    },
-    {
-      id: 'candidate-list',
-      title: 'Mockup 3: Candidate Search (Liste)',
-      description: 'AI Briefing-Matching, PDF Profil Upload, Filterung',
-      icon: <User size={14} />,
-      badge: 'View 3'
-    },
-    {
-      id: 'candidate-detail',
-      title: 'Mockup 4: Candidate Dossier (Modal/Blur)',
-      description: 'LinkedIn Werdegang, Social Check, Kununu Arbeitgeber-Audit',
-      icon: <Sparkles size={14} />,
-      badge: 'View 4'
-    }
-  ];
+export const MockupBar: React.FC<MockupBarProps> = ({ onSearch }) => {
+  const [query, setQuery] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    if (onSearch) onSearch(e.target.value);
+  };
+
+  const handleClear = () => {
+    setQuery('');
+    if (onSearch) onSearch('');
+  };
 
   return (
-    <div className="bg-[#FAF7F2] border-b border-[#E9DFCF] px-6 py-2 flex items-center justify-between gap-4 overflow-x-auto">
-      <div className="flex items-center gap-2 shrink-0">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#5B534A] font-mono">
-          Mockup Quick Navigator:
-        </span>
-      </div>
-
-      <div className="flex items-center gap-2 shrink-0">
-        {mockups.map((m) => {
-          const isActive = currentMockup === m.id;
-          return (
-            <button
-              key={m.id}
-              onClick={() => onSelectMockup(m.id)}
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold flex items-center gap-2 transition-all border ${
-                isActive
-                  ? 'bg-[#0B1633] text-white border-[#0B1633] shadow-sm'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-[#1677FF] hover:text-[#1677FF]'
-              }`}
-            >
-              <span className={isActive ? 'text-[#69B8FF]' : 'text-slate-500'}>{m.icon}</span>
-              <span>{m.title}</span>
-              <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'}`}>
-                {m.badge}
-              </span>
-            </button>
-          );
-        })}
+    <div className="bg-[#E9DFCF] border-b border-[#D8CCB9] px-6 py-2 flex items-center justify-center transition-colors">
+      <div className="relative w-full max-w-2xl">
+        <Search
+          size={15}
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#5B534A]"
+        />
+        <input
+          type="text"
+          value={query}
+          onChange={handleChange}
+          placeholder="Globale Suche: Firmen, WZ-Codes, Gesellschafter, C-Level Profile, Städte..."
+          className="w-full pl-10 pr-20 py-1.5 bg-white/90 focus:bg-white border border-[#D8CCB9] focus:border-[#0B1633] rounded-lg text-xs text-[#0B1633] placeholder:text-[#8A8176] outline-none shadow-2xs transition-all"
+        />
+        {query ? (
+          <button
+            onClick={handleClear}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+          >
+            <X size={13} />
+          </button>
+        ) : (
+          <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[10px] font-mono text-[#8A8176] bg-[#E9DFCF]/60 px-1.5 py-0.5 rounded border border-[#D8CCB9]">
+            <span>⌘ K</span>
+          </div>
+        )}
       </div>
     </div>
   );
